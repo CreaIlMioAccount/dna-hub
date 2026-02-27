@@ -1,3 +1,4 @@
+import "./globals.css";
 import type { ReactNode } from "react";
 import { Poppins } from "next/font/google";
 
@@ -9,7 +10,7 @@ const poppins = Poppins({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="it" suppressHydrationWarning>
-      <body className={`${poppins.className} bg-gray-5`}>
+      <body className={`${poppins.className} bg-gray-50 dark:bg-gray-900`}>
         {children}
       </body>
     </html>
