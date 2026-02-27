@@ -13,6 +13,8 @@ import {
 } from "react-icons/fi";
 
 import dynamic from "next/dynamic";
+import type { ApexOptions } from "apexcharts";
+
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function Page() {
@@ -48,7 +50,7 @@ export default function Page() {
   ];
 
   /* GRAFICO VISITATORI */
-  const chartOptions = {
+  const chartOptions: ApexOptions = {
     chart: { id: "visitors", toolbar: { show: false } },
     xaxis: { categories: Array.from({ length: 30 }, (_, i) => i + 1) },
     colors: ["#3b82f6"],
@@ -70,7 +72,7 @@ export default function Page() {
   ];
 
   /* MAPPA A BARRE (Paesi principali) */
-  const countriesOptions = {
+  const countriesOptions: ApexOptions = {
     chart: { type: "bar", toolbar: { show: false } },
     plotOptions: {
       bar: {
@@ -194,16 +196,16 @@ export default function Page() {
           </ul>
         </div>
       </div>
+
       {/* SEZIONE: TOP COUNTRIES / TOP CONTENT / TOP CHANNELS */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
-        {/* TOP COUNTRIES — SOLO QUESTA PARTE MODIFICATA */}
+        {/* TOP COUNTRIES */}
         <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
             🌍 Paesi principali
           </h2>
 
-          {/* MAPPA A BARRE */}
           <div className="rounded-xl overflow-hidden mb-4">
             <Chart
               options={countriesOptions}
