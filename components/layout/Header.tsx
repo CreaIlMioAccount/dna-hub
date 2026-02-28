@@ -18,12 +18,16 @@ import {
 
 import { BsSun, BsMoon } from "react-icons/bs";
 import Image from "next/image";
-
 export default function Header({
   openMenu,
   setOpenMenu,
-  isMobile
+  isMobile,
+}: {
+  openMenu: boolean;
+  setOpenMenu: (value: boolean) => void;
+  isMobile: boolean;
 }) {
+
   const [openProfile, setOpenProfile] = useState(false);
   const profileRef = useRef(null);
 
