@@ -103,12 +103,13 @@ export default function Page() {
     grid: { borderColor: "#e5e7eb" },
   };
 
-  const countriesSeries = [
-    {
-      name: "Traffico",
-      data: Object.values(analytics.countries),
-    },
-  ];
+  const countriesSeries: ApexAxisChartSeries = [
+  {
+    name: "Paesi",
+    data: countriesData.map((c) => Number(c.value)),
+  },
+];
+
 
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-8">
