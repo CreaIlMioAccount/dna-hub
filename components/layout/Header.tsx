@@ -31,15 +31,21 @@ export default function Header({
   const [openProfile, setOpenProfile] = useState(false);
   const profileRef = useRef(null);
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setOpenProfile(false);
-      }
+  
+useEffect(() => {
+  function handleClickOutside(e: MouseEvent) {
+    if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+      setOpenProfile(false);
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
+
+
+
+
 
   return (
     <header className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-8 py-5 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 text-[1.05rem]">
