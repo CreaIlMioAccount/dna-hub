@@ -107,13 +107,17 @@ export default function Page() {
     value: Number(value),
   }));
 
-  const countriesSeries: ApexOptions["series"] = [
+    const countriesSeries: ApexOptions["series"] = [
     {
       name: "Paesi",
       data: countriesData.map((c) => c.value),
     },
   ];
-      </div>
+
+  return (
+    <div className="w-full max-w-5xl mx-auto flex flex-col gap-8">
+      {/* tutto il JSX che già hai */}
     </div>
   );
 }
+
