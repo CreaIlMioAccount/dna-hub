@@ -11,7 +11,7 @@ import {
   FiFacebook,
   FiTwitter
 } from "react-icons/fi";
-
+import type { ApexAxisChartSeries } from "apexcharts";
 import dynamic from "next/dynamic";
 import type { ApexOptions } from "apexcharts";
 import { useEffect, useState } from "react";
