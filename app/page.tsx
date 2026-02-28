@@ -13,7 +13,6 @@ import {
 } from "react-icons/fi";
 import type { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
-import type { ApexOptions } from "apexcharts";
 import { useEffect, useState } from "react";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
