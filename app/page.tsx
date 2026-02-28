@@ -11,7 +11,7 @@ import {
   FiFacebook,
   FiTwitter
 } from "react-icons/fi";
-import type { ApexAxisChartSeries } from "apexcharts";
+import type { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 import type { ApexOptions } from "apexcharts";
 import { useEffect, useState } from "react";
@@ -103,12 +103,7 @@ export default function Page() {
     grid: { borderColor: "#e5e7eb" },
   };
 
-  const countriesSeries: ApexAxisChartSeries = [
-  {
-    name: "Paesi",
-    data: countriesData.map((c) => Number(c.value)),
-  },
-];
+ const countriesSeries: ApexOptions["series"] = [ { name: "Paesi", data: countriesData.map((c) => Number(c.value)), }, ];
 
 
 
