@@ -197,7 +197,6 @@ body {
 
 
 /* HAMBURGER */
-
 .menu-toggle{
     display:none;
     background:none;
@@ -211,7 +210,8 @@ body {
     display:none;
 }
 
-@media screen and (max-width: 992px){
+/* MOBILE */
+@media screen and (max-width:992px){
 
     .menu-toggle{
         display:block;
@@ -221,89 +221,34 @@ body {
         cursor:pointer;
     }
 
-   .menu{
-    .menu{
-        display:flex
-    }
-
-    position:absolute;
-
-    top:80px;
-    left:20px;
-    right:20px;
-
-    background:#fff;
-
-    flex-direction:column;
-
-    border:2px solid #e5e7eb;
-    border-radius:16px;
-
-    padding:15px;
-
-    box-shadow:0 15px 40px rgba(0,0,0,.1);
-}
-
-    .menu.active{
-        display:flex;
-    }
-
-    .submenu{
-    display:none;
-
-    position:static;
-
-    opacity:1;
-    visibility:visible;
-    transform:none;
-
-    border:none;
-    box-shadow:none;
-
-    padding-left:15px;
-    margin-top:5px;
-}
-
-.dropdown.active .submenu{
-    display:block;
-}
-
-}
-.menu-toggle{
-    display:none;
-    background:none;
-    border:none;
-    font-size:32px;
-    cursor:pointer;
-}
-
-@media screen and (max-width:992px){
-
-    .menu-toggle{
-        display:block;
+    .navbar{
+        position:relative;
+        margin-left:auto;
     }
 
     .menu{
         display:none;
 
         position:absolute;
-
         top:90px;
-        left:20px;
-        right:20px;
+        right:0;
+
+        width:320px;
 
         background:#fff;
 
         flex-direction:column;
 
-        padding:20px;
-
         border:2px solid #e5e7eb;
         border-radius:16px;
+
+        padding:20px;
 
         box-shadow:0 15px 40px rgba(0,0,0,.1);
 
         z-index:9999;
+
+        gap:0;
     }
 
     .menu.active{
@@ -328,7 +273,27 @@ body {
     .dropdown.active .submenu{
         display:block;
     }
+
 }
 
+.menu > li > a::after{
+    content:"▾";
+    font-size:18px;
+    color:#64748b;
+}
 
+.menu > li > a{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    width:100%;
+
+    padding:18px 0;
+
+    text-align:left;
+}
+.menu li{
+    width:100%;
+}
 /* fine menu */
