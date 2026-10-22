@@ -1,0 +1,334 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variabili */
+:root {
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --border: #e5e7eb;
+}
+
+/* Base */
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 120px;
+    width: auto;
+    display: block;
+}
+
+/* Responsive contenitore header */
+@media (max-width: 768px) {
+    .header .container {
+        height: 70px;
+    }
+
+
+}/* Responsive fine contenitore header */
+/* inizio menu */
+.navbar{
+    margin-left:auto;
+}
+
+
+
+.menu{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    list-style:none;
+}
+
+.menu li{
+    position:relative;
+}
+
+.menu > li > a{
+    text-decoration:none;
+    color:#111827;
+    font-weight:600;
+    padding:10px 0;
+    display:block;
+}
+
+/* SUBMENU */
+
+.submenu{
+    position:absolute;
+    top:120%;
+    left:0;
+
+    min-width:260px;
+
+    background:#ffffff;
+
+    list-style:none;
+
+    padding:12px;
+
+    border:2px solid #e5e7eb;
+    border-radius:16px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:all .3s ease;
+
+    z-index:1000;
+}
+
+.dropdown:hover .submenu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+/* SEPARATORI */
+
+.submenu li{
+    border-bottom:2px solid #f1f5f9;
+}
+
+.submenu li:last-child{
+    border-bottom:none;
+}
+
+/* LINK */
+
+.submenu li a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    text-decoration:none;
+
+    color:#475569;
+
+    padding:14px 16px;
+
+    font-size:15px;
+    font-weight:500;
+
+    border-radius:10px;
+
+    transition:all .25s ease;
+}
+
+/* PALLINO */
+
+.submenu li a::before{
+    content:"●";
+
+    font-size:9px;
+
+    color:#2563eb;
+
+    opacity:0;
+
+    transform:translateX(-10px);
+
+    transition:all .25s ease;
+}
+
+/* HOVER */
+
+.submenu li a:hover{
+    background:#f8fafc;
+
+    color:#0f172a;
+
+    padding-left:24px;
+}
+
+.submenu li a:hover::before{
+    opacity:1;
+
+    transform:translateX(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* HAMBURGER */
+
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    font-size:30px;
+    cursor:pointer;
+    color:#111827;
+}
+
+.menu-toggle{
+    display:none;
+}
+
+@media screen and (max-width: 992px){
+
+    .menu-toggle{
+        display:block;
+        border:none;
+        background:none;
+        font-size:32px;
+        cursor:pointer;
+    }
+
+   .menu{
+    .menu{
+        display:flex
+    }
+
+    position:absolute;
+
+    top:80px;
+    left:20px;
+    right:20px;
+
+    background:#fff;
+
+    flex-direction:column;
+
+    border:2px solid #e5e7eb;
+    border-radius:16px;
+
+    padding:15px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
+}
+
+    .menu.active{
+        display:flex;
+    }
+
+    .submenu{
+    display:none;
+
+    position:static;
+
+    opacity:1;
+    visibility:visible;
+    transform:none;
+
+    border:none;
+    box-shadow:none;
+
+    padding-left:15px;
+    margin-top:5px;
+}
+
+.dropdown.active .submenu{
+    display:block;
+}
+
+}
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    font-size:32px;
+    cursor:pointer;
+}
+
+@media screen and (max-width:992px){
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .menu{
+        display:none;
+
+        position:absolute;
+
+        top:90px;
+        left:20px;
+        right:20px;
+
+        background:#fff;
+
+        flex-direction:column;
+
+        padding:20px;
+
+        border:2px solid #e5e7eb;
+        border-radius:16px;
+
+        box-shadow:0 15px 40px rgba(0,0,0,.1);
+
+        z-index:9999;
+    }
+
+    .menu.active{
+        display:flex;
+    }
+
+    .submenu{
+        display:none;
+
+        position:static;
+
+        opacity:1;
+        visibility:visible;
+        transform:none;
+
+        border:none;
+        box-shadow:none;
+
+        padding-left:15px;
+    }
+
+    .dropdown.active .submenu{
+        display:block;
+    }
+}
+
+
+/* fine menu */
