@@ -29,6 +29,65 @@
   };
 
   const MENU_DATA = {
+
+home: {
+  groups: [
+    {
+      title: 'Percorso',
+      items: [
+        { icon: 'grid',    title: 'Benvenuti',  desc: 'Un punto di partenza per orientarti.' },
+        { icon: 'book',    title: 'Introduzione', desc: 'Chi siamo e cosa facciamo.' },
+        { icon: 'chart',   title: 'Studi',      desc: 'Ricerche, dati e approfondimenti.' },
+        { icon: 'layers',  title: 'Logo & Brand', desc: 'Identità visiva e linee guida.' }
+      ]
+    },
+    {
+      title: 'Approfondimenti',
+      items: [
+        { icon: 'help',    title: 'Ricerca',    desc: 'Metodo e processo di ricerca.' },
+        { icon: 'briefcase', title: 'Strategia', desc: 'Obiettivi, roadmap e posizionamento.' },
+        { icon: 'rocket',  title: 'Progetti',   desc: 'Casi studio e lavori realizzati.' }
+      ]
+    }
+  ],
+  promo: {
+    icon: 'zap',
+    title: 'Inizia da qui',
+    desc: 'Segui il percorso introduttivo per scoprire DNA Informatica.',
+    link: 'Apri la guida',
+    href: '#'
+  }
+},
+
+ prodotti: {
+  groups: [
+    {
+      title: 'Prodotti DNA',
+      items: [
+        { icon: 'globe',       title: 'DNA Web',                 desc: 'Siti web, portali e applicazioni web su misura.' },
+        { icon: 'message',     title: 'DNA Comunicazione',       desc: 'Strumenti per la comunicazione aziendale.' },
+        { icon: 'chart',       title: 'DNA Marketing',           desc: 'Campagne, automazioni e analytics di marketing.' },
+        { icon: 'briefcase',   title: 'DNA Business',            desc: 'Gestione e processi per il business.' }
+      ]
+    },
+    {
+      title: 'Soluzioni tecniche',
+      items: [
+        { icon: 'code',        title: 'DNA Software',            desc: 'Software personalizzato e integrazioni.' },
+        { icon: 'cpu',         title: 'DNA Infrastructure',      desc: 'Server, networking e infrastruttura IT.' },
+        { icon: 'layers',      title: 'DNA Servizi Gestionali',  desc: 'ERP, gestionali e automazione dei processi.' },
+        { icon: 'cloud',       title: 'DNA Cloud',               desc: 'Infrastruttura cloud gestita.', badge: 'Top' }
+      ]
+    }
+  ],
+  promo: {
+    icon: 'zap',
+    title: 'Prova gratis 30 giorni',
+    desc: 'Nessuna carta richiesta. Accesso completo a tutte le funzionalità.',
+    link: 'Inizia la prova',
+    href: '#'
+  }
+},
     soluzioni: {
       groups: [
         {
@@ -57,33 +116,7 @@
         href: '#'
       }
     },
-    prodotti: {
-      groups: [
-        {
-          title: 'Piattaforme',
-          items: [
-            { icon: 'cloud', title: 'DNA Cloud', desc: 'Infrastruttura cloud gestita.', badge: 'Top' },
-            { icon: 'database', title: 'DNA Data', desc: 'Data platform unificata.' },
-            { icon: 'cpu', title: 'DNA Core', desc: 'ERP modulare per PMI.' },
-            { icon: 'lock', title: 'DNA Vault', desc: 'Backup e disaster recovery.' }
-          ]
-        },
-        {
-          title: 'Strumenti',
-          items: [
-            { icon: 'chart', title: 'DNA Insight', desc: 'Analytics in tempo reale.' },
-            { icon: 'message', title: 'DNA Connect', desc: 'Collaborazione e messaggistica.' }
-          ]
-        }
-      ],
-      promo: {
-        icon: 'zap',
-        title: 'Prova gratis 30 giorni',
-        desc: 'Nessuna carta richiesta. Accesso completo a tutte le funzionalità.',
-        link: 'Inizia la prova',
-        href: '#'
-      }
-    },
+   
     servizi: {
       groups: [
         {
@@ -417,8 +450,11 @@
     const html = Object.keys(MENU_DATA).map(function (key) {
       const data = MENU_DATA[key];
       const labelMap = {
+         home: 'Home', 
+
+          prodotti: 'Prodotti',
         soluzioni: 'Soluzioni',
-        prodotti: 'Prodotti',
+       
         servizi: 'Servizi',
         settori: 'Settori',
         risorse: 'Risorse',
