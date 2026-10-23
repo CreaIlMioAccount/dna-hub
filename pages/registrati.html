@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrati - DNA Informatica</title>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background-color: var(--bg-elev); }
+    .auth-container { width: 100%; max-width: 440px; padding: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); position: relative; }
+    
+    .back-link { position: absolute; top: 20px; left: 20px; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; transition: color var(--transition); }
+    .back-link:hover { color: var(--text); }
+    
+    .auth-header { text-align: center; margin-bottom: 30px; margin-top: 20px; }
+    
+    /* LOGO GRANDE COME NEL LOGIN */
+    .auth-header img { 
+      height: 90px; 
+      margin: 0 auto 20px; 
+      display: none; 
+    }
+    
+    .auth-header h1 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .auth-header p { font-size: 14px; color: var(--text-muted); }
+    
+    /* Griglia per dividere Nome e Cognome */
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group input { width: 100%; padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; font-family: inherit; transition: border-color var(--transition), box-shadow var(--transition); }
+    .form-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    
+    /* Checkbox Termini e Condizioni */
+    .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .form-check input {
+      margin-top: 3px;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+    .form-check a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .form-check a:hover { text-decoration: underline; }
+
+    .btn-submit { width: 100%; padding: 12px; font-size: 15px; }
+    
+    .auth-footer { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+    .auth-footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .auth-footer a:hover { text-decoration: underline; }
+    
+    .theme-toggle-wrapper { position: absolute; top: 20px; right: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <a href="../index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Torna al sito
+    </a>
+
+    <div class="theme-toggle-wrapper">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+
+    <div class="auth-header">
+      <img src="../assets/images/logo-nero.png" alt="DNA Informatica" class="logo-light">
+      <img src="../assets/images/logo-bianco.png" alt="DNA Informatica" class="logo-dark">
+      <h1>Crea un account</h1>
+      <p>Inizia la tua prova gratuita di 30 giorni</p>
+    </div>
+
+    <form action="#" method="POST">
+      
+      <!-- Nome e Cognome sulla stessa riga -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" placeholder="Mario" required>
+        </div>
+        <div class="form-group">
+          <label for="cognome">Cognome</label>
+          <input type="text" id="cognome" placeholder="Rossi" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email aziendale</label>
+        <input type="email" id="email" placeholder="nome@azienda.it" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Minimo 8 caratteri" required minlength="8">
+      </div>
+
+      <!-- Checkbox per i termini -->
+      <label class="form-check">
+        <input type="checkbox" required>
+        <span>Accetto i <a href="#">Termini di servizio</a> e l'<a href="#">Informativa sulla privacy</a> di DNA Informatica.</span>
+      </label>
+
+      <button type="submit" class="btn btn-primary btn-submit">Crea account</button>
+    </form>
+
+    <div class="auth-footer">
+      Hai già un account? <a href="login.html">Accedi</a>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+  
+  <script>
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const logoLight = document.querySelector('.logo-light');
+    const logoDark = document.querySelector('.logo-dark');
+
+    function updateLogos() {
+      if (html.getAttribute('data-theme') === 'dark') {
+        logoLight.style.display = 'none';
+        logoDark.style.display = 'block';
+      } else {
+        logoLight.style.display = 'block';
+        logoDark.style.display = 'none';
+      }
+    }
+    updateLogos();
+
+    if(themeToggle) {
+      themeToggle.addEventListener('click', () => setTimeout(updateLogos, 10));
+    }
+  </script>
+</body>
+</html>
