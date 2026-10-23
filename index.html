@@ -1,114 +1,145 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DNA Informatica</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNA Informatica</title>
+
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
-<!--  css -->
-<link rel="stylesheet" href="css/style.css">
-<!-- Fine css -->
+<body>
 
-<body> 
-    <!--inizio header --> 
-<header class="header">
-    <!-- inizio contenitore header -->
-  <div class="container">
-        <!--inizio logo --> 
-        <a href="index.html" class="logo">
-            <img src="assets/images/logo.png" alt="DNA Informatica">
-        </a>
-<!--fine logo --> 
-<nav class="navbar">
-<button class="menu-toggle" id="menuToggle">
-    ☰
-</button>
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
 
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="DNA Informatica">
+    </a>
 
+    <!-- Navigazione desktop -->
+    <nav class="nav-desktop" aria-label="Navigazione principale">
+      <ul class="nav-list">
 
-
-
-
-
-
-
-
-<ul class="menu" id="menu">
-     <li class="dropdown">
-            <a href="#">Home</a>
-
-            <ul class="submenu">
-                <li><a href="#">Benvenuti</a></li>
-                <li><a href="#">Introduzione</a></li>
-                <li><a href="#">Studi</a></li>
-                <li><a href="#">Logo & Brand</a></li>
-                <li><a href="#">Ricerca</a></li>
-                <li><a href="#">Strategia</a></li>
-                <li><a href="#">Progetti</a></li>
-            </ul>
+        <!-- Voce 1 -->
+        <li class="nav-item" data-menu="soluzioni">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Soluzioni</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </li>
 
-        </li>
-        <li class="dropdown">
-            <a href="#">Servizi</a>
-
-            <ul class="submenu">
-                <li><a href="#">Ultime tecnologie</a></li>
-                <li><a href="#">Web</a></li>
-                <li><a href="#">Comunicazione</a></li>
-                <li><a href="#">Marketing</a></li>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Software</a></li>
-                <li><a href="#">Infrastructure</a></li>
-                <li><a href="#">Servizi Gestionali</a></li>
-                <li><a href="#">Cloud</a></li>
-            </ul>
+        <!-- Voce 2 -->
+        <li class="nav-item" data-menu="prodotti">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Prodotti</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </li>
 
-        <li class="dropdown">
-            <a href="#">Soluzioni</a>
-
-            <ul class="submenu">
-                <li><a href="#">Privati</a></li>
-                <li><a href="#">PMI</a></li>
-                <li><a href="#">Industrie</a></li>
-                <li><a href="#">Startup</a></li>
-                <li><a href="#">Enti Pubblici</a></li>
-            </ul>
+        <!-- Voce 3 -->
+        <li class="nav-item" data-menu="servizi">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Servizi</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </li>
 
-        <li class="dropdown">
-            <a href="#">Azienda</a>
-
-            <ul class="submenu">
-                <li><a href="#">Chi Siamo</a></li>
-                <li><a href="#">Metodo di Lavoro</a></li>
-                <li><a href="#">Partnership</a></li>
-                <li><a href="#">Lavora con Noi</a></li>
-            </ul>
+        <!-- Voce 4 -->
+        <li class="nav-item" data-menu="settori">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Settori</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </li>
 
-        <li class="dropdown">
-            <a href="#">Contatti</a>
-
-            <ul class="submenu">
-                <li><a href="#">Richiedi Preventivo</a></li>
-                <li><a href="#">Assistenza</a></li>
-                <li><a href="#">Prenota Consulenza</a></li>
-                <li><a href="#">Dove Siamo</a></li>
-            </ul>
+        <!-- Voce 5 -->
+        <li class="nav-item" data-menu="risorse">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Risorse</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </li>
 
-    </ul>
+        <!-- Voce 6 -->
+        <li class="nav-item" data-menu="azienda">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Azienda</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </li>
 
-</nav>
-               
+        <!-- Voce 7 -->
+        <li class="nav-item" data-menu="supporto">
+          <button class="nav-link" type="button" aria-expanded="false">
+            <span>Supporto</span>
+            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </li>
 
-    </div><!-- fine contenitore header -->
-</header><!-- fine header -->
+        <li class="nav-indicator" aria-hidden="true"></li>
+      </ul>
+    </nav>
 
-    <script src="js/script.js"></script>
+    <!-- Azioni a destra -->
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+
+      <a href="login.html" class="btn btn-ghost">Accedi</a>
+      <a href="registrati.html" class="btn btn-primary">Inizia</a>
+
+      <!-- Hamburger mobile -->
+      <button class="hamburger" id="hamburger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ============ MEGA MENU ============ -->
+  <div class="mega-menu" id="megaMenu" aria-hidden="true">
+    <div class="mega-inner" id="megaInner"><!-- generato via JS --></div>
+  </div>
+</header>
+
+<!-- ============ MENU MOBILE ============ -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-header">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="DNA Informatica">
+    </a>
+    <button class="mobile-close" id="mobileClose" type="button" aria-label="Chiudi menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-menu-body" id="mobileBody"><!-- generato via JS --></div>
+
+  <div class="mobile-menu-footer">
+    <a href="login.html" class="btn btn-ghost">Accedi</a>
+    <a href="registrati.html" class="btn btn-primary">Inizia</a>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<main>
+  <!-- Contenuto del sito esistente -->
+</main>
+
+<script src="js/script.js"></script>
 </body>
 </html>
