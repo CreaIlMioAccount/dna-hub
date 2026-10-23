@@ -777,6 +777,8 @@ img { max-width: 100%; display: block; }
   opacity: 1;
   pointer-events: auto;
   border-color: var(--border-strong);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* <-- Ombra profonda */
+  z-index: 10000; /* <-- Forza il primo piano */
 }
 
 .search-container.open .search-btn {
@@ -844,16 +846,39 @@ img { max-width: 100%; display: block; }
 
 /* 2. Forza le dimensioni del logo */
 .logo-main {
-  height: 100px !important; /* Cambia questo valore per ingrandire/rimpicciolire */
+  height: 120px !important; /* Cambia questo valore per ingrandire/rimpicciolire */
   width: auto !important;
   max-width: none !important;
   object-fit: contain !important;
 }
 
-/* 3. Adatta l'altezza della barra di navigazione mobile se necessario */
+/* =========================================
+   FIX MOBILE MENU
+   ========================================= */
+
+/* Altezza del menu header mobile (allineata all'header principale) */
 .mobile-menu-header {
-  height: 100px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  /* Usiamo la variabile globale per non sballare il layout */
+  height: var(--header-h); 
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
-.mobile-menu-header .logo-main {
-  height: 80px !important; /* Logo un po' più piccolo nel menu mobile */
+
+/* Logo nel menu mobile (più piccolo dell'header desktop per non occupare tutto lo schermo) */
+.mobile-menu-header .logo img {
+  height: 60px; /* Manteniamo il logo a 60px */
+  width: auto;
+  max-width: none;
+}
+
+/* Assicuriamoci che il contenuto del menu si espanda correttamente */
+.mobile-menu-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px 24px;
+  -webkit-overflow-scrolling: touch;
 }
