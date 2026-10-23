@@ -22,7 +22,7 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --header-h: 100px; /* Altezza header */
+  --header-h: 140px; /* Altezza header */
   --transition: .25s cubic-bezier(.4,0,.2,1);
 }
 
@@ -103,7 +103,7 @@ img { max-width: 100%; display: block; }
   transition: opacity var(--transition);
 }
 .logo:hover { opacity: .8; }
-.logo img { height: 100px; width: auto; transition: opacity var(--transition); }
+.logo img { height: 120px; width: auto; transition: opacity var(--transition); }
 .logo-light { display: block; }
 .logo-dark { display: none; }
 [data-theme="dark"] .logo-light { display: none; }
@@ -832,4 +832,28 @@ img { max-width: 100%; display: block; }
 .search-close svg {
   width: 12px; /* Più fine */
   height: 12px;
+}
+/* =========================================
+   LOGO HEADER GRANDE (FORZATO)
+   ========================================= */
+
+/* 1. Alza l'altezza dell'header per far stare il logo grande */
+:root {
+  --header-h: 120px !important; 
+}
+
+/* 2. Forza le dimensioni del logo */
+.logo-main {
+  height: 100px !important; /* Cambia questo valore per ingrandire/rimpicciolire */
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain !important;
+}
+
+/* 3. Adatta l'altezza della barra di navigazione mobile se necessario */
+.mobile-menu-header {
+  height: 100px !important;
+}
+.mobile-menu-header .logo-main {
+  height: 80px !important; /* Logo un po' più piccolo nel menu mobile */
 }
