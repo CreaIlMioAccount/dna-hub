@@ -294,7 +294,92 @@ home: {
   const megaInner = document.getElementById('megaInner');
   const navItems = document.querySelectorAll('.nav-item[data-menu]');
   const indicator = document.querySelector('.nav-indicator');
+  // ==========================================
+  // INIZIALIZZAZIONE SCROLL ORIZZONTALE DESKTOP
+  // ==========================================
+  
+  const navList = document.querySelector('.nav-list');
+  let scrollWrapper, prevBtn, nextBtn;
 
+  if (navList) {
+    // 1. Avvolge la lista in un wrapper senza toccare l'HTML
+    scrollWrapper = document.createElement('div');
+    scrollWrapper.className = 'nav-list-wrapper';
+    navList.parentNode.insertBefore(scrollWrapper, navList);
+    scrollWrapper.appendChild(navList);
+
+    // 2. Crea le frecce elegantemente via JS
+    const createArrow = (direction) => {
+      const btn = document.createElement('button');
+      btn.className = `nav-scroll-btn ${direction}`;
+      btn.setAttribute('aria-label', `Scorri ${direction === 'prev' ? 'a sinistra' : 'a destra'}`);
+      btn.innerHTML = direction === 'prev' 
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+      return btn;
+    };
+
+    prevBtn = createArrow('prev');
+    nextBtn = createArrow('next');
+    scrollWrapper.appendChild(prevBtn);
+    scrollWrapper.appendChild(nextBtn);
+
+    // 3. Logica di aggiornamento frecce
+    const updateArrows = () => {
+      if (window.innerWidth <= 1024) return; // Disabilita su mobile
+      
+      const scrollLeft = navList.scrollLeft;
+      const scrollWidth = navList.scrollWidth;
+      const clientWidth = navList.clientWidth;
+
+      // Mostra/nascondi freccia sinistra
+      if (scrollLeft > 5) {
+        prevBtn.classList.add('visible');
+      } else {
+        prevBtn.classList.remove('visible');
+      }
+
+      // Mostra/nascondi freccia destra
+      if (scrollLeft + clientWidth < scrollWidth - 5) {
+        nextBtn.classList.add('visible');
+      } else {
+        nextBtn.classList.remove('visible');
+      }
+    };
+
+    // 4. Eventi di click per lo scroll fluido
+    const scrollAmount = 250;
+    
+    prevBtn.addEventListener('click', () => {
+      navList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      navList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    // 5. Aggiorna le frecce allo scroll, resize e caricamento
+    navList.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    
+    // Piccolo timeout per assicurarsi che i font siano caricati e il layout sia pronto
+    setTimeout(updateArrows, 100);
+
+    // 6. Mantiene visibile la voce attiva quando si apre un mega menu
+    navItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        // Se la voce cliccata è fuori dallo schermo visibile, fai scorrere per mostrarla
+        const itemRect = item.getBoundingClientRect();
+        const wrapperRect = scrollWrapper.getBoundingClientRect();
+        
+        if (itemRect.left < wrapperRect.left + 40) {
+          navList.scrollBy({ left: -150, behavior: 'smooth' });
+        } else if (itemRect.right > wrapperRect.right - 40) {
+          navList.scrollBy({ left: 150, behavior: 'smooth' });
+        }
+      });
+    });
+  }
   let activeKey = null;
   let closeTimer = null;
 

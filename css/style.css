@@ -637,6 +637,99 @@ img { max-width: 100%; display: block; }
   display: block;
 }
 
+
+
+
+
+
+/* Aggiunta per lo scroll del menu desktop */
+.nav-desktop {
+  min-width: 0; /* Permette al contenitore di stringersi se lo schermo è piccolo */
+  position: relative; /* AGGIUNGI QUESTA RIGA */
+}
+
+.nav-list {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Nasconde scrollbar Firefox */
+  -ms-overflow-style: none; /* Nasconde scrollbar IE/Edge */
+  padding: 0 20px; /* Spazio ai lati per le frecce */
+    /* AGGIUNGI QUESTE DUE RIGHE: */
+  max-width: 600px; /* Limita la larghezza del menu (regola il numero a piacere) */
+  margin: 0 auto;   /* Mantiene il menu centrato nell'header */
+}
+
+.nav-list::-webkit-scrollbar {
+  display: none; /* Nasconde scrollbar Chrome/Safari */
+}
+
+/* Le frecce (inizialmente invisibili) */
+.nav-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background: var(--bg, #fff);
+  border: 1px solid var(--border, #eaeaea);
+  border-radius: 50%;
+  color: var(--text, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.nav-arrow-btn.prev { 
+  left: calc(50% - 300px - 15px); /* 50% (centro) - metà della max-width - dimensione */
+}
+.nav-arrow-btn.next { 
+  right: calc(50% - 300px - 15px); 
+}
+
+
+.nav-arrow-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.nav-arrow-btn.prev { 
+  left: calc(50% - 200px - 15px); /* 50% (centro) - metà della max-width - dimensione */
+}
+.nav-arrow-btn.next { 
+  right: calc(50% - 200px - 15px); 
+}
+.nav-arrow-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =========================================
    VERSIONE MOBILE (Sotto i 1024px)
    ========================================= */
@@ -647,3 +740,4 @@ img { max-width: 100%; display: block; }
     height: 100px; /* Altezza ridotta per mobile */
   }
 }
+
