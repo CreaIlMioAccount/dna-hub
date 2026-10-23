@@ -29,9 +29,6 @@
     grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
     factory: '<path d="M2 20h20M4 20V8l6 4V8l6 4V4h4v16"/>',
     briefcase: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>'
-    
-
-    
   };
 
   const MENU_DATA = {
@@ -92,13 +89,6 @@
         href: '#'
       }
     },
-
-
-
-
-
-
-
     tecnologie: {
       groups: [
         {
@@ -127,23 +117,6 @@
         href: '#'
       }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     soluzioni: {
       groups: [
         {
@@ -344,7 +317,7 @@
   }, { passive: true });
 
   /* ===================================================================
-     SCROLL ORIZZONTALE MENU
+     SCROLL ORIZZONTALE MENU + AUTO-SCROLL HOVER
      =================================================================== */
   const navList = document.querySelector('.nav-list');
   const navArrowPrev = document.getElementById('navArrowPrev');
@@ -352,6 +325,8 @@
   const navScrollContainer = document.querySelector('.nav-scroll-container');
 
   if (navList && navArrowPrev && navArrowNext && navScrollContainer) {
+    
+    // Aggiornamento frecce
     const updateArrows = () => {
       if (window.innerWidth <= 1024) return;
 
@@ -359,7 +334,6 @@
       const scrollWidth = Math.round(navList.scrollWidth);
       const clientWidth = Math.round(navList.clientWidth);
 
-      // Mostra/Nascondi freccia sinistra e sfumatura
       if (scrollLeft > 5) {
         navArrowPrev.classList.add('visible');
         navScrollContainer.classList.add('show-left-fade');
@@ -368,7 +342,6 @@
         navScrollContainer.classList.remove('show-left-fade');
       }
 
-      // Mostra/Nascondi freccia destra e sfumatura
       if (scrollLeft + clientWidth < scrollWidth - 5) {
         navArrowNext.classList.add('visible');
         navScrollContainer.classList.add('show-right-fade');
@@ -378,14 +351,44 @@
       }
     };
 
+    // Click frecce
     navArrowPrev.addEventListener('click', () => navList.scrollBy({ left: -250, behavior: 'smooth' }));
     navArrowNext.addEventListener('click', () => navList.scrollBy({ left: 250, behavior: 'smooth' }));
 
     navList.addEventListener('scroll', updateArrows);
     window.addEventListener('resize', updateArrows);
     
-    // Controllo iniziale ritardato per attendere il caricamento dei font
+    // Controllo iniziale ritardato
     setTimeout(updateArrows, 200);
+
+    // --- AUTO-SCROLL SU HOVER ---
+    let scrollInterval = null;
+    const scrollSpeed = 8;
+
+    function startAutoScroll(direction) {
+      stopAutoScroll();
+      scrollInterval = setInterval(() => {
+        navList.scrollLeft += (direction === 'next' ? scrollSpeed : -scrollSpeed);
+      }, 16);
+    }
+
+    function stopAutoScroll() {
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+      }
+    }
+
+    navArrowNext.addEventListener('mouseenter', () => startAutoScroll('next'));
+    navArrowNext.addEventListener('mouseleave', stopAutoScroll);
+    
+    navArrowPrev.addEventListener('mouseenter', () => startAutoScroll('prev'));
+    navArrowPrev.addEventListener('mouseleave', stopAutoScroll);
+
+    navArrowNext.addEventListener('click', stopAutoScroll);
+    navArrowPrev.addEventListener('click', stopAutoScroll);
+    window.addEventListener('blur', stopAutoScroll);
+    document.addEventListener('touchstart', stopAutoScroll);
   }
 
   /* ===================================================================
@@ -673,5 +676,62 @@
       closeMobile();
     }
   });
+
+
+  /* ===================================================================
+     LOGICA RICERCA ESPANDIBILE
+     =================================================================== */
+  const searchContainer = document.getElementById('searchContainer');
+  const searchBtn = document.getElementById('searchBtn');
+  const searchClose = document.getElementById('searchClose');
+  const searchInput = document.getElementById('searchInput');
+
+  if (searchContainer && searchBtn && searchClose && searchInput) {
+    
+    // Apri la ricerca
+    searchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      searchContainer.classList.add('open');
+      // Piccolo ritardo per far finire l'animazione di apertura prima di dare il focus
+      setTimeout(() => searchInput.focus(), 250); 
+    });
+
+    // Chiudi la ricerca
+    function closeSearch() {
+      searchContainer.classList.remove('open');
+      searchInput.value = ''; // Opzionale: svuota il campo alla chiusura
+    }
+
+    searchClose.addEventListener('click', closeSearch);
+
+    // Chiudi se si preme ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchContainer.classList.contains('open')) {
+        closeSearch();
+      }
+    });
+
+    // Chiudi se si clicca fuori
+    document.addEventListener('click', (e) => {
+      if (!searchContainer.contains(e.target) && searchContainer.classList.contains('open')) {
+        closeSearch();
+      }
+    });
+
+    // Impedisci la chiusura se si clicca dentro il campo di testo
+    searchInput.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 })();

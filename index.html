@@ -134,6 +134,37 @@
 
     <!-- Azioni a destra -->
     <div class="header-actions">
+      
+      <!-- ICONA RICERCA -->
+          <!-- CONTENITORE RICERCA ESPANDIBILE -->
+      <div class="search-container" id="searchContainer">
+        <button class="search-btn" id="searchBtn" type="button" aria-label="Cerca">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+        </button>
+        
+        <div class="search-input-wrapper">
+          <svg class="search-icon-inside" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <input type="text" class="search-input" id="searchInput" placeholder="Cerca nel sito..." aria-label="Cerca">
+          <button class="search-close" id="searchClose" type="button" aria-label="Chiudi ricerca">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- ... il resto del codice ... -->
+
+
+
+
+
+
+
+
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"/>
