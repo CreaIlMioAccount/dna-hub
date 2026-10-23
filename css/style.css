@@ -22,10 +22,8 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --header-h: 68px;
+  --header-h: 100px; /* Altezza unificata header */
   --transition: .25s cubic-bezier(.4,0,.2,1);
-   --header-h: 100px;
-     
 }
 
 [data-theme="dark"] {
@@ -44,8 +42,6 @@
   --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
   --shadow-md: 0 4px 16px rgba(0,0,0,.5);
   --shadow-lg: 0 24px 48px rgba(0,0,0,.7);
- box-shadow: 0 2px 20px #f5f5f5,
-            0 2px 6px #f5f5f5;
 }
 
 /* ===== Reset ===== */
@@ -72,6 +68,7 @@ img { max-width: 100%; display: block; }
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
 }
 
@@ -80,12 +77,13 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--shadow-md);
 }
 
-/* ombra sotto header */
-.site-header {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+/* Ombra per Dark Mode */
+[data-theme="dark"] .site-header {
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05), 0 1px 3px rgba(255, 255, 255, 0.02);
 }
-
-
+[data-theme="dark"] .site-header.scrolled {
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.08), 0 2px 6px rgba(255, 255, 255, 0.04);
+}
 
 .header-inner {
   max-width: 1440px;
@@ -97,6 +95,7 @@ img { max-width: 100%; display: block; }
   gap: 24px;
 }
 
+/* Loghi */
 .logo {
   display: flex;
   align-items: center;
@@ -105,7 +104,11 @@ img { max-width: 100%; display: block; }
   transition: opacity var(--transition);
 }
 .logo:hover { opacity: .8; }
-.logo img { height: 100px; width: auto; }
+.logo img { height: 100px; width: auto; transition: opacity var(--transition); }
+.logo-light { display: block; }
+.logo-dark { display: none; }
+[data-theme="dark"] .logo-light { display: none; }
+[data-theme="dark"] .logo-dark { display: block; }
 
 /* ===== NAV DESKTOP ===== */
 .nav-desktop {
@@ -122,7 +125,9 @@ img { max-width: 100%; display: block; }
   position: relative;
 }
 
-.nav-item { position: relative; }
+.nav-item { 
+  position: relative; 
+}
 
 .nav-link {
   display: inline-flex;
@@ -146,14 +151,17 @@ img { max-width: 100%; display: block; }
 }
 
 .nav-chevron {
-  width: 14px; height: 14px;
+  width: 14px; 
+  height: 14px;
   transition: transform var(--transition);
   flex-shrink: 0;
 }
 
-.nav-item.open .nav-chevron { transform: rotate(180deg); }
+.nav-item.open .nav-chevron { 
+  transform: rotate(180deg); 
+}
 
-/* Indicatore attivo */
+/* Indicatore attivo (linea blu sotto la voce) */
 .nav-indicator {
   position: absolute;
   bottom: -1px;
@@ -607,137 +615,10 @@ img { max-width: 100%; display: block; }
   .hamburger { display: flex; }
   .header-actions .btn-ghost,
   .header-actions .btn-primary { display: none; }
+  .logo img { height: 70px; } /* Logo un po' più piccolo su mobile */
 }
 
 @media (max-width: 480px) {
   .header-inner { padding: 0 16px; gap: 12px; }
-  .logo img { height: 28px; }
+  .logo img { height: 50px; }
 }
-
-/* Impostazioni base per entrambi i loghi */
-.logo img {
-  height: 100px; /* Altezza per desktop */
-  width: auto;
-  transition: opacity var(--transition);
-}
-
-/* Di default (Light Mode), mostra il logo scuro e nascondi quello bianco */
-.logo-light {
-  display: block;
-}
-.logo-dark {
-  display: none;
-}
-
-/* Quando il sito è in Dark Mode, inverti la visibilità */
-[data-theme="dark"] .logo-light {
-  display: none;
-}
-[data-theme="dark"] .logo-dark {
-  display: block;
-}
-
-
-
-
-
-
-/* Aggiunta per lo scroll del menu desktop */
-.nav-desktop {
-  min-width: 0; /* Permette al contenitore di stringersi se lo schermo è piccolo */
-  position: relative; /* AGGIUNGI QUESTA RIGA */
-}
-
-.nav-list {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Nasconde scrollbar Firefox */
-  -ms-overflow-style: none; /* Nasconde scrollbar IE/Edge */
-  padding: 0 20px; /* Spazio ai lati per le frecce */
-    /* AGGIUNGI QUESTE DUE RIGHE: */
-  max-width: 600px; /* Limita la larghezza del menu (regola il numero a piacere) */
-  margin: 0 auto;   /* Mantiene il menu centrato nell'header */
-}
-
-.nav-list::-webkit-scrollbar {
-  display: none; /* Nasconde scrollbar Chrome/Safari */
-}
-
-/* Le frecce (inizialmente invisibili) */
-.nav-arrow-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  background: var(--bg, #fff);
-  border: 1px solid var(--border, #eaeaea);
-  border-radius: 50%;
-  color: var(--text, #000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.nav-arrow-btn.prev { 
-  left: calc(50% - 300px - 15px); /* 50% (centro) - metà della max-width - dimensione */
-}
-.nav-arrow-btn.next { 
-  right: calc(50% - 300px - 15px); 
-}
-
-
-.nav-arrow-btn.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.nav-arrow-btn.prev { 
-  left: calc(50% - 200px - 15px); /* 50% (centro) - metà della max-width - dimensione */
-}
-.nav-arrow-btn.next { 
-  right: calc(50% - 200px - 15px); 
-}
-.nav-arrow-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================
-   VERSIONE MOBILE (Sotto i 1024px)
-   ========================================= */
-@media (max-width: 1024px) {
-  /* Se hai fatto anche i loghi versione mobile (più piccoli), 
-     basta cambiare il src nell'HTML o usare questo blocco */
-  .logo img {
-    height: 100px; /* Altezza ridotta per mobile */
-  }
-}
-

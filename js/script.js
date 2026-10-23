@@ -29,65 +29,63 @@
   };
 
   const MENU_DATA = {
-
-home: {
-  groups: [
-    {
-      title: 'Percorso',
-      items: [
-        { icon: 'grid',    title: 'Benvenuti',  desc: 'Un punto di partenza per orientarti.' },
-        { icon: 'book',    title: 'Introduzione', desc: 'Chi siamo e cosa facciamo.' },
-        { icon: 'chart',   title: 'Studi',      desc: 'Ricerche, dati e approfondimenti.' },
-        { icon: 'layers',  title: 'Logo & Brand', desc: 'Identità visiva e linee guida.' }
-      ]
+    home: {
+      groups: [
+        {
+          title: 'Percorso',
+          items: [
+            { icon: 'grid',    title: 'Benvenuti',  desc: 'Un punto di partenza per orientarti.' },
+            { icon: 'book',    title: 'Introduzione', desc: 'Chi siamo e cosa facciamo.' },
+            { icon: 'chart',   title: 'Studi',      desc: 'Ricerche, dati e approfondimenti.' },
+            { icon: 'layers',  title: 'Logo & Brand', desc: 'Identità visiva e linee guida.' }
+          ]
+        },
+        {
+          title: 'Approfondimenti',
+          items: [
+            { icon: 'help',    title: 'Ricerca',    desc: 'Metodo e processo di ricerca.' },
+            { icon: 'briefcase', title: 'Strategia', desc: 'Obiettivi, roadmap e posizionamento.' },
+            { icon: 'rocket',  title: 'Progetti',   desc: 'Casi studio e lavori realizzati.' }
+          ]
+        }
+      ],
+      promo: {
+        icon: 'zap',
+        title: 'Inizia da qui',
+        desc: 'Segui il percorso introduttivo per scoprire DNA Informatica.',
+        link: 'Apri la guida',
+        href: '#'
+      }
     },
-    {
-      title: 'Approfondimenti',
-      items: [
-        { icon: 'help',    title: 'Ricerca',    desc: 'Metodo e processo di ricerca.' },
-        { icon: 'briefcase', title: 'Strategia', desc: 'Obiettivi, roadmap e posizionamento.' },
-        { icon: 'rocket',  title: 'Progetti',   desc: 'Casi studio e lavori realizzati.' }
-      ]
-    }
-  ],
-  promo: {
-    icon: 'zap',
-    title: 'Inizia da qui',
-    desc: 'Segui il percorso introduttivo per scoprire DNA Informatica.',
-    link: 'Apri la guida',
-    href: '#'
-  }
-},
-
- prodotti: {
-  groups: [
-    {
-      title: 'Prodotti DNA',
-      items: [
-        { icon: 'globe',       title: 'DNA Web',                 desc: 'Siti web, portali e applicazioni web su misura.' },
-        { icon: 'message',     title: 'DNA Comunicazione',       desc: 'Strumenti per la comunicazione aziendale.' },
-        { icon: 'chart',       title: 'DNA Marketing',           desc: 'Campagne, automazioni e analytics di marketing.' },
-        { icon: 'briefcase',   title: 'DNA Business',            desc: 'Gestione e processi per il business.' }
-      ]
+    prodotti: {
+      groups: [
+        {
+          title: 'Prodotti DNA',
+          items: [
+            { icon: 'globe',       title: 'DNA Web',                 desc: 'Siti web, portali e applicazioni web su misura.' },
+            { icon: 'message',     title: 'DNA Comunicazione',       desc: 'Strumenti per la comunicazione aziendale.' },
+            { icon: 'chart',       title: 'DNA Marketing',           desc: 'Campagne, automazioni e analytics di marketing.' },
+            { icon: 'briefcase',   title: 'DNA Business',            desc: 'Gestione e processi per il business.' }
+          ]
+        },
+        {
+          title: 'Soluzioni tecniche',
+          items: [
+            { icon: 'code',        title: 'DNA Software',            desc: 'Software personalizzato e integrazioni.' },
+            { icon: 'cpu',         title: 'DNA Infrastructure',      desc: 'Server, networking e infrastruttura IT.' },
+            { icon: 'layers',      title: 'DNA Servizi Gestionali',  desc: 'ERP, gestionali e automazione dei processi.' },
+            { icon: 'cloud',       title: 'DNA Cloud',               desc: 'Infrastruttura cloud gestita.', badge: 'Top' }
+          ]
+        }
+      ],
+      promo: {
+        icon: 'zap',
+        title: 'Prova gratis 30 giorni',
+        desc: 'Nessuna carta richiesta. Accesso completo a tutte le funzionalità.',
+        link: 'Inizia la prova',
+        href: '#'
+      }
     },
-    {
-      title: 'Soluzioni tecniche',
-      items: [
-        { icon: 'code',        title: 'DNA Software',            desc: 'Software personalizzato e integrazioni.' },
-        { icon: 'cpu',         title: 'DNA Infrastructure',      desc: 'Server, networking e infrastruttura IT.' },
-        { icon: 'layers',      title: 'DNA Servizi Gestionali',  desc: 'ERP, gestionali e automazione dei processi.' },
-        { icon: 'cloud',       title: 'DNA Cloud',               desc: 'Infrastruttura cloud gestita.', badge: 'Top' }
-      ]
-    }
-  ],
-  promo: {
-    icon: 'zap',
-    title: 'Prova gratis 30 giorni',
-    desc: 'Nessuna carta richiesta. Accesso completo a tutte le funzionalità.',
-    link: 'Inizia la prova',
-    href: '#'
-  }
-},
     soluzioni: {
       groups: [
         {
@@ -116,7 +114,6 @@ home: {
         href: '#'
       }
     },
-   
     servizi: {
       groups: [
         {
@@ -272,10 +269,12 @@ home: {
     applyTheme(saved || (prefersDark ? 'dark' : 'light'));
   })();
 
-  themeToggle.addEventListener('click', function () {
-    const current = html.getAttribute('data-theme');
-    applyTheme(current === 'dark' ? 'light' : 'dark');
-  });
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      const current = html.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
 
   /* ===================================================================
      HEADER — ombra allo scroll
@@ -283,7 +282,7 @@ home: {
 
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', function () {
-    header.classList.toggle('scrolled', window.scrollY > 8);
+    if (header) header.classList.toggle('scrolled', window.scrollY > 8);
   }, { passive: true });
 
   /* ===================================================================
@@ -294,92 +293,7 @@ home: {
   const megaInner = document.getElementById('megaInner');
   const navItems = document.querySelectorAll('.nav-item[data-menu]');
   const indicator = document.querySelector('.nav-indicator');
-  // ==========================================
-  // INIZIALIZZAZIONE SCROLL ORIZZONTALE DESKTOP
-  // ==========================================
   
-  const navList = document.querySelector('.nav-list');
-  let scrollWrapper, prevBtn, nextBtn;
-
-  if (navList) {
-    // 1. Avvolge la lista in un wrapper senza toccare l'HTML
-    scrollWrapper = document.createElement('div');
-    scrollWrapper.className = 'nav-list-wrapper';
-    navList.parentNode.insertBefore(scrollWrapper, navList);
-    scrollWrapper.appendChild(navList);
-
-    // 2. Crea le frecce elegantemente via JS
-    const createArrow = (direction) => {
-      const btn = document.createElement('button');
-      btn.className = `nav-scroll-btn ${direction}`;
-      btn.setAttribute('aria-label', `Scorri ${direction === 'prev' ? 'a sinistra' : 'a destra'}`);
-      btn.innerHTML = direction === 'prev' 
-        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>'
-        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
-      return btn;
-    };
-
-    prevBtn = createArrow('prev');
-    nextBtn = createArrow('next');
-    scrollWrapper.appendChild(prevBtn);
-    scrollWrapper.appendChild(nextBtn);
-
-    // 3. Logica di aggiornamento frecce
-    const updateArrows = () => {
-      if (window.innerWidth <= 1024) return; // Disabilita su mobile
-      
-      const scrollLeft = navList.scrollLeft;
-      const scrollWidth = navList.scrollWidth;
-      const clientWidth = navList.clientWidth;
-
-      // Mostra/nascondi freccia sinistra
-      if (scrollLeft > 5) {
-        prevBtn.classList.add('visible');
-      } else {
-        prevBtn.classList.remove('visible');
-      }
-
-      // Mostra/nascondi freccia destra
-      if (scrollLeft + clientWidth < scrollWidth - 5) {
-        nextBtn.classList.add('visible');
-      } else {
-        nextBtn.classList.remove('visible');
-      }
-    };
-
-    // 4. Eventi di click per lo scroll fluido
-    const scrollAmount = 250;
-    
-    prevBtn.addEventListener('click', () => {
-      navList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
-    
-    nextBtn.addEventListener('click', () => {
-      navList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
-
-    // 5. Aggiorna le frecce allo scroll, resize e caricamento
-    navList.addEventListener('scroll', updateArrows);
-    window.addEventListener('resize', updateArrows);
-    
-    // Piccolo timeout per assicurarsi che i font siano caricati e il layout sia pronto
-    setTimeout(updateArrows, 100);
-
-    // 6. Mantiene visibile la voce attiva quando si apre un mega menu
-    navItems.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        // Se la voce cliccata è fuori dallo schermo visibile, fai scorrere per mostrarla
-        const itemRect = item.getBoundingClientRect();
-        const wrapperRect = scrollWrapper.getBoundingClientRect();
-        
-        if (itemRect.left < wrapperRect.left + 40) {
-          navList.scrollBy({ left: -150, behavior: 'smooth' });
-        } else if (itemRect.right > wrapperRect.right - 40) {
-          navList.scrollBy({ left: 150, behavior: 'smooth' });
-        }
-      });
-    });
-  }
   let activeKey = null;
   let closeTimer = null;
 
@@ -410,7 +324,6 @@ home: {
         '</div>';
     }).join('');
 
-    // Colonna promo
     const promo = data.promo ? (
       '<div class="mega-col">' +
         '<div class="mega-promo">' +
@@ -459,16 +372,20 @@ home: {
       if (btn) btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     });
 
-    megaMenu.classList.add('open');
-    megaMenu.setAttribute('aria-hidden', 'false');
+    if (megaMenu) {
+      megaMenu.classList.add('open');
+      megaMenu.setAttribute('aria-hidden', 'false');
+    }
     positionIndicator(itemEl);
   }
 
   function closeMega() {
     if (!activeKey) return;
     activeKey = null;
-    megaMenu.classList.remove('open');
-    megaMenu.setAttribute('aria-hidden', 'true');
+    if (megaMenu) {
+      megaMenu.classList.remove('open');
+      megaMenu.setAttribute('aria-hidden', 'true');
+    }
     navItems.forEach(function (item) {
       item.classList.remove('open');
       const btn = item.querySelector('.nav-link');
@@ -490,34 +407,38 @@ home: {
       closeTimer = setTimeout(closeMega, 150);
     });
 
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (activeKey === key) closeMega();
-      else openMega(key, item);
+    if (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (activeKey === key) closeMega();
+        else openMega(key, item);
+      });
+
+      btn.addEventListener('focus', function () {
+        if (!MENU_DATA[key]) return;
+        positionIndicator(item);
+      });
+
+      btn.addEventListener('blur', hideIndicator);
+    }
+  });
+
+  if (megaMenu) {
+    megaMenu.addEventListener('mouseenter', function () {
+      clearTimeout(closeTimer);
     });
 
-    btn.addEventListener('focus', function () {
-      if (!MENU_DATA[key]) return;
-      positionIndicator(item);
+    megaMenu.addEventListener('mouseleave', function () {
+      closeTimer = setTimeout(closeMega, 150);
     });
-
-    btn.addEventListener('blur', hideIndicator);
-  });
-
-  megaMenu.addEventListener('mouseenter', function () {
-    clearTimeout(closeTimer);
-  });
-
-  megaMenu.addEventListener('mouseleave', function () {
-    closeTimer = setTimeout(closeMega, 150);
-  });
+  }
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeMega();
   });
 
   document.addEventListener('click', function (e) {
-    if (!header.contains(e.target)) closeMega();
+    if (header && !header.contains(e.target)) closeMega();
   });
 
   /* ===================================================================
@@ -530,16 +451,15 @@ home: {
   const mobileBody = document.getElementById('mobileBody');
   const mobileOverlay = document.getElementById('mobileOverlay');
 
-  // Costruzione accordion mobile
   function buildMobileMenu() {
-    const html = Object.keys(MENU_DATA).map(function (key) {
+    if (!mobileBody) return;
+
+    const htmlStr = Object.keys(MENU_DATA).map(function (key) {
       const data = MENU_DATA[key];
       const labelMap = {
-         home: 'Home', 
-
-          prodotti: 'Prodotti',
+        home: 'Home', 
+        prodotti: 'Prodotti',
         soluzioni: 'Soluzioni',
-       
         servizi: 'Servizi',
         settori: 'Settori',
         risorse: 'Risorse',
@@ -572,16 +492,14 @@ home: {
         '</div>';
     }).join('');
 
-    mobileBody.innerHTML = html;
+    mobileBody.innerHTML = htmlStr;
 
-    // Handler accordion
     mobileBody.querySelectorAll('.acc-trigger').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const acc = btn.parentElement;
         const content = acc.querySelector('.acc-content');
         const isOpen = acc.classList.contains('open');
 
-        // Chiudi gli altri
         mobileBody.querySelectorAll('.acc.open').forEach(function (other) {
           if (other !== acc) {
             other.classList.remove('open');
@@ -613,6 +531,7 @@ home: {
   buildMobileMenu();
 
   function openMobile() {
+    if (!mobileMenu || !mobileOverlay || !hamburger) return;
     mobileMenu.classList.add('open');
     mobileOverlay.classList.add('open');
     mobileMenu.setAttribute('aria-hidden', 'false');
@@ -622,6 +541,7 @@ home: {
   }
 
   function closeMobile() {
+    if (!mobileMenu || !mobileOverlay || !hamburger) return;
     mobileMenu.classList.remove('open');
     mobileOverlay.classList.remove('open');
     mobileMenu.setAttribute('aria-hidden', 'true');
@@ -630,21 +550,24 @@ home: {
     document.body.style.overflow = '';
   }
 
-  hamburger.addEventListener('click', function () {
-    if (mobileMenu.classList.contains('open')) closeMobile();
-    else openMobile();
-  });
+  if (hamburger) {
+    hamburger.addEventListener('click', function () {
+      if (mobileMenu.classList.contains('open')) closeMobile();
+      else openMobile();
+    });
+  }
 
-  mobileClose.addEventListener('click', closeMobile);
-  mobileOverlay.addEventListener('click', closeMobile);
+  if (mobileClose) mobileClose.addEventListener('click', closeMobile);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobile);
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobile();
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) closeMobile();
   });
 
   window.addEventListener('resize', function () {
-    if (window.innerWidth > 1024 && mobileMenu.classList.contains('open')) {
+    if (window.innerWidth > 1024 && mobileMenu && mobileMenu.classList.contains('open')) {
       closeMobile();
     }
   });
+
 })();
