@@ -25,75 +25,111 @@
 
     <!-- Navigazione desktop -->
     <nav class="nav-desktop" aria-label="Navigazione principale">
-      <ul class="nav-list">
+      
+      <!-- Contenitore per lo scroll e le frecce -->
+      <div class="nav-scroll-container">
         
-        <!-- Voce Home -->
-        <li class="nav-item" data-menu="home">
+        <!-- Freccia Sinistra -->
+        <button class="nav-arrow prev" id="navArrowPrev" aria-label="Scorri a sinistra">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <!-- Lista Voci -->
+        <ul class="nav-list">
+          
+          <!-- Voce Home -->
+          <li class="nav-item" data-menu="home">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Home</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+      
+
+
+
+          <!-- Voce Prodotti -->
+          <li class="nav-item" data-menu="prodotti">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Prodotti</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+
+
+    <!-- Voce Tecnologie -->
+        <li class="nav-item" data-menu="tecnologie">
           <button class="nav-link" type="button" aria-expanded="false">
-            <span>Home</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
-       
-        <!-- Voce Prodotti -->
-        <li class="nav-item" data-menu="prodotti">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Prodotti</span>
+            <span>Tecnologie</span>
             <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
         </li>
 
-        <!-- Voce Soluzioni -->
-        <li class="nav-item" data-menu="soluzioni">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Soluzioni</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
 
-        <!-- Voce Servizi -->
-        <li class="nav-item" data-menu="servizi">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Servizi</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
 
-        <!-- Voce Settori -->
-        <li class="nav-item" data-menu="settori">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Settori</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
 
-        <!-- Voce Risorse -->
-        <li class="nav-item" data-menu="risorse">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Risorse</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
 
-        <!-- Voce Azienda -->
-        <li class="nav-item" data-menu="azienda">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Azienda</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
 
-        <!-- Voce Supporto -->
-        <li class="nav-item" data-menu="supporto">
-          <button class="nav-link" type="button" aria-expanded="false">
-            <span>Supporto</span>
-            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        </li>
 
-        <!-- Indicatore attivo -->
-        <li class="nav-indicator" aria-hidden="true"></li>
-      </ul>
+          <!-- Voce Soluzioni -->
+          <li class="nav-item" data-menu="soluzioni">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Soluzioni</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+          <!-- Voce Servizi -->
+          <li class="nav-item" data-menu="servizi">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Servizi</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+          <!-- Voce Settori -->
+          <li class="nav-item" data-menu="settori">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Settori</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+          <!-- Voce Risorse -->
+          <li class="nav-item" data-menu="risorse">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Risorse</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+          <!-- Voce Azienda -->
+          <li class="nav-item" data-menu="azienda">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Azienda</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+          <!-- Voce Supporto -->
+          <li class="nav-item" data-menu="supporto">
+            <button class="nav-link" type="button" aria-expanded="false">
+              <span>Supporto</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </li>
+
+          <!-- Indicatore attivo -->
+          <li class="nav-indicator" aria-hidden="true"></li>
+        </ul>
+
+        <!-- Freccia Destra -->
+        <button class="nav-arrow next" id="navArrowNext" aria-label="Scorri a destra">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+      </div>
     </nav>
 
     <!-- Azioni a destra -->
@@ -131,7 +167,6 @@
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <div class="mobile-menu-header">
     <a href="index.html" class="logo">
-      <!-- LOGO CORRETTO PER IL MOBILE (Ho aggiunto logo-nero.png per coerenza) -->
       <img src="assets/images/logo-nero.png" alt="DNA Informatica" class="logo-light">
       <img src="assets/images/logo-bianco.png" alt="DNA Informatica" class="logo-dark">
     </a>

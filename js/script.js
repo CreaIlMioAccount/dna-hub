@@ -6,6 +6,9 @@
      =================================================================== */
 
   const ICONS = {
+    brain: '<path d="M12 4a4 4 0 1 0 0 8 4 4 0 1 0 0-8zM5 8a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM19 8a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM9 16a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM15 16a3 3 0 1 0 0 6 3 3 0 1 0 0-6z"/>',
+    network: '<rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/>',
+    blocks: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M6 10v4M10 6h4"/>',
     cloud: '<path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>',
     shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
     code: '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
@@ -26,6 +29,9 @@
     grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
     factory: '<path d="M2 20h20M4 20V8l6 4V8l6 4V4h4v16"/>',
     briefcase: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>'
+    
+
+    
   };
 
   const MENU_DATA = {
@@ -86,6 +92,58 @@
         href: '#'
       }
     },
+
+
+
+
+
+
+
+    tecnologie: {
+      groups: [
+        {
+          title: 'Frontiera Tech',
+          items: [
+            { icon: 'brain',    title: 'Intelligenza Artificiale', desc: 'Soluzioni AI, machine learning e automazione.', badge: 'Hot' },
+            { icon: 'network',  title: 'IoT',                      desc: 'Internet of Things e dispositivi connessi.' },
+            { icon: 'database', title: 'Big Data',                 desc: 'Analisi dati, data lake e business intelligence.' },
+            { icon: 'blocks',   title: 'Blockchain',               desc: 'Smart contract, Web3 e tracciabilità.' }
+          ]
+        },
+        {
+          title: 'Infrastrutture',
+          items: [
+            { icon: 'cloud',    title: 'Edge Computing',           desc: 'Elaborazione dati vicino alla fonte.' },
+            { icon: 'cpu',      title: 'Quantum Computing',        desc: 'Calcolo quantistico e crittografia.' },
+            { icon: 'shield',   title: 'Zero Trust',               desc: 'Architetture di sicurezza moderne.' }
+          ]
+        }
+      ],
+      promo: {
+        icon: 'rocket',
+        title: 'Esplora il futuro',
+        desc: 'Scopri come integriamo le tecnologie emergenti nel tuo business.',
+        link: 'Leggi il whitepaper',
+        href: '#'
+      }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     soluzioni: {
       groups: [
         {
@@ -286,6 +344,51 @@
   }, { passive: true });
 
   /* ===================================================================
+     SCROLL ORIZZONTALE MENU
+     =================================================================== */
+  const navList = document.querySelector('.nav-list');
+  const navArrowPrev = document.getElementById('navArrowPrev');
+  const navArrowNext = document.getElementById('navArrowNext');
+  const navScrollContainer = document.querySelector('.nav-scroll-container');
+
+  if (navList && navArrowPrev && navArrowNext && navScrollContainer) {
+    const updateArrows = () => {
+      if (window.innerWidth <= 1024) return;
+
+      const scrollLeft = Math.round(navList.scrollLeft);
+      const scrollWidth = Math.round(navList.scrollWidth);
+      const clientWidth = Math.round(navList.clientWidth);
+
+      // Mostra/Nascondi freccia sinistra e sfumatura
+      if (scrollLeft > 5) {
+        navArrowPrev.classList.add('visible');
+        navScrollContainer.classList.add('show-left-fade');
+      } else {
+        navArrowPrev.classList.remove('visible');
+        navScrollContainer.classList.remove('show-left-fade');
+      }
+
+      // Mostra/Nascondi freccia destra e sfumatura
+      if (scrollLeft + clientWidth < scrollWidth - 5) {
+        navArrowNext.classList.add('visible');
+        navScrollContainer.classList.add('show-right-fade');
+      } else {
+        navArrowNext.classList.remove('visible');
+        navScrollContainer.classList.remove('show-right-fade');
+      }
+    };
+
+    navArrowPrev.addEventListener('click', () => navList.scrollBy({ left: -250, behavior: 'smooth' }));
+    navArrowNext.addEventListener('click', () => navList.scrollBy({ left: 250, behavior: 'smooth' }));
+
+    navList.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    
+    // Controllo iniziale ritardato per attendere il caricamento dei font
+    setTimeout(updateArrows, 200);
+  }
+
+  /* ===================================================================
      MEGA MENU DESKTOP
      =================================================================== */
 
@@ -459,6 +562,7 @@
       const labelMap = {
         home: 'Home', 
         prodotti: 'Prodotti',
+        tecnologie: 'Tecnologie',
         soluzioni: 'Soluzioni',
         servizi: 'Servizi',
         settori: 'Settori',
