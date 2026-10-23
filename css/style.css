@@ -43,8 +43,8 @@ body {
 
 /* Logo */
 .logo {
-    display: flex;
-    align-items: center;
+    position:absolute;
+    left:7%;
 }
 
 .logo img {
@@ -56,14 +56,24 @@ body {
 /* Responsive contenitore header */
 @media (max-width: 768px) {
     .header .container {
-        height: 70px;
+         display:flex;
+    justify-content:space-between;
+    align-items:center;
+        height: 120px;
     }
 
+.logo img {
+    height: 120px;
+    width: auto;
+    display: block;
 
+}
 }/* Responsive fine contenitore header */
 /* inizio menu */
 .navbar{
-    margin-left:auto;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
 }
 
 
@@ -221,10 +231,11 @@ body {
         cursor:pointer;
     }
 
-    .navbar{
-        position:relative;
-        margin-left:auto;
-    }
+   .navbar{
+    position:absolute;
+    left:80%;
+    transform:translateX(-80%);
+}
 
     .menu{
         display:none;
