@@ -165,7 +165,7 @@ img { max-width: 100%; display: block; }
   border: none;
   background: transparent;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   border-radius: var(--radius-md);
   cursor: pointer;

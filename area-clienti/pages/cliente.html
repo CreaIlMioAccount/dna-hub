@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheda Cliente — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+  
+  <style>
+    /* Stili specifici per la Scheda Cliente */
+    .client-header {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .client-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: var(--space-6);
+    }
+    
+    .client-name {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-bold);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-1);
+    }
+    
+    .client-meta {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+    
+    .client-kpi-row {
+      display: flex;
+      gap: var(--space-8);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+    }
+    
+    .client-kpi {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    
+    .client-kpi-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      font-weight: var(--weight-medium);
+    }
+    
+    .client-kpi-value {
+      font-size: var(--text-xl);
+      font-weight: var(--weight-semibold);
+    }
+
+    /* Tab Content Area */
+    .tab-content-area {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+      min-height: 400px;
+    }
+  </style>
+</head>
+<body class="app-body">
+
+  <!-- ==================== SIDEBAR (Identica all'index) ==================== -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+            <a href="elenco-clienti.html" class="nav-item is-active">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  <span class="nav-item-text">Elenco Clienti</span>
+</a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-item-text">Nuovo Cliente</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+        <a href="ticket.html" class="nav-item">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+  <span class="nav-item-text">Ticket e Assistenza</span>
+</a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-item-text">Progetti</span>
+        </a>
+      </div>
+    </nav>
+
+       <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Mario Rossi</div>
+        <div class="sidebar-user-role">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- ==================== HEADER (Identico all'index) ==================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="header-search" onclick="DNAHub.Palette.open()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Cerca ovunque...</span>
+        <kbd style="margin-left:auto; font-family:var(--font-mono); font-size:10px; padding:2px 4px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:4px;">Ctrl K</kbd>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="header-action-btn" aria-label="Notifiche">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="app-main">
+    
+    <!-- Breadcrumb -->
+    <div class="t-sm text-secondary mb-4">
+      <a href="../index.html" style="color:inherit; text-decoration:none;">Clienti</a> / <span class="text-primary w-medium">Rossi S.r.l.</span>
+    </div>
+
+    <!-- Header Cliente -->
+    <div class="client-header">
+      <div class="client-title-row">
+        <div>
+          <div class="client-name">
+            Rossi S.r.l.
+            <span class="badge badge--success">Attivo</span>
+          </div>
+          <div class="client-meta">
+            P.IVA 01234567890 · Milano · <a href="#" style="color:var(--color-primary);">Rossi Group S.p.A.</a>
+          </div>
+        </div>
+                <div style="display:flex; gap:var(--space-2);">
+          <button class="btn btn--secondary" data-open-modal="modal-nuovo-ticket">Nuovo Ticket</button>
+          <button class="btn btn--primary" data-open-modal="modal-nuovo-preventivo">Nuovo Preventivo</button>
+        </div>
+
+      <div class="client-kpi-row">
+        <div class="client-kpi">
+          <span class="client-kpi-label">Progetti attivi</span>
+          <span class="client-kpi-value">12</span>
+        </div>
+        <div class="client-kpi">
+          <span class="client-kpi-label">Ticket aperti</span>
+          <span class="client-kpi-value" style="color:var(--color-danger);">3</span>
+        </div>
+        <div class="client-kpi">
+          <span class="client-kpi-label">Contratti</span>
+          <span class="client-kpi-value">4</span>
+        </div>
+        <div class="client-kpi">
+          <span class="client-kpi-label">Fatturato anno</span>
+          <span class="client-kpi-value">€48.000</span>
+        </div>
+        <div class="client-kpi" style="margin-left:auto; text-align:right;">
+          <span class="client-kpi-label">Prossima scadenza</span>
+          <span class="client-kpi-value" style="color:var(--color-warning);">15 giorni</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Navigazione -->
+    <div data-tabs style="margin-bottom: var(--space-6);">
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" role="tab" aria-selected="true" data-target="overview">Overview</button>
+        <button class="tab" role="tab" aria-selected="false" data-target="timeline">Timeline</button>
+        <button class="tab" role="tab" aria-selected="false" data-target="ticket">Ticket <span class="tab__count">3</span></button>
+        <button class="tab" role="tab" aria-selected="false" data-target="progetti">Progetti</button>
+        <button class="tab" role="tab" aria-selected="false" data-target="contratti">Contratti</button>
+        <button class="tab" role="tab" aria-selected="false" data-target="fatture">Fatture</button>
+        <button class="tab" role="tab" aria-selected="false" data-target="documenti">Documenti</button>
+      </div>
+    </div>
+
+    <!-- Contenuto Tab -->
+    <div class="tab-content-area">
+      
+      <!-- TAB: OVERVIEW -->
+      <div data-tab-panel="overview">
+        <h3 class="t-lg w-semibold mb-6">Panoramica Cliente</h3>
+        
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-6);">
+          
+          <!-- Sinistra: Attività -->
+          <div>
+            <h4 class="t-base w-semibold mb-4">Attività Recenti</h4>
+            <div class="timeline">
+              <div class="timeline__group">
+                <div class="timeline__date">Oggi</div>
+                <div class="timeline__item">
+                  <span class="timeline__dot timeline__dot--info"></span>
+                  <div class="timeline__title">Ticket #142 aperto</div>
+                  <div class="timeline__meta">da Mario Rossi · 10:32</div>
+                </div>
+                <div class="timeline__item">
+                  <span class="timeline__dot timeline__dot--success"></span>
+                  <div class="timeline__title">Contratto Assistenza firmato</div>
+                  <div class="timeline__meta">da Commerciale · 09:15</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destra: Info e Salute -->
+          <div>
+            <h4 class="t-base w-semibold mb-4">Salute Cliente</h4>
+            <div class="card" style="background:var(--color-danger-subtle); border-color:#FCA5A5; padding:var(--space-4); margin-bottom:var(--space-6);">
+              <div class="flex items-center gap-2 mb-2" style="color:#B91C1C;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span class="w-bold">Attenzione</span>
+              </div>
+              <p class="t-sm" style="color:#991B1B; margin:0;">Ticket aperti e fattura #2024-089 in scadenza. Contattare il cliente.</p>
+            </div>
+
+            <h4 class="t-base w-semibold mb-4">Contatti Principali</h4>
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-3">
+                <div class="sidebar-avatar" style="background:var(--color-surface-hover); color:var(--color-text);">LB</div>
+                <div>
+                  <div class="t-sm w-medium">Luca Bianchi</div>
+                  <div class="t-xs text-secondary">Referente Tecnico</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="sidebar-avatar" style="background:var(--color-surface-hover); color:var(--color-text);">GV</div>
+                <div>
+                  <div class="t-sm w-medium">Giulia Verdi</div>
+                  <div class="t-xs text-secondary">Amministrazione</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TIMELINE (segnaposto) -->
+      <div data-tab-panel="timeline" hidden>
+        <p class="text-secondary">Cronologia completa degli eventi (in costruzione).</p>
+      </div>
+
+      <!-- TAB: TICKET -->
+      <div data-tab-panel="ticket" hidden>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Oggetto</th>
+                <th>Stato</th>
+                <th>Priorità</th>
+                <th>Assegnatario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="t-sm">#142</td>
+                <td><strong>Errore accesso portale</strong></td>
+                <td><span class="badge badge--info">In lavorazione</span></td>
+                <td><span class="badge badge--warning">Alta</span></td>
+                <td>Mario Rossi</td>
+              </tr>
+              <tr>
+                <td class="t-sm">#138</td>
+                <td>Richiesta nuovo servizio</td>
+                <td><span class="badge badge--neutral">In attesa</span></td>
+                <td><span class="badge badge--neutral">Media</span></td>
+                <td>Mario Rossi</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: ALTRI (Segnaposto) -->
+      <div data-tab-panel="progetti" hidden><p class="text-secondary">Lista progetti.</p></div>
+      <div data-tab-panel="contratti" hidden><p class="text-secondary">Lista contratti.</p></div>
+      <div data-tab-panel="fatture" hidden><p class="text-secondary">Lista fatture.</p></div>
+      <div data-tab-panel="documenti" hidden><p class="text-secondary">Lista documenti.</p></div>
+
+    </div>
+  </main>
+
+
+
+
+
+  <!-- ==================== MODALE NUOVO TICKET ==================== -->
+  <div class="modal-backdrop" id="modal-nuovo-ticket" role="dialog" aria-modal="true" aria-labelledby="modal-ticket-title">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-ticket-title">Nuovo Ticket per Rossi S.r.l.</h3>
+        <button class="btn btn--ghost btn--icon btn--sm" data-close-modal="modal-nuovo-ticket" aria-label="Chiudi">×</button>
+      </div>
+      <div class="modal__body">
+        <div class="field mb-4">
+          <label class="field__label" for="ticket-oggetto">Oggetto <span class="req">*</span></label>
+          <input class="input" id="ticket-oggetto" type="text" placeholder="Es. Errore accesso portale">
+        </div>
+        <div class="field mb-4">
+          <label class="field__label" for="ticket-priorita">Priorità</label>
+          <select class="select" id="ticket-priorita">
+            <option>Bassa</option>
+            <option selected>Media</option>
+            <option>Alta</option>
+            <option>Critica</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="ticket-desc">Descrizione</label>
+          <textarea class="textarea" id="ticket-desc" placeholder="Dettagli della richiesta..."></textarea>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--secondary" data-close-modal="modal-nuovo-ticket">Annulla</button>
+        <button class="btn btn--primary" data-close-modal="modal-nuovo-ticket" data-toast="Ticket #143 creato con successo." data-toast-title="Ticket Aperto" data-toast-variant="success">Crea Ticket</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODALE NUOVO PREVENTIVO ==================== -->
+  <div class="modal-backdrop" id="modal-nuovo-preventivo" role="dialog" aria-modal="true" aria-labelledby="modal-preventivo-title">
+    <div class="modal modal--md">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-preventivo-title">Nuovo Preventivo per Rossi S.r.l.</h3>
+        <button class="btn btn--ghost btn--icon btn--sm" data-close-modal="modal-nuovo-preventivo" aria-label="Chiudi">×</button>
+      </div>
+      <div class="modal__body">
+        <div class="field mb-4">
+          <label class="field__label" for="prev-oggetto">Oggetto <span class="req">*</span></label>
+          <input class="input" id="prev-oggetto" type="text" placeholder="Es. Rinnovo Assistenza Annuale">
+        </div>
+        <div class="flex gap-4 mb-4">
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="prev-importo">Importo (€)</label>
+            <input class="input" id="prev-importo" type="number" placeholder="0,00">
+          </div>
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="prev-validita">Validità</label>
+            <select class="select" id="prev-validita">
+              <option>15 giorni</option>
+              <option selected>30 giorni</option>
+              <option>60 giorni</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--secondary" data-close-modal="modal-nuovo-preventivo">Annulla</button>
+        <button class="btn btn--primary" data-close-modal="modal-nuovo-preventivo" data-toast="Preventivo salvato in bozza." data-toast-title="Preventivo Creato" data-toast-variant="success">Salva Bozza</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('is-collapsed');
+    });
+  </script>
+</body>
+</html>

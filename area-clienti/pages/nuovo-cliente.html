@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuovo Cliente — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+</head>
+<body class="app-body">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+        <a href="elenco-clienti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Elenco Clienti</span>
+        </a>
+        <a href="nuovo-cliente.html" class="nav-item is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-item-text">Nuovo Cliente</span>
+        </a>
+      </div>
+    </nav>
+
+       <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Mario Rossi</div>
+        <div class="sidebar-user-role">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="header-search" onclick="DNAHub.Palette.open()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Cerca ovunque...</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="header-action-btn" aria-label="Notifiche">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="app-main">
+    
+    <!-- Breadcrumb -->
+    <div class="t-sm text-secondary mb-4">
+      <a href="elenco-clienti.html" style="color:inherit; text-decoration:none;">Elenco Clienti</a> / <span class="text-primary w-medium">Nuovo Cliente</span>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Nuovo Cliente</h1>
+      <p class="page-subtitle">Inserisci i dati anagrafici e il referente per creare un nuovo cliente.</p>
+    </div>
+
+    <!-- Layout a due colonne: Form a Sinistra, Riepilogo a Destra -->
+    <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-8);">
+      
+      <!-- COLONNA SINISTRA: Form -->
+      <div class="card" style="padding: var(--space-8);">
+        
+        <!-- Fase 1: Dati Aziendali -->
+        <h3 class="t-lg w-semibold mb-4" style="border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2);">1. Dati Aziendali</h3>
+        
+        <div class="field mb-4">
+          <label class="field__label" for="ragione">Ragione Sociale <span class="req">*</span></label>
+          <input class="input" id="ragione" type="text" placeholder="Es. Nuova Azienda S.r.l.">
+        </div>
+        
+        <div class="flex gap-4 mb-4">
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="piva">Partita IVA <span class="req">*</span></label>
+            <input class="input" id="piva" type="text" placeholder="01234567890">
+          </div>
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="cf">Codice Fiscale</label>
+            <input class="input" id="cf" type="text" placeholder="01234567890">
+          </div>
+        </div>
+
+        <div class="flex gap-4 mb-6">
+          <div class="field" style="flex:2;">
+            <label class="field__label" for="indirizzo">Indirizzo Sede Legale</label>
+            <input class="input" id="indirizzo" type="text" placeholder="Via Roma, 1">
+          </div>
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="citta">Città</label>
+            <input class="input" id="citta" type="text" placeholder="Milano">
+          </div>
+        </div>
+
+        <!-- Fase 2: Referente -->
+        <h3 class="t-lg w-semibold mb-4" style="border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2); margin-top: var(--space-6);">2. Referente Principale</h3>
+
+        <div class="field mb-4">
+          <label class="field__label" for="nome">Nome e Cognome <span class="req">*</span></label>
+          <input class="input" id="nome" type="text" placeholder="Es. Mario Bianchi">
+        </div>
+
+        <div class="flex gap-4 mb-6">
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="email">Email <span class="req">*</span></label>
+            <input class="input" id="email" type="email" placeholder="mario@nuovaazienda.it">
+          </div>
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="telefono">Telefono</label>
+            <input class="input" id="telefono" type="tel" placeholder="+39 02 123456">
+          </div>
+        </div>
+
+        <!-- Azioni -->
+        <div class="flex justify-end gap-3 mt-8 pt-4" style="border-top:1px solid var(--color-border);">
+          <a href="elenco-clienti.html" class="btn btn--secondary">Annulla</a>
+          <button class="btn btn--primary" data-toast="Cliente creato con successo." data-toast-title="Successo" data-toast-variant="success" onclick="setTimeout(() => window.location.href='elenco-clienti.html', 1500)">Salva Cliente</button>
+        </div>
+
+      </div>
+
+      <!-- COLONNA DESTRA: Riepilogo -->
+      <div>
+        <div class="card" style="background: var(--color-primary-subtle); border-color: transparent;">
+          <h4 class="t-md w-semibold mb-2" style="color: var(--color-primary-hover);">Suggerimento</h4>
+          <p class="t-sm" style="color: var(--color-primary-hover); line-height: 1.5;">
+            I campi contrassegnati con <span class="req">*</span> sono obbligatori. La Partita IVA verrà validata automaticamente al salvataggio.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('is-collapsed');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elenco Clienti — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+</head>
+<body class="app-body">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+        <a href="elenco-clienti.html" class="nav-item is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Elenco Clienti</span>
+        </a>
+        <a href="pages/nuovo-cliente.html" class="nav-item">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+  <span class="nav-item-text">Nuovo Cliente</span>
+</a>
+      </div>
+    </nav>
+
+       <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Mario Rossi</div>
+        <div class="sidebar-user-role">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="header-search" onclick="DNAHub.Palette.open()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Cerca ovunque...</span>
+        <kbd style="margin-left:auto; font-family:var(--font-mono); font-size:10px; padding:2px 4px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:4px;">Ctrl K</kbd>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="header-action-btn" aria-label="Notifiche">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notification-badge">3</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="app-main">
+    
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="page-title">Elenco Clienti</h1>
+        <p class="page-subtitle">Gestisci tutti i clienti attivi e archiviati.</p>
+      </div>
+      <button class="btn btn--primary">+ Nuovo Cliente</button>
+    </div>
+
+    <!-- Barra Filtri -->
+    <div class="card mb-6" style="padding: var(--space-4); display:flex; gap: var(--space-4); align-items:center;">
+      <div class="input-wrap" style="flex:1; max-width:400px;">
+        <span class="input-wrap__icon">🔍</span>
+        <input class="input" type="search" placeholder="Cerca per nome, P.IVA, email...">
+      </div>
+      <select class="select" style="width:180px;">
+        <option>Tutti gli stati</option>
+        <option>Attivo</option>
+        <option>In scadenza</option>
+        <option>Scaduto</option>
+      </select>
+      <select class="select" style="width:180px;">
+        <option>Tutte le aziende</option>
+        <option>Rossi Group S.p.A.</option>
+        <option>Bianchi Holding</option>
+      </select>
+    </div>
+
+    <!-- Tabella Clienti -->
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:40px;"><input type="checkbox" aria-label="Seleziona tutto"></th>
+            <th>Cliente</th>
+            <th>Azienda</th>
+            <th>Contatti</th>
+            <th>Stato</th>
+            <th>Ultima attività</th>
+            <th style="width:80px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onclick="window.location.href='cliente.html'" style="cursor:pointer;">
+            <td><input type="checkbox" aria-label="Seleziona Rossi" onclick="event.stopPropagation()"></td>
+            <td>
+              <strong>Rossi S.r.l.</strong><br>
+              <span class="t-xs text-secondary">P.IVA 01234567890</span>
+            </td>
+            <td>Rossi Group S.p.A.</td>
+            <td>2 contatti</td>
+            <td><span class="badge badge--success">Attivo</span></td>
+            <td class="text-secondary">Oggi, 10:32</td>
+            <td><button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button></td>
+          </tr>
+          <tr onclick="window.location.href='cliente.html'" style="cursor:pointer;">
+            <td><input type="checkbox" aria-label="Seleziona Bianchi" onclick="event.stopPropagation()"></td>
+            <td>
+              <strong>Bianchi & C.</strong><br>
+              <span class="t-xs text-secondary">P.IVA 09876543210</span>
+            </td>
+            <td>Bianchi Holding</td>
+            <td>1 contatto</td>
+            <td><span class="badge badge--warning">In scadenza</span></td>
+            <td class="text-secondary">Ieri, 15:45</td>
+            <td><button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button></td>
+          </tr>
+          <tr onclick="window.location.href='cliente.html'" style="cursor:pointer;">
+            <td><input type="checkbox" aria-label="Seleziona Verdi" onclick="event.stopPropagation()"></td>
+            <td>
+              <strong>Verdi S.p.A.</strong><br>
+              <span class="t-xs text-secondary">P.IVA 11223344556</span>
+            </td>
+            <td>—</td>
+            <td>4 contatti</td>
+            <td><span class="badge badge--danger">Scaduto</span></td>
+            <td class="text-secondary">2 giorni fa</td>
+            <td><button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginazione (Segnaposto visivo) -->
+    <div class="flex justify-between items-center mt-4">
+      <span class="t-sm text-secondary">Mostrando 1-10 di 1.284 clienti</span>
+      <div class="flex gap-2">
+        <button class="btn btn--secondary btn--sm" disabled>Precedente</button>
+        <button class="btn btn--secondary btn--sm">Successiva</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('is-collapsed');
+    });
+  </script>
+</body>
+</html>

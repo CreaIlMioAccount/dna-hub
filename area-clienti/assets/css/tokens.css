@@ -1,0 +1,123 @@
+/* ============================================================
+   DNA HUB — DESIGN TOKENS
+   Fonte: Design System ufficiale, Sezioni 2, 3, 4, 7
+   ============================================================ */
+
+:root {
+  /* ---------- COLOR: Brand ---------- */
+  --color-primary:        #2563EB;
+  --color-primary-hover:  #1D4ED8;
+  --color-primary-subtle: #EFF6FF;
+
+  --color-secondary:      #1E293B;
+
+  /* ---------- COLOR: Semantic ---------- */
+  --color-success:        #10B981;
+  --color-success-subtle: #ECFDF5;
+  --color-warning:        #F59E0B;
+  --color-warning-subtle: #FFFBEB;
+  --color-danger:         #EF4444;
+  --color-danger-subtle:  #FEF2F2;
+
+  /* ---------- COLOR: Surface ---------- */
+  --color-bg:             #F8FAFC;
+  --color-surface:        #FFFFFF;
+  --color-surface-hover:  #F1F5F9;
+
+  /* ---------- COLOR: Border ---------- */
+  --color-border:         #E2E8F0;
+  --color-border-strong:  #CBD5E1;
+
+  /* ---------- COLOR: Text ---------- */
+  --color-text:           #0F172A;
+  --color-text-secondary: #64748B;
+  --color-text-disabled:  #94A3B8;
+  --color-text-inverse:   #FFFFFF;
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Consolas", "Liberation Mono",
+               monospace;
+
+  --text-xs:   11px;
+  --text-sm:   12px;
+  --text-base: 14px;
+  --text-md:   16px;
+  --text-lg:   18px;
+  --text-xl:   22px;
+  --text-2xl:  28px;
+  --text-3xl:  36px;
+
+  --leading-xs:   16px;
+  --leading-sm:   18px;
+  --leading-base: 20px;
+  --leading-md:   24px;
+  --leading-lg:   28px;
+  --leading-xl:   30px;
+  --leading-2xl:  36px;
+  --leading-3xl:  44px;
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ---------- SPACING (base 4) ---------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---------- RADIUS ---------- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ---------- SHADOW ---------- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+  /* ---------- MOTION ---------- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-fast: 150ms;
+  --motion-base: 200ms;
+  --motion-slow: 300ms;
+
+  /* ---------- LAYOUT ---------- */
+  --header-height: 64px;
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 64px;
+  --content-max-width: 1440px;
+}
+
+/* ---------- DENSITY (default: standard) ---------- */
+:root {
+  --row-height: 48px;
+  --row-padding-y: var(--space-3);
+}
+:root[data-density="compact"] {
+  --row-height: 40px;
+  --row-padding-y: var(--space-2);
+}
+:root[data-density="comfortable"] {
+  --row-height: 56px;
+  --row-padding-y: var(--space-4);
+}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+  }
+}

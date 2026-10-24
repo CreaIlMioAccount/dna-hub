@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area Clienti — DNA Hub</title>
+  
+  <!-- Stili -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/app-shell.css">
+</head>
+<body class="app-body">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="#" class="nav-item is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+           <a href="pages/elenco-clienti.html" class="nav-item">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  <span class="nav-item-text">Elenco Clienti</span>
+</a>
+        <a href="pages/nuovo-cliente.html" class="nav-item">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+  <span class="nav-item-text">Nuovo Cliente</span>
+</a>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+      <a href="pages/ticket.html" class="nav-item">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+  <span class="nav-item-text">Ticket e Assistenza</span>
+</a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-item-text">Progetti</span>
+        </a>
+      </div>
+    </nav>
+
+       <a href="pages/impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Mario Rossi</div>
+        <div class="sidebar-user-role">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <!-- Pulsante che simula la barra di ricerca -->
+      <div class="header-search" onclick="DNAHub.Palette.open()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Cerca ovunque...</span>
+        <kbd style="margin-left:auto; font-family:var(--font-mono); font-size:10px; padding:2px 4px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:4px;">Ctrl K</kbd>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button class="header-action-btn" aria-label="Notifiche">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notification-badge">3</span>
+      </button>
+      
+      <a href="../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">
+        Torna al sito
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="app-main">
+    <div class="page-header">
+      <h1 class="page-title">Dashboard</h1>
+      <p class="page-subtitle">Benvenuto nell'Area Clienti di DNA Hub.</p>
+    </div>
+
+    <!-- Griglia KPI -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
+            <!-- KPI 1 -->
+      <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
+        <div class="kpi__label">Clienti Totali</div>
+        <div class="kpi__value tabular">1.284</div>
+        <div class="kpi__delta kpi__delta--up">+12% vs mese scorso</div>
+      </button>
+
+      <!-- KPI 2 -->
+      <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
+        <div class="kpi__label">Aziende Totali</div>
+        <div class="kpi__value tabular">312</div>
+        <div class="kpi__delta kpi__delta--flat">—</div>
+      </button>
+
+      <!-- KPI 3 -->
+      <button class="kpi" onclick="window.location.href='pages/ticket.html'">
+        <div class="kpi__label">Ticket Aperti</div>
+        <div class="kpi__value tabular">9</div>
+        <div class="kpi__delta kpi__delta--down">+3 vs ieri</div>
+      </button>
+
+      <!-- KPI 4 -->
+      <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
+        <div class="kpi__label">Contratti Attivi</div>
+        <div class="kpi__value tabular">210</div>
+        <div class="kpi__delta kpi__delta--up">+5 questo mese</div>
+      </button>
+    </div>
+
+    <!-- Fascia Azione (Esempio) -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
+      
+      <!-- Widget: Attività Recenti -->
+      <div class="card">
+        <div class="card__header">
+          <h3 class="card__title">Attività Recenti</h3>
+          <button class="btn btn--link">Vedi tutte</button>
+        </div>
+        <div class="timeline" style="padding-left: var(--space-6);">
+          <div class="timeline__item">
+            <span class="timeline__dot timeline__dot--info"></span>
+            <div class="timeline__title">Ticket #142 aperto</div>
+            <div class="timeline__meta">da Mario Rossi · 10:32</div>
+          </div>
+          <div class="timeline__item">
+            <span class="timeline__dot timeline__dot--success"></span>
+            <div class="timeline__title">Contratto Assistenza firmato</div>
+            <div class="timeline__meta">da Commerciale · 09:15</div>
+          </div>
+          <div class="timeline__item">
+            <span class="timeline__dot timeline__dot--warning"></span>
+            <div class="timeline__title">Fattura #2024-089 in scadenza</div>
+            <div class="timeline__meta">sistema · Ieri 18:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget: Ultimi Clienti Inseriti -->
+      <div class="card">
+        <div class="card__header">
+          <h3 class="card__title">Ultimi Clienti Inseriti</h3>
+          <button class="btn btn--link">Vedi tutti</button>
+        </div>
+        <div class="table-wrap" style="border:none;">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><strong>Rossi S.r.l.</strong></td>
+                <td><span class="badge badge--success">Attivo</span></td>
+                <td class="text-secondary text-sm">Oggi</td>
+              </tr>
+              <tr>
+                <td><strong>Bianchi & C.</strong></td>
+                <td><span class="badge badge--warning">In scadenza</span></td>
+                <td class="text-secondary text-sm">Ieri</td>
+              </tr>
+              <tr>
+                <td><strong>Verdi S.p.A.</strong></td>
+                <td><span class="badge badge--success">Attivo</span></td>
+                <td class="text-secondary text-sm">2 giorni fa</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script -->
+  <script src="assets/js/components.js"></script>
+  <script>
+    // Gestione Collassamento Sidebar
+    const toggleBtn = document.getElementById('toggleSidebar');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('is-collapsed');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impostazioni — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+  
+  <style>
+    /* Layout specifico per le impostazioni a due colonne */
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+    
+    /* Menu interno delle impostazioni */
+    .settings-menu {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    
+    .settings-menu-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--text-base);
+      font-weight: var(--weight-medium);
+      transition: background var(--motion-fast), color var(--motion-fast);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      text-align: left;
+      width: 100%;
+    }
+    
+    .settings-menu-item:hover {
+      background: var(--color-surface-hover);
+      color: var(--color-text);
+    }
+    
+    .settings-menu-item.is-active {
+      background: var(--color-primary-subtle);
+      color: var(--color-primary-hover);
+    }
+
+    /* Sezioni form */
+    .settings-section {
+      display: none;
+    }
+    .settings-section.is-active {
+      display: block;
+      animation: fadeIn 200ms var(--ease-standard);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="app-body">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+        <a href="elenco-clienti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Elenco Clienti</span>
+        </a>
+        <a href="nuovo-cliente.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-item-text">Nuovo Cliente</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+        <a href="ticket.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <span class="nav-item-text">Ticket e Assistenza</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Avatar cliccabile attivo -->
+    <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Mario Rossi</div>
+        <div class="sidebar-user-role">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="header-search" onclick="DNAHub.Palette.open()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Cerca ovunque...</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="header-action-btn" aria-label="Notifiche">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="app-main">
+    
+    <div class="page-header">
+      <h1 class="page-title">Impostazioni</h1>
+      <p class="page-subtitle">Gestisci il tuo profilo, le preferenze e la sicurezza del tuo account.</p>
+    </div>
+
+    <div class="settings-layout">
+      
+      <!-- Menu Interno Impostazioni -->
+      <div class="settings-menu">
+        <button class="settings-menu-item is-active" data-settings-target="profilo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profilo Personale
+        </button>
+        <button class="settings-menu-item" data-settings-target="azienda">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Dati Azienda
+        </button>
+        <button class="settings-menu-item" data-settings-target="notifiche">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Preferenze Notifiche
+        </button>
+        <button class="settings-menu-item" data-settings-target="sicurezza">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Sicurezza
+        </button>
+      </div>
+
+      <!-- Contenuto Impostazioni -->
+      <div class="card" style="padding: var(--space-8);">
+        
+        <!-- Sezione: Profilo -->
+        <div class="settings-section is-active" data-settings-panel="profilo">
+          <h3 class="t-lg w-semibold mb-6">Profilo Personale</h3>
+          
+          <div class="flex items-center gap-4 mb-8">
+            <div class="sidebar-avatar" style="width:64px; height:64px; font-size:24px;">MR</div>
+            <div>
+              <button class="btn btn--secondary btn--sm">Cambia Avatar</button>
+              <p class="t-xs text-secondary mt-2">JPG, PNG o GIF. Max 2MB.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 mb-4">
+            <div class="field" style="flex:1;">
+              <label class="field__label">Nome</label>
+              <input class="input" type="text" value="Mario">
+            </div>
+            <div class="field" style="flex:1;">
+              <label class="field__label">Cognome</label>
+              <input class="input" type="text" value="Rossi">
+            </div>
+          </div>
+          
+          <div class="field mb-4">
+            <label class="field__label">Email</label>
+            <input class="input" type="email" value="mario.rossi@dnainformatica.it">
+          </div>
+          
+          <div class="field mb-6">
+            <label class="field__label">Ruolo</label>
+            <input class="input" type="text" value="Amministratore" disabled>
+            <span class="field__helper">Il ruolo può essere modificato solo da un super-admin.</span>
+          </div>
+
+          <div class="flex justify-end pt-4" style="border-top:1px solid var(--color-border);">
+            <button class="btn btn--primary" data-toast="Profilo aggiornato con successo." data-toast-title="Salvato" data-toast-variant="success">Salva Modifiche</button>
+          </div>
+        </div>
+
+        <!-- Sezione: Azienda -->
+        <div class="settings-section" data-settings-panel="azienda">
+          <h3 class="t-lg w-semibold mb-6">Dati Azienda</h3>
+          
+          <div class="field mb-4">
+            <label class="field__label">Ragione Sociale</label>
+            <input class="input" type="text" value="DNA Informatica S.r.l.">
+          </div>
+          
+          <div class="flex gap-4 mb-4">
+            <div class="field" style="flex:1;">
+              <label class="field__label">Partita IVA</label>
+              <input class="input" type="text" value="01234567890">
+            </div>
+            <div class="field" style="flex:1;">
+              <label class="field__label">Codice Fiscale</label>
+              <input class="input" type="text" value="01234567890">
+            </div>
+          </div>
+
+          <div class="field mb-6">
+            <label class="field__label">Indirizzo Sede</label>
+            <input class="input" type="text" value="Via dell'Innovazione, 1 - Milano (MI)">
+          </div>
+
+          <div class="flex justify-end pt-4" style="border-top:1px solid var(--color-border);">
+            <button class="btn btn--primary" data-toast="Dati aziendali salvati." data-toast-title="Salvato" data-toast-variant="success">Salva Modifiche</button>
+          </div>
+        </div>
+
+        <!-- Sezione: Notifiche -->
+        <div class="settings-section" data-settings-panel="notifiche">
+          <h3 class="t-lg w-semibold mb-6">Preferenze Notifiche</h3>
+          
+          <div class="flex justify-between items-center py-3" style="border-bottom:1px solid var(--color-border);">
+            <div>
+              <div class="w-medium">Nuovi Ticket</div>
+              <div class="t-sm text-secondary">Ricevi un'email quando viene aperto un nuovo ticket.</div>
+            </div>
+            <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--color-primary);">
+          </div>
+          
+          <div class="flex justify-between items-center py-3" style="border-bottom:1px solid var(--color-border);">
+            <div>
+              <div class="w-medium">Contratti in scadenza</div>
+              <div class="t-sm text-secondary">Ricevi un avviso 30 giorni prima della scadenza.</div>
+            </div>
+            <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--color-primary);">
+          </div>
+
+          <div class="flex justify-between items-center py-3" style="border-bottom:1px solid var(--color-border);">
+            <div>
+              <div class="w-medium">Fatture scadute</div>
+              <div class="t-sm text-secondary">Ricevi un avviso quando una fattura non viene pagata.</div>
+            </div>
+            <input type="checkbox" style="width:18px; height:18px; accent-color:var(--color-primary);">
+          </div>
+        </div>
+
+        <!-- Sezione: Sicurezza -->
+        <div class="settings-section" data-settings-panel="sicurezza">
+          <h3 class="t-lg w-semibold mb-6">Sicurezza</h3>
+          
+          <div class="field mb-4">
+            <label class="field__label">Password Attuale</label>
+            <input class="input" type="password" placeholder="••••••••">
+          </div>
+          
+          <div class="field mb-4">
+            <label class="field__label">Nuova Password</label>
+            <input class="input" type="password" placeholder="Minimo 8 caratteri">
+          </div>
+          
+          <div class="field mb-6">
+            <label class="field__label">Conferma Nuova Password</label>
+            <input class="input" type="password" placeholder="Ripeti la password">
+          </div>
+
+          <div class="flex justify-end pt-4" style="border-top:1px solid var(--color-border);">
+            <button class="btn btn--primary" data-toast="Password aggiornata con successo." data-toast-title="Sicurezza" data-toast-variant="success">Aggiorna Password</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    // Toggle Sidebar
+    const toggleBtn = document.getElementById('toggleSidebar');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('is-collapsed');
+    });
+
+    // Logica per il menu interno delle impostazioni
+    const menuItems = document.querySelectorAll('.settings-menu-item');
+    const panels = document.querySelectorAll('.settings-section');
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Rimuovi active da tutti
+        menuItems.forEach(i => i.classList.remove('is-active'));
+        panels.forEach(p => p.classList.remove('is-active'));
+        
+        // Aggiungi active a quello cliccato
+        item.classList.add('is-active');
+        
+        // Trova e mostra il pannello corrispondente
+        const target = item.getAttribute('data-settings-target');
+        document.querySelector(`[data-settings-panel="${target}"]`).classList.add('is-active');
+      });
+    });
+  </script>
+</body>
+</html>
