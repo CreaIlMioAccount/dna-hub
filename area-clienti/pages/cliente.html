@@ -83,10 +83,22 @@
       </div>
     </div>
     <div class="header-right">
-      <button class="header-action-btn" aria-label="Notifiche" onclick="window.location.href='ticket.html'">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="notification-badge">3</span>
-      </button>
+      
+      <!-- CENTRO NOTIFICHE -->
+      <div style="position:relative;">
+        <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notification-badge" id="badgeNotifiche" style="display:none;">0</span>
+        </button>
+        
+        <div id="pannelloNotifiche" style="display:none; position:absolute; right:0; top:100%; margin-top:8px; width:320px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:1000; overflow:hidden;">
+          <div style="padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-border); font-weight:var(--weight-semibold);">Notifiche Recenti</div>
+          <div id="listaNotifiche" style="max-height:300px; overflow-y:auto;">
+            <div style="padding:var(--space-4); text-align:center; color:var(--color-text-secondary); font-size:var(--text-sm);">Caricamento...</div>
+          </div>
+        </div>
+      </div>
+
       <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
       <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
@@ -108,8 +120,8 @@
           <div class="client-meta" id="clienteDettagli">Caricamento dati...</div>
         </div>
         <div style="display:flex; gap:var(--space-2);">
-          <button class="btn btn--secondary">Nuovo Ticket</button>
-          <button class="btn btn--primary">Nuovo Preventivo</button>
+          <button class="btn btn--secondary" id="btnNuovoTicketCliente">Nuovo Ticket</button>
+          <button class="btn btn--primary" data-toast="Funzione in costruzione" data-toast-title="Info" data-toast-variant="info">Nuovo Preventivo</button>
         </div>
       </div>
 
@@ -120,7 +132,7 @@
         </div>
         <div class="client-kpi">
           <span class="client-kpi-label">Ticket aperti</span>
-          <span class="client-kpi-value" style="color:var(--color-danger);">0</span>
+          <span class="client-kpi-value" id="kpiTicket" style="color:var(--color-danger);">0</span>
         </div>
         <div class="client-kpi">
           <span class="client-kpi-label">Contratti</span>
@@ -138,7 +150,7 @@
       <div class="tabs" role="tablist">
         <button class="tab is-active" role="tab" aria-selected="true" data-target="overview">Overview</button>
         <button class="tab" role="tab" aria-selected="false" data-target="timeline">Timeline</button>
-        <button class="tab" role="tab" aria-selected="false" data-target="ticket">Ticket <span class="tab__count">0</span></button>
+        <button class="tab" role="tab" aria-selected="false" data-target="ticket">Ticket <span class="tab__count" id="countTicketTab">0</span></button>
         <button class="tab" role="tab" aria-selected="false" data-target="progetti">Progetti</button>
       </div>
     </div>
@@ -166,13 +178,61 @@
         </div>
       </div>
       <div data-tab-panel="timeline" hidden><p class="text-secondary">Timeline completa (in costruzione).</p></div>
-      <div data-tab-panel="ticket" hidden><p class="text-secondary">Nessun ticket trovato per questo cliente.</p></div>
+      <div data-tab-panel="ticket" hidden>
+        <h3 class="t-lg w-semibold mb-4">Ticket del Cliente</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Oggetto</th>
+                <th>Priorità</th>
+                <th>Stato</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody id="tabellaTicketCliente">
+              <tr><td colspan="5" class="text-center p-4">Caricamento...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div data-tab-panel="progetti" hidden><p class="text-secondary">Nessun progetto trovato per questo cliente.</p></div>
     </div>
   </main>
 
+  <!-- Modale Nuovo Ticket (dalla Scheda Cliente) -->
+  <div class="modal-backdrop" id="modal-nuovo-ticket-cliente" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title">Nuovo Ticket per <span id="nomeClienteModale"></span></h3>
+        <button class="btn btn--ghost btn--icon btn--sm" data-close-modal="modal-nuovo-ticket-cliente" aria-label="Chiudi">×</button>
+      </div>
+      <div class="modal__body">
+        <div class="field mb-4">
+          <label class="field__label" for="cliente-ticket-oggetto">Oggetto <span class="req">*</span></label>
+          <input class="input" id="cliente-ticket-oggetto" type="text" placeholder="Es. Errore accesso portale">
+        </div>
+        <div class="field">
+          <label class="field__label" for="cliente-ticket-priorita">Priorità</label>
+          <select class="select" id="cliente-ticket-priorita">
+            <option>Bassa</option>
+            <option selected>Media</option>
+            <option>Alta</option>
+            <option>Critica</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--secondary" data-close-modal="modal-nuovo-ticket-cliente">Annulla</button>
+        <button class="btn btn--primary" id="btnCreaTicketCliente">Crea Ticket</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
+    import { initNotifiche } from '../assets/js/notifiche.js';
 
     // Controllo Auth
     const { data: { session } } = await supabase.auth.getSession();
@@ -181,12 +241,28 @@
     } else {
       document.body.style.visibility = 'visible';
 
+      // Logout
       document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = '../login.html';
       });
 
-      // Carica dati cliente
+      // --- GESTIONE DEI TAB ---
+      const tabs = document.querySelectorAll('.tab');
+      const panels = document.querySelectorAll('[data-tab-panel]');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('is-active'));
+          panels.forEach(p => p.hidden = true);
+          tab.classList.add('is-active');
+          const targetId = tab.getAttribute('data-target');
+          const targetPanel = document.querySelector(`[data-tab-panel="${targetId}"]`);
+          if (targetPanel) targetPanel.hidden = false;
+        });
+      });
+
+      // --- CARICAMENTO DATI CLIENTE ---
       const urlParams = new URLSearchParams(window.location.search);
       const clienteId = urlParams.get('id');
 
@@ -212,7 +288,85 @@
             <strong>Data Inserimento:</strong> ${new Date(data.created_at).toLocaleDateString('it-IT')}
           `;
         }
+
+        // --- CARICAMENTO TICKET DEL CLIENTE ---
+        async function caricaTicketCliente() {
+          const tbody = document.getElementById('tabellaTicketCliente');
+          
+          const { data: tickets, error } = await supabase
+            .from('tickets')
+            .select('*')
+            .eq('cliente_id', clienteId)
+            .order('created_at', { ascending: false });
+
+          if (error) {
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
+            return;
+          }
+
+          if (tickets.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Nessun ticket trovato per questo cliente.</td></tr>';
+          } else {
+            tbody.innerHTML = tickets.map(ticket => `
+              <tr style="cursor:pointer;">
+                <td><span class="w-semibold text-secondary">#${ticket.id.substring(0,4)}</span></td>
+                <td><strong>${ticket.oggetto}</strong></td>
+                <td><span class="badge badge--${ticket.priorita === 'Alta' ? 'warning' : (ticket.priorita === 'Critica' ? 'danger' : 'neutral')}">${ticket.priorita}</span></td>
+                <td><span class="badge badge--${ticket.stato === 'Aperto' ? 'success' : (ticket.stato === 'In lavorazione' ? 'info' : 'warning')}">${ticket.stato}</span></td>
+                <td class="text-secondary">${new Date(ticket.created_at).toLocaleDateString('it-IT')}</td>
+              </tr>
+            `).join('');
+          }
+
+          // Aggiorna i contatori con il numero reale di ticket
+          document.getElementById('kpiTicket').textContent = tickets.length;
+          document.getElementById('countTicketTab').textContent = tickets.length;
+        }
+
+        // Chiamiamo il caricamento dei ticket
+        caricaTicketCliente();
       }
+
+      // --- AZIONI RAPIDE (Nuovo Ticket) ---
+      document.getElementById('btnNuovoTicketCliente')?.addEventListener('click', () => {
+        const nomeCliente = document.getElementById('clienteNome').textContent;
+        document.getElementById('nomeClienteModale').textContent = nomeCliente;
+        window.DNAHub.Modal.open('modal-nuovo-ticket-cliente');
+      });
+
+      document.getElementById('btnCreaTicketCliente')?.addEventListener('click', async () => {
+        const oggetto = document.getElementById('cliente-ticket-oggetto').value;
+        const priorita = document.getElementById('cliente-ticket-priorita').value;
+        
+        if (!oggetto) { alert("L'oggetto è obbligatorio!"); return; }
+
+        const btn = document.getElementById('btnCreaTicketCliente');
+        btn.innerHTML = 'Creazione...';
+        btn.disabled = true;
+
+        const { error } = await supabase.from('tickets').insert([{ 
+          oggetto: oggetto, 
+          priorita: priorita, 
+          stato: 'Aperto',
+          cliente_id: clienteId 
+        }]);
+
+        btn.innerHTML = 'Crea Ticket';
+        btn.disabled = false;
+
+        if (error) {
+          alert("Errore: " + error.message);
+        } else {
+          window.DNAHub.Modal.close('modal-nuovo-ticket-cliente');
+          window.DNAHub.Toast.show({ title: "Successo", message: "Ticket creato.", variant: "success" });
+          document.getElementById('cliente-ticket-oggetto').value = '';
+          // Ricarica la tabella e i contatori
+          caricaTicketCliente();
+        }
+      });
+
+      // Inizializza le notifiche
+      initNotifiche();
     }
   </script>
 
