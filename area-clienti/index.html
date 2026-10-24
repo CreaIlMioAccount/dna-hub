@@ -70,15 +70,31 @@
       <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <div class="header-search" onclick="DNAHub.Palette.open()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
-        <span>Cerca ovunque...</span>
-        <kbd style="margin-left:auto; font-family:var(--font-mono); font-size:10px; padding:2px 4px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:4px;">Ctrl K</kbd>
+      
+      <!-- BARRA DI RICERCA CON SUGGERIMENTI -->
+      <div style="position:relative; width:320px;">
+        <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
+          
+          <!-- Icona Lente Cliccabile -->
+          <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+          
+          <!-- Input di ricerca -->
+          <input type="text" id="headerSearchInput" placeholder="Cerca un cliente..." style="border:none; background:transparent; outline:none; font-size:14px; color:var(--color-text); flex:1; margin-left:8px; font-family:inherit;">
+          
+          <!-- X per resettare (nascosta di default) -->
+          <button id="btnClearSearch" style="display:none; background:none; border:none; cursor:pointer; color:var(--color-text-secondary); padding:0; margin-left:8px;" aria-label="Cancella ricerca">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        
+        <!-- Tendina dei suggerimenti -->
+        <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;">
+          <!-- I risultati vengono iniettati qui -->
+        </div>
       </div>
     </div>
     <div class="header-right">
       
-      <!-- CENTRO NOTIFICHE -->
       <div style="position:relative;">
         <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -104,7 +120,6 @@
       <p class="page-subtitle">Benvenuto nell'Area Clienti di DNA Hub.</p>
     </div>
 
-    <!-- Griglia KPI -->
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
       <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
         <div class="kpi__label">Clienti Totali</div>
@@ -131,7 +146,6 @@
       </button>
     </div>
 
-    <!-- Fascia Azione -->
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
       <div class="card">
         <div class="card__header">
@@ -163,7 +177,6 @@
     import { supabase } from './assets/js/supabase-client.js';
     import { initNotifiche } from './assets/js/notifiche.js';
 
-    // 1. Controlla se l'utente è loggato
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
@@ -171,13 +184,68 @@
     } else {
       document.body.style.visibility = 'visible';
 
-      // 2. Logout
       document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = 'login.html';
       });
 
-      // 3. Esegui il caricamento dei dati
+      // --- LOGICA DI RICERCA CON SUGGERIMENTI ---
+      window.supabaseClient = supabase;
+      const searchInput = document.getElementById('headerSearchInput');
+      const searchResults = document.getElementById('headerSearchResults');
+      const btnClearSearch = document.getElementById('btnClearSearch');
+      
+      const isInPages = window.location.pathname.includes('/pages/');
+      const targetPage = isInPages ? 'cliente.html' : 'pages/cliente.html';
+
+      if (searchInput && searchResults) {
+        searchInput.addEventListener('input', async (e) => {
+          const query = e.target.value.trim();
+          
+          // Mostra/nascondi la X
+          btnClearSearch.style.display = query.length > 0 ? 'block' : 'none';
+
+          if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+          }
+
+          const clienti = await window.DNAHub.GlobalSearch.cerca(query);
+          
+          if (clienti.length === 0) {
+            searchResults.innerHTML = '<div style="padding:12px; text-align:center; color:var(--color-text-secondary); font-size:13px;">Nessun cliente trovato.</div>';
+            searchResults.style.display = 'block';
+            return;
+          }
+
+          searchResults.innerHTML = clienti.map(c => `
+            <div onclick="window.location.href='${targetPage}?id=${c.id}'" style="display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; border-bottom:1px solid var(--color-border);" onmouseover="this.style.background='var(--color-surface-hover)'" onmouseout="this.style.background='transparent'">
+              <div style="width:28px; height:28px; background:var(--color-primary-subtle); color:var(--color-primary); border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px;">${c.ragione_sociale.substring(0,2).toUpperCase()}</div>
+              <div>
+                <div style="font-weight:600; font-size:13px; color:var(--color-text);">${c.ragione_sociale}</div>
+                <div style="font-size:11px; color:var(--color-text-secondary);">P.IVA ${c.partita_iva || '—'}</div>
+              </div>
+            </div>
+          `).join('');
+          
+          searchResults.style.display = 'block';
+        });
+
+        // Cliccando sulla X, svuota tutto
+        btnClearSearch.addEventListener('click', () => {
+          searchInput.value = '';
+          searchResults.style.display = 'none';
+          btnClearSearch.style.display = 'none';
+          searchInput.focus();
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.style.display = 'none';
+          }
+        });
+      }
+
       async function caricaDashboard() {
         const { count: clientiCount } = await supabase.from('clienti').select('*', { count: 'exact', head: true });
         if (clientiCount !== null) document.getElementById('kpiClienti').textContent = clientiCount;
@@ -216,7 +284,6 @@
           timeline.innerHTML = '<div class="timeline__item text-secondary t-sm p-2">Nessuna attività recente.</div>';
         }
         
-        // Inizializza le notifiche
         initNotifiche();
       }
       

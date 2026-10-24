@@ -177,42 +177,31 @@
     });
   }
 
-  const Palette = {
-    open(id = "palette") {
-      const backdrop = document.getElementById(id);
-      if (!backdrop) return;
-      backdrop.classList.add("is-open");
-      const input = $(".palette__input", backdrop);
-      if (input) setTimeout(() => input.focus(), 50);
+  // ---------- MOTORE DI RICERCA GLOBALE (Solo logica) ----------
+  const GlobalSearch = {
+    async cerca(query) {
+      // Usiamo window.supabaseClient che impostiamo in ogni pagina
+      if (!window.supabaseClient) {
+        console.warn("Supabase client non trovato per la ricerca.");
+        return [];
+      }
+      if (query.length < 2) return [];
 
-      const close = () => {
-        backdrop.classList.remove("is-open");
-      };
-      backdrop._close = close;
+      try {
+        const { data: clienti, error } = await window.supabaseClient
+          .from('clienti')
+          .select('id, ragione_sociale, partita_iva')
+          .ilike('ragione_sociale', `%${query}%`)
+          .limit(5);
 
-      backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) close();
-      });
-      const escHandler = (e) => {
-        if (e.key === "Escape") {
-          close();
-          document.removeEventListener("keydown", escHandler);
-        }
-      };
-      document.addEventListener("keydown", escHandler);
-    },
-    close(id = "palette") {
-      const backdrop = document.getElementById(id);
-      if (backdrop && backdrop._close) backdrop._close();
-    },
-  };
-
-  document.addEventListener("keydown", (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      Palette.open();
+        if (error) throw error;
+        return clienti || [];
+      } catch (err) {
+        console.error("Errore ricerca:", err);
+        return [];
+      }
     }
-  });
+  };
 
   document.addEventListener("click", (e) => {
     const trigger = e.target.closest("[data-open-modal]");
@@ -250,7 +239,6 @@
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    // 1. Gestione Toggle Sidebar (Hamburger)
     const toggleBtn = document.getElementById('toggleSidebar');
     if (toggleBtn) {
       toggleBtn.addEventListener('click', () => {
@@ -258,7 +246,6 @@
       });
     }
 
-    // 2. Evidenziazione automatica del menu
     const path = window.location.pathname;
     const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
@@ -271,7 +258,6 @@
       }
     });
 
-    // 3. Logica per il menu interno delle IMPOSTAZIONI
     const menuItems = document.querySelectorAll('.settings-menu-item');
     const panels = document.querySelectorAll('.settings-section');
 
@@ -289,5 +275,5 @@
     }
   });
 
-  window.DNAHub = { Modal, Drawer, Toast, Palette };
+  window.DNAHub = { Modal, Drawer, Toast, GlobalSearch };
 })();
