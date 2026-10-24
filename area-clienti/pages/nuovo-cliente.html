@@ -39,9 +39,21 @@
           <span class="nav-item-text">Nuovo Cliente</span>
         </a>
       </div>
+      
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+        <a href="ticket.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <span class="nav-item-text">Ticket e Assistenza</span>
+        </a>
+        <a href="progetti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-item-text">Progetti</span>
+        </a>
+      </div>
     </nav>
 
-       <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+    <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
       <div class="sidebar-avatar">MR</div>
       <div class="sidebar-user-info">
         <div class="sidebar-user-name">Mario Rossi</div>
@@ -139,7 +151,7 @@
         <!-- Azioni -->
         <div class="flex justify-end gap-3 mt-8 pt-4" style="border-top:1px solid var(--color-border);">
           <a href="elenco-clienti.html" class="btn btn--secondary">Annulla</a>
-          <button class="btn btn--primary" data-toast="Cliente creato con successo." data-toast-title="Successo" data-toast-variant="success" onclick="setTimeout(() => window.location.href='elenco-clienti.html', 1500)">Salva Cliente</button>
+          <button class="btn btn--primary" id="btnSalvaCliente">Salva Cliente</button>
         </div>
 
       </div>
@@ -157,12 +169,77 @@
     </div>
   </main>
 
-  <script src="../assets/js/components.js"></script>
-  <script>
-    const toggleBtn = document.getElementById('toggleSidebar');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('is-collapsed');
+  <!-- Script per il salvataggio su Supabase -->
+  <script type="module">
+    import { supabase } from '../assets/js/supabase-client.js';
+
+    document.getElementById('btnSalvaCliente').addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const ragione = document.getElementById('ragione').value;
+      const piva = document.getElementById('piva').value;
+      const nome = document.getElementById('nome').value;
+
+      if (!ragione || !piva) {
+        alert("Ragione Sociale e Partita IVA sono obbligatorie!");
+        return;
+      }
+
+      const btn = document.getElementById('btnSalvaCliente');
+      const testoOriginale = btn.innerHTML;
+      btn.innerHTML = 'Salvataggio...';
+      btn.disabled = true;
+
+      const { data, error } = await supabase
+        .from('clienti')
+        .insert([
+          { 
+            ragione_sociale: ragione, 
+            partita_iva: piva,
+            azienda: '—',
+            stato: 'Attivo',
+            contatti_count: 1
+          }
+        ]);
+
+      btn.innerHTML = testoOriginale;
+      btn.disabled = false;
+
+            if (error) {
+        console.error(error);
+        // Usa il nostro Toast per l'errore
+        if (window.DNAHub) {
+          window.DNAHub.Toast.show({
+            title: "Errore",
+            message: error.message,
+            variant: "danger",
+            duration: 4000
+          });
+        } else {
+          alert("Errore: " + error.message);
+        }
+        // Riabilita il bottone se c'è un errore
+        btn.innerHTML = testoOriginale;
+        btn.disabled = false;
+      } else {
+        // Usa il nostro Toast per il successo
+        if (window.DNAHub) {
+          window.DNAHub.Toast.show({
+            title: "Successo",
+            message: "Cliente creato correttamente.",
+            variant: "success",
+            duration: 2000
+          });
+        }
+        
+        // Aspetta 1.5 secondi e poi vai all'elenco
+        setTimeout(() => {
+          window.location.href = 'elenco-clienti.html';
+        }, 1500);
+      }
     });
   </script>
+
+  <script src="../assets/js/components.js"></script>
 </body>
 </html>

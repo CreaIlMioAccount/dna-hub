@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progetti — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+</head>
+<body class="app-body">
+
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+        <a href="elenco-clienti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Elenco Clienti</span>
+        </a>
+        <a href="nuovo-cliente.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-item-text">Nuovo Cliente</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+        <a href="ticket.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <span class="nav-item-text">Ticket e Assistenza</span>
+        </a>
+        <a href="progetti.html" class="nav-item is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-item-text">Progetti</span>
+        </a>
+      </div>
+    </nav>
+    <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">Mario Rossi</div>
+        <div class="sidebar-user-role">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="header-search" onclick="DNAHub.Palette.open()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Cerca ovunque...</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="header-action-btn" aria-label="Notifiche">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notification-badge">3</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="page-title">Progetti</h1>
+        <p class="page-subtitle">Monitora l'avanzamento dei lavori e le scadenze.</p>
+      </div>
+      <button class="btn btn--primary" data-toast="Funzione in costruzione" data-toast-title="Info" data-toast-variant="info">+ Nuovo Progetto</button>
+    </div>
+
+    <!-- Filtri -->
+    <div class="flex gap-4 mb-6">
+      <div class="input-wrap" style="flex:1; max-width:300px;">
+        <span class="input-wrap__icon">🔍</span>
+        <input class="input" type="search" placeholder="Cerca progetto...">
+      </div>
+      <select class="select" style="width:180px;">
+        <option>Tutti gli stati</option>
+        <option>In corso</option>
+        <option>Completato</option>
+        <option>In pausa</option>
+      </select>
+    </div>
+
+    <!-- Griglia Progetti -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+      
+      <!-- Card Progetto 1 -->
+      <div class="card card--interactive" onclick="window.location.href='cliente.html'">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="t-xs text-secondary mb-1">Rossi S.r.l.</div>
+            <h3 class="t-md w-semibold">Implementazione Gestionale</h3>
+          </div>
+          <span class="badge badge--info">In corso</span>
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between t-sm mb-2">
+            <span class="text-secondary">Avanzamento</span>
+            <span class="w-semibold">65%</span>
+          </div>
+          <!-- Barra di progresso -->
+          <div style="height: 6px; background: var(--color-surface-hover); border-radius: var(--radius-full); overflow: hidden;">
+            <div style="width: 65%; height: 100%; background: var(--color-primary); border-radius: var(--radius-full);"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center t-sm pt-4" style="border-top: 1px solid var(--color-border);">
+          <div class="flex items-center gap-2">
+            <div class="sidebar-avatar" style="width:24px; height:24px; font-size:10px;">MR</div>
+            <span class="text-secondary">Mario Rossi</span>
+          </div>
+          <span class="text-warning w-semibold">Scade tra 5gg</span>
+        </div>
+      </div>
+
+      <!-- Card Progetto 2 -->
+      <div class="card card--interactive" onclick="window.location.href='cliente.html'">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="t-xs text-secondary mb-1">Verdi S.p.A.</div>
+            <h3 class="t-md w-semibold">Migrazione Cloud</h3>
+          </div>
+          <span class="badge badge--danger">In ritardo</span>
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between t-sm mb-2">
+            <span class="text-secondary">Avanzamento</span>
+            <span class="w-semibold">20%</span>
+          </div>
+          <div style="height: 6px; background: var(--color-surface-hover); border-radius: var(--radius-full); overflow: hidden;">
+            <div style="width: 20%; height: 100%; background: var(--color-danger); border-radius: var(--radius-full);"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center t-sm pt-4" style="border-top: 1px solid var(--color-border);">
+          <div class="flex items-center gap-2">
+            <div class="sidebar-avatar" style="width:24px; height:24px; font-size:10px; background:var(--color-surface-hover); color:var(--color-text);">LB</div>
+            <span class="text-secondary">Luca Bianchi</span>
+          </div>
+          <span class="text-danger w-semibold">Scaduto da 2gg</span>
+        </div>
+      </div>
+
+      <!-- Card Progetto 3 -->
+      <div class="card card--interactive" onclick="window.location.href='cliente.html'">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="t-xs text-secondary mb-1">Bianchi & C.</div>
+            <h3 class="t-md w-semibold">Sviluppo E-commerce</h3>
+          </div>
+          <span class="badge badge--success">Completato</span>
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex justify-between t-sm mb-2">
+            <span class="text-secondary">Avanzamento</span>
+            <span class="w-semibold">100%</span>
+          </div>
+          <div style="height: 6px; background: var(--color-surface-hover); border-radius: var(--radius-full); overflow: hidden;">
+            <div style="width: 100%; height: 100%; background: var(--color-success); border-radius: var(--radius-full);"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center t-sm pt-4" style="border-top: 1px solid var(--color-border);">
+          <div class="flex items-center gap-2">
+            <div class="sidebar-avatar" style="width:24px; height:24px; font-size:10px;">MR</div>
+            <span class="text-secondary">Mario Rossi</span>
+          </div>
+          <span class="text-secondary">Consegnato</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/components.js"></script>
+</body>
+</html>

@@ -295,32 +295,23 @@
     </div>
   </main>
 
-  <script src="../assets/js/components.js"></script>
-  <script>
-    // Toggle Sidebar
-    const toggleBtn = document.getElementById('toggleSidebar');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('is-collapsed');
-    });
-
-    // Logica per il menu interno delle impostazioni
-    const menuItems = document.querySelectorAll('.settings-menu-item');
-    const panels = document.querySelectorAll('.settings-section');
-
-    menuItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Rimuovi active da tutti
-        menuItems.forEach(i => i.classList.remove('is-active'));
-        panels.forEach(p => p.classList.remove('is-active'));
-        
-        // Aggiungi active a quello cliccato
-        item.classList.add('is-active');
-        
-        // Trova e mostra il pannello corrispondente
-        const target = item.getAttribute('data-settings-target');
-        document.querySelector(`[data-settings-panel="${target}"]`).classList.add('is-active');
+    <script>
+    // Illumina subito il menu senza aspettare il caricamento globale
+    (function() {
+      const path = window.location.pathname;
+      const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+      const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
+      
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.includes(currentPage)) {
+          navLinks.forEach(l => l.classList.remove('is-active'));
+          link.classList.add('is-active');
+        }
       });
-    });
+    })();
   </script>
+   <script src="../assets/js/components.js"></script>
+  
 </body>
 </html>

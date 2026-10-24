@@ -257,11 +257,67 @@
     }
   });
 
-  // ---------- INIT ----------
+   // ---------- INIT ----------
   document.addEventListener("DOMContentLoaded", () => {
     initTabs();
   });
 
+  // ---------- LOGICA MENU E HIGHLIGHT ----------
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Gestione Toggle Sidebar (Hamburger)
+    const toggleBtn = document.getElementById('toggleSidebar');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('is-collapsed');
+      });
+    }
+
+    // 2. Evidenziazione automatica del menu
+    const path = window.location.pathname;
+    const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && href.includes(currentPage)) {
+        navLinks.forEach(l => l.classList.remove('is-active'));
+        link.classList.add('is-active');
+      }
+    });
+
+    // 3. Logica per il menu interno delle IMPOSTAZIONI (se presenti nella pagina)
+    const menuItems = document.querySelectorAll('.settings-menu-item');
+    const panels = document.querySelectorAll('.settings-section');
+
+    if (menuItems.length > 0) {
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          menuItems.forEach(i => i.classList.remove('is-active'));
+          panels.forEach(p => p.classList.remove('is-active'));
+          
+          item.classList.add('is-active');
+          
+          const target = item.getAttribute('data-settings-target');
+          const targetPanel = document.querySelector(`[data-settings-panel="${target}"]`);
+          if (targetPanel) targetPanel.classList.add('is-active');
+        });
+      });
+    }
+  });
+
   // Expose per uso manuale
   window.DNAHub = { Modal, Drawer, Toast, Palette };
+  // Expose per uso manuale (Questo è l'ultimo blocco)
+  window.DNAHub = { Modal, Drawer, Toast, Palette };
+
+
+
+
+
+
+
+
+
+
+  
 })();

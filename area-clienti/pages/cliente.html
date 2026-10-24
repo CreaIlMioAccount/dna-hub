@@ -401,15 +401,27 @@
 
 
 
-
-
-
-  <script src="../assets/js/components.js"></script>
   <script>
-    const toggleBtn = document.getElementById('toggleSidebar');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('is-collapsed');
-    });
+    // Illumina subito il menu senza aspettare il caricamento globale
+    (function() {
+      const path = window.location.pathname;
+      const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+      const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
+      
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.includes(currentPage)) {
+          navLinks.forEach(l => l.classList.remove('is-active'));
+          link.classList.add('is-active');
+        }
+      });
+    })();
   </script>
+
+
+   <script src="assets/js/components.js"></script>
+ 
+</body>
+</html>
 </body>
 </html>
