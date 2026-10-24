@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accedi — DNA Hub</title>
+  
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: var(--color-bg);
+    }
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      padding: var(--space-8);
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card login-card">
+    <div class="text-center mb-8">
+      <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; background:var(--color-primary-subtle); color:var(--color-primary); border-radius:12px; margin-bottom:var(--space-4);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <h1 class="t-2xl w-bold">DNA Hub</h1>
+      <p class="t-sm text-secondary mt-1">Accedi all'Area Clienti</p>
+    </div>
+
+    <div class="field mb-4">
+      <label class="field__label" for="loginEmail">Email</label>
+      <input class="input" id="loginEmail" type="email" placeholder="mario.rossi@dnainformatica.it">
+    </div>
+    
+    <div class="field mb-6">
+      <label class="field__label" for="loginPassword">Password</label>
+      <input class="input" id="loginPassword" type="password" placeholder="••••••••">
+    </div>
+
+    <button class="btn btn--primary w-full" id="loginBtn">Accedi</button>
+    
+    <p class="t-sm text-center mt-4 text-secondary" id="loginMsg"></p>
+    
+    <div class="text-center mt-6 pt-4" style="border-top:1px solid var(--color-border);">
+      <a href="../index.html" class="t-sm text-secondary" style="text-decoration:none;">← Torna al sito pubblico</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './assets/js/supabase-client.js';
+
+    document.getElementById('loginBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const msg = document.getElementById('loginMsg');
+      const btn = document.getElementById('loginBtn');
+
+      if (!email || !password) {
+        msg.textContent = "Inserisci email e password.";
+        msg.style.color = "var(--color-danger)";
+        return;
+      }
+
+      btn.innerHTML = 'Accesso in corso...';
+      btn.disabled = true;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        msg.textContent = "Errore: " + error.message;
+        msg.style.color = "var(--color-danger)";
+        btn.innerHTML = 'Accedi';
+        btn.disabled = false;
+      } else {
+        msg.textContent = "Accesso effettuato! Reindirizzamento...";
+        msg.style.color = "var(--color-success)";
+        // Reindirizza alla Dashboard
+        window.location.href = 'index.html'; 
+      }
+    });
+  </script>
+</body>
+</html>

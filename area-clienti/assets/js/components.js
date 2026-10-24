@@ -1,17 +1,13 @@
 /* ============================================================
    DNA HUB — COMPONENTS JS
-   Comportamento per: modal, drawer, toast, tab, palette
-   API dichiarative via data-*
    ============================================================ */
 
 (function () {
   "use strict";
 
-  // ---------- HELPERS ----------
   const $  = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  // ---------- FOCUS TRAP ----------
   function trapFocus(container) {
     const focusables = $$(
       'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
@@ -35,7 +31,6 @@
     return () => container.removeEventListener("keydown", handler);
   }
 
-  // ---------- MODAL ----------
   const Modal = {
     open(id) {
       const backdrop = document.getElementById(id);
@@ -73,7 +68,6 @@
     },
   };
 
-  // ---------- DRAWER ----------
   const Drawer = {
     open(id) {
       const backdrop = document.getElementById(id);
@@ -109,7 +103,6 @@
     },
   };
 
-  // ---------- TOAST ----------
   const Toast = {
     show(opts = {}) {
       const { title = "", message = "", variant = "info", duration = 3000 } = opts;
@@ -141,12 +134,10 @@
       el.querySelector(".toast__close").addEventListener("click", remove);
       if (duration > 0) setTimeout(remove, duration);
 
-      // Max 3 toast
       while (stack.children.length > 3) stack.firstChild.remove();
     },
   };
 
-  // ---------- TABS ----------
   function initTabs(root = document) {
     $$("[data-tabs]", root).forEach((group) => {
       const tabs = $$(".tab", group);
@@ -186,7 +177,6 @@
     });
   }
 
-  // ---------- COMMAND PALETTE ----------
   const Palette = {
     open(id = "palette") {
       const backdrop = document.getElementById(id);
@@ -217,7 +207,6 @@
     },
   };
 
-  // ---------- GLOBAL SHORTCUT: Ctrl/Cmd+K ----------
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
       e.preventDefault();
@@ -225,7 +214,6 @@
     }
   });
 
-  // ---------- DATA ATTRIBUTE BINDINGS ----------
   document.addEventListener("click", (e) => {
     const trigger = e.target.closest("[data-open-modal]");
     if (trigger) {
@@ -257,12 +245,10 @@
     }
   });
 
-   // ---------- INIT ----------
   document.addEventListener("DOMContentLoaded", () => {
     initTabs();
   });
 
-  // ---------- LOGICA MENU E HIGHLIGHT ----------
   document.addEventListener("DOMContentLoaded", () => {
     // 1. Gestione Toggle Sidebar (Hamburger)
     const toggleBtn = document.getElementById('toggleSidebar');
@@ -285,7 +271,7 @@
       }
     });
 
-    // 3. Logica per il menu interno delle IMPOSTAZIONI (se presenti nella pagina)
+    // 3. Logica per il menu interno delle IMPOSTAZIONI
     const menuItems = document.querySelectorAll('.settings-menu-item');
     const panels = document.querySelectorAll('.settings-section');
 
@@ -294,9 +280,7 @@
         item.addEventListener('click', () => {
           menuItems.forEach(i => i.classList.remove('is-active'));
           panels.forEach(p => p.classList.remove('is-active'));
-          
           item.classList.add('is-active');
-          
           const target = item.getAttribute('data-settings-target');
           const targetPanel = document.querySelector(`[data-settings-panel="${target}"]`);
           if (targetPanel) targetPanel.classList.add('is-active');
@@ -305,19 +289,5 @@
     }
   });
 
-  // Expose per uso manuale
   window.DNAHub = { Modal, Drawer, Toast, Palette };
-  // Expose per uso manuale (Questo è l'ultimo blocco)
-  window.DNAHub = { Modal, Drawer, Toast, Palette };
-
-
-
-
-
-
-
-
-
-
-  
 })();

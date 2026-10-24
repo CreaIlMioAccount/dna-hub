@@ -12,13 +12,10 @@
 </head>
 <body class="app-body">
 
-  <!-- ==================== SIDEBAR ==================== -->
   <aside class="app-sidebar">
     <div class="sidebar-header">
       <a href="../index.html" class="sidebar-logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         <span class="sidebar-logo-text">DNA Hub</span>
       </a>
     </div>
@@ -39,7 +36,7 @@
           <span class="nav-item-text">Nuovo Cliente</span>
         </a>
       </div>
-      
+
       <div class="nav-group">
         <div class="nav-group-title">Operatività</div>
         <a href="ticket.html" class="nav-item">
@@ -62,7 +59,6 @@
     </a>
   </aside>
 
-  <!-- ==================== HEADER ==================== -->
   <header class="app-header">
     <div class="header-left">
       <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
@@ -80,10 +76,7 @@
     </div>
   </header>
 
-  <!-- ==================== MAIN CONTENT ==================== -->
   <main class="app-main">
-    
-    <!-- Breadcrumb -->
     <div class="t-sm text-secondary mb-4">
       <a href="elenco-clienti.html" style="color:inherit; text-decoration:none;">Elenco Clienti</a> / <span class="text-primary w-medium">Nuovo Cliente</span>
     </div>
@@ -93,13 +86,8 @@
       <p class="page-subtitle">Inserisci i dati anagrafici e il referente per creare un nuovo cliente.</p>
     </div>
 
-    <!-- Layout a due colonne: Form a Sinistra, Riepilogo a Destra -->
     <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-8);">
-      
-      <!-- COLONNA SINISTRA: Form -->
       <div class="card" style="padding: var(--space-8);">
-        
-        <!-- Fase 1: Dati Aziendali -->
         <h3 class="t-lg w-semibold mb-4" style="border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2);">1. Dati Aziendali</h3>
         
         <div class="field mb-4">
@@ -129,7 +117,6 @@
           </div>
         </div>
 
-        <!-- Fase 2: Referente -->
         <h3 class="t-lg w-semibold mb-4" style="border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2); margin-top: var(--space-6);">2. Referente Principale</h3>
 
         <div class="field mb-4">
@@ -148,15 +135,12 @@
           </div>
         </div>
 
-        <!-- Azioni -->
         <div class="flex justify-end gap-3 mt-8 pt-4" style="border-top:1px solid var(--color-border);">
           <a href="elenco-clienti.html" class="btn btn--secondary">Annulla</a>
           <button class="btn btn--primary" id="btnSalvaCliente">Salva Cliente</button>
         </div>
-
       </div>
 
-      <!-- COLONNA DESTRA: Riepilogo -->
       <div>
         <div class="card" style="background: var(--color-primary-subtle); border-color: transparent;">
           <h4 class="t-md w-semibold mb-2" style="color: var(--color-primary-hover);">Suggerimento</h4>
@@ -165,11 +149,9 @@
           </p>
         </div>
       </div>
-
     </div>
   </main>
 
-  <!-- Script per il salvataggio su Supabase -->
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
 
@@ -178,8 +160,7 @@
 
       const ragione = document.getElementById('ragione').value;
       const piva = document.getElementById('piva').value;
-      const nome = document.getElementById('nome').value;
-
+      
       if (!ragione || !piva) {
         alert("Ragione Sociale e Partita IVA sono obbligatorie!");
         return;
@@ -190,55 +171,31 @@
       btn.innerHTML = 'Salvataggio...';
       btn.disabled = true;
 
-      const { data, error } = await supabase
-        .from('clienti')
-        .insert([
-          { 
-            ragione_sociale: ragione, 
-            partita_iva: piva,
-            azienda: '—',
-            stato: 'Attivo',
-            contatti_count: 1
-          }
-        ]);
+      const { error } = await supabase.from('clienti').insert([{
+        ragione_sociale: ragione,
+        partita_iva: piva,
+        codice_fiscale: document.getElementById('cf').value,
+        azienda: '—',
+        stato: 'Attivo',
+        contatti_count: 1
+      }]);
 
       btn.innerHTML = testoOriginale;
       btn.disabled = false;
 
-            if (error) {
-        console.error(error);
-        // Usa il nostro Toast per l'errore
-        if (window.DNAHub) {
-          window.DNAHub.Toast.show({
-            title: "Errore",
-            message: error.message,
-            variant: "danger",
-            duration: 4000
-          });
-        } else {
-          alert("Errore: " + error.message);
-        }
-        // Riabilita il bottone se c'è un errore
-        btn.innerHTML = testoOriginale;
-        btn.disabled = false;
+      if (error) {
+        alert("Errore: " + error.message);
       } else {
-        // Usa il nostro Toast per il successo
         if (window.DNAHub) {
-          window.DNAHub.Toast.show({
-            title: "Successo",
-            message: "Cliente creato correttamente.",
-            variant: "success",
-            duration: 2000
-          });
+          window.DNAHub.Toast.show({ title: "Successo", message: "Cliente creato.", variant: "success" });
         }
-        
-        // Aspetta 1.5 secondi e poi vai all'elenco
-        setTimeout(() => {
-          window.location.href = 'elenco-clienti.html';
-        }, 1500);
+        setTimeout(() => window.location.href = 'elenco-clienti.html', 1500);
       }
     });
   </script>
+
+  <!-- Auth Guard -->
+  <script type="module" src="../assets/js/auth-guard.js"></script>
 
   <script src="../assets/js/components.js"></script>
 </body>

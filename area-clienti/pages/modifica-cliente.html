@@ -15,10 +15,11 @@
   <aside class="app-sidebar">
     <div class="sidebar-header">
       <a href="../index.html" class="sidebar-logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         <span class="sidebar-logo-text">DNA Hub</span>
       </a>
     </div>
+
     <nav class="sidebar-nav">
       <div class="nav-group">
         <div class="nav-group-title">Clienti</div>
@@ -35,6 +36,7 @@
           <span class="nav-item-text">Nuovo Cliente</span>
         </a>
       </div>
+
       <div class="nav-group">
         <div class="nav-group-title">Operatività</div>
         <a href="ticket.html" class="nav-item">
@@ -47,6 +49,7 @@
         </a>
       </div>
     </nav>
+
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
       <div class="sidebar-avatar">MR</div>
       <div class="sidebar-user-info">
@@ -139,7 +142,6 @@
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
 
-    // 1. Prendi l'ID dall'URL (es. modifica-cliente.html?id=123)
     const urlParams = new URLSearchParams(window.location.search);
     const clienteId = urlParams.get('id');
 
@@ -148,7 +150,6 @@
       window.location.href = 'elenco-clienti.html';
     }
 
-    // 2. Carica i dati attuali del cliente nel form
     async function caricaDatiCliente() {
       const { data, error } = await supabase.from('clienti').select('*').eq('id', clienteId).single();
       
@@ -164,7 +165,6 @@
     
     caricaDatiCliente();
 
-    // 3. Salva le modifiche
     document.getElementById('btnSalvaCliente').addEventListener('click', async (e) => {
       e.preventDefault();
       
@@ -195,6 +195,10 @@
       }
     });
   </script>
+
+  <!-- Auth Guard -->
+  <script type="module" src="../assets/js/auth-guard.js"></script>
+
   <script src="../assets/js/components.js"></script>
 </body>
 </html>

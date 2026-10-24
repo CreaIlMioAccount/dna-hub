@@ -12,7 +12,6 @@
 </head>
 <body class="app-body">
 
-  <!-- ==================== SIDEBAR ==================== -->
   <aside class="app-sidebar">
     <div class="sidebar-header">
       <a href="../index.html" class="sidebar-logo">
@@ -62,7 +61,6 @@
     </a>
   </aside>
 
-  <!-- ==================== HEADER ==================== -->
   <header class="app-header">
     <div class="header-left">
       <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
@@ -82,9 +80,7 @@
     </div>
   </header>
 
-  <!-- ==================== MAIN CONTENT ==================== -->
   <main class="app-main">
-    
     <div class="flex justify-between items-center mb-6">
       <div>
         <h1 class="page-title">Elenco Clienti</h1>
@@ -93,7 +89,6 @@
       <button class="btn btn--primary" onclick="window.location.href='nuovo-cliente.html'">+ Nuovo Cliente</button>
     </div>
 
-    <!-- Barra Filtri -->
     <div class="card mb-6" style="padding: var(--space-4); display:flex; gap: var(--space-4); align-items:center;">
       <div class="input-wrap" style="flex:1; max-width:400px;">
         <span class="input-wrap__icon">🔍</span>
@@ -105,14 +100,8 @@
         <option>In scadenza</option>
         <option>Scaduto</option>
       </select>
-      <select class="select" style="width:180px;">
-        <option>Tutte le aziende</option>
-        <option>Rossi Group S.p.A.</option>
-        <option>Bianchi Holding</option>
-      </select>
     </div>
 
-    <!-- Tabella Clienti -->
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -127,37 +116,20 @@
           </tr>
         </thead>
         <tbody id="tabellaClienti">
-          <!-- I dati verranno caricati da Supabase -->
+          <tr><td colspan="7" class="text-center p-4">Caricamento dal database...</td></tr>
         </tbody>
       </table>
     </div>
-
-    <!-- Paginazione -->
-    <div class="flex justify-between items-center mt-4">
-      <span class="t-sm text-secondary">Mostrando 1-10 di 1.284 clienti</span>
-      <div class="flex gap-2">
-        <button class="btn btn--secondary btn--sm" disabled>Precedente</button>
-        <button class="btn btn--secondary btn--sm">Successiva</button>
-      </div>
-    </div>
-
   </main>
 
-  <!-- Script per caricare i dati e gestire le azioni -->
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
 
     async function caricaClienti() {
       const tbody = document.getElementById('tabellaClienti');
-      tbody.innerHTML = '<tr><td colspan="7" class="text-center p-4">Caricamento dal database...</td></tr>';
-
-      const { data: clienti, error } = await supabase
-        .from('clienti')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const { data: clienti, error } = await supabase.from('clienti').select('*').order('created_at', { ascending: false });
 
       if (error) {
-        console.error(error);
         tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
         return;
       }
@@ -175,7 +147,7 @@
             <span class="t-xs text-secondary">P.IVA ${cliente.partita_iva || '—'}</span>
           </td>
           <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.azienda || '—'}</td>
-          <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.contatti_count} contatti</td>
+          <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.contatti_count || 0} contatti</td>
           <td onclick="window.location.href='cliente.html?id=${cliente.id}'">
             <span class="badge badge--${cliente.stato === 'Attivo' ? 'success' : (cliente.stato === 'In scadenza' ? 'warning' : 'danger')}">${cliente.stato}</span>
           </td>
@@ -195,9 +167,7 @@
 
     window.toggleMenu = function(btn) {
       const menu = btn.nextElementSibling;
-      document.querySelectorAll('.dropdown-menu').forEach(m => {
-        if (m !== menu) m.style.display = 'none';
-      });
+      document.querySelectorAll('.dropdown-menu').forEach(m => { if (m !== menu) m.style.display = 'none'; });
       menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     };
 
@@ -207,38 +177,25 @@
       }
     });
 
-    // Funzione per eliminare un cliente (Aggiornata)
     window.eliminaCliente = async function(id) {
       if (confirm("Sei sicuro di voler eliminare questo cliente? L'operazione è irreversibile.")) {
-        
-        // Esegui l'eliminazione su Supabase
         const { error } = await supabase.from('clienti').delete().eq('id', id);
-        
         if (error) {
-          if (window.DNAHub) {
-            window.DNAHub.Toast.show({ title: "Errore", message: error.message, variant: "danger", duration: 4000 });
-          } else {
-            alert("Errore: " + error.message);
-          }
+          if (window.DNAHub) window.DNAHub.Toast.show({ title: "Errore", message: error.message, variant: "danger" });
         } else {
-          // Mostra il Toast di successo
-          if (window.DNAHub) {
-            window.DNAHub.Toast.show({ title: "Eliminato", message: "Cliente rimosso correttamente.", variant: "success", duration: 2000 });
-          }
-          
-          // Rimuove la riga visivamente con un'animazione
+          if (window.DNAHub) window.DNAHub.Toast.show({ title: "Eliminato", message: "Cliente rimosso.", variant: "success" });
           const riga = document.getElementById(`riga-${id}`);
-          if (riga) {
-            riga.style.transition = 'opacity 300ms';
-            riga.style.opacity = '0';
-            setTimeout(() => riga.remove(), 300);
-          }
+          if (riga) { riga.style.opacity = '0'; setTimeout(() => riga.remove(), 300); }
         }
       }
     };
 
     caricaClienti();
   </script>
+
+  <!-- Auth Guard -->
+  <script type="module" src="../assets/js/auth-guard.js"></script>
+  
   <script src="../assets/js/components.js"></script>
 </body>
 </html>
