@@ -80,11 +80,15 @@
       </div>
     </div>
     <div class="header-right">
-      <button class="header-action-btn" aria-label="Notifiche">
+      <!-- Campanella collegata ai ticket -->
+      <button class="header-action-btn" aria-label="Notifiche" onclick="window.location.href='pages/ticket.html'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <span class="notification-badge">3</span>
       </button>
       <a href="../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
+      
+      <!-- Pulsante Logout -->
+      <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
   </header>
 
@@ -158,13 +162,17 @@
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
-      // Se NON è loggato, rimandalo al login (senza mostrare nulla)
       window.location.href = 'login.html';
     } else {
-      // Se è loggato, mostra la pagina!
       document.body.style.visibility = 'visible';
 
-      // 2. Esegui il caricamento dei dati
+      // 2. Logout
+      document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'login.html';
+      });
+
+      // 3. Esegui il caricamento dei dati
       async function caricaDashboard() {
         const { count: clientiCount } = await supabase.from('clienti').select('*', { count: 'exact', head: true });
         if (clientiCount !== null) document.getElementById('kpiClienti').textContent = clientiCount;

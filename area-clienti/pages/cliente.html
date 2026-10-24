@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../assets/css/app-shell.css">
   
   <style>
+    body { visibility: hidden; }
     .client-header { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-6); box-shadow: var(--shadow-sm); }
     .client-title-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-6); }
     .client-name { font-size: var(--text-2xl); font-weight: var(--weight-bold); display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-1); }
@@ -82,9 +83,12 @@
       </div>
     </div>
     <div class="header-right">
-      <button class="header-action-btn" aria-label="Notifiche">
+      <button class="header-action-btn" aria-label="Notifiche" onclick="window.location.href='ticket.html'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notification-badge">3</span>
       </button>
+      <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
+      <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
   </header>
 
@@ -101,9 +105,7 @@
             <span id="clienteNome">Caricamento...</span>
             <span class="badge badge--success" id="clienteStato">Attivo</span>
           </div>
-          <div class="client-meta" id="clienteDettagli">
-            Caricamento dati...
-          </div>
+          <div class="client-meta" id="clienteDettagli">Caricamento dati...</div>
         </div>
         <div style="display:flex; gap:var(--space-2);">
           <button class="btn btn--secondary">Nuovo Ticket</button>
@@ -172,46 +174,48 @@
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
 
-    // Prendi l'ID del cliente dall'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const clienteId = urlParams.get('id');
+    // Controllo Auth
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = '../login.html';
+    } else {
+      document.body.style.visibility = 'visible';
 
-    async function caricaDettagliCliente() {
+      document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '../login.html';
+      });
+
+      // Carica dati cliente
+      const urlParams = new URLSearchParams(window.location.search);
+      const clienteId = urlParams.get('id');
+
       if (!clienteId) {
         document.getElementById('clienteNome').textContent = "Cliente non specificato";
-        return;
+      } else {
+        const { data, error } = await supabase.from('clienti').select('*').eq('id', clienteId).single();
+        if (error || !data) {
+          document.getElementById('clienteNome').textContent = "Cliente non trovato";
+        } else {
+          document.getElementById('clienteNome').textContent = data.ragione_sociale;
+          document.getElementById('breadcrumbNome').textContent = data.ragione_sociale;
+          document.getElementById('clienteDettagli').innerHTML = `P.IVA ${data.partita_iva || '—'} · Azienda: ${data.azienda || '—'}`;
+          
+          const badge = document.getElementById('clienteStato');
+          badge.textContent = data.stato;
+          badge.className = `badge badge--${data.stato === 'Attivo' ? 'success' : 'warning'}`;
+
+          document.getElementById('clienteInfoBox').innerHTML = `
+            <strong>Ragione Sociale:</strong> ${data.ragione_sociale}<br><br>
+            <strong>Partita IVA:</strong> ${data.partita_iva || '—'}<br><br>
+            <strong>Codice Fiscale:</strong> ${data.codice_fiscale || '—'}<br><br>
+            <strong>Data Inserimento:</strong> ${new Date(data.created_at).toLocaleDateString('it-IT')}
+          `;
+        }
       }
-
-      const { data, error } = await supabase.from('clienti').select('*').eq('id', clienteId).single();
-
-      if (error || !data) {
-        document.getElementById('clienteNome').textContent = "Cliente non trovato";
-        return;
-      }
-
-      // Aggiorna l'interfaccia
-      document.getElementById('clienteNome').textContent = data.ragione_sociale;
-      document.getElementById('breadcrumbNome').textContent = data.ragione_sociale;
-      document.getElementById('clienteDettagli').innerHTML = `P.IVA ${data.partita_iva || '—'} · Azienda: ${data.azienda || '—'}`;
-      
-      const badgeStato = document.getElementById('clienteStato');
-      badgeStato.textContent = data.stato;
-      badgeStato.className = `badge badge--${data.stato === 'Attivo' ? 'success' : (data.stato === 'In scadenza' ? 'warning' : 'danger')}`;
-
-      document.getElementById('clienteInfoBox').innerHTML = `
-        <strong>Ragione Sociale:</strong> ${data.ragione_sociale}<br><br>
-        <strong>Partita IVA:</strong> ${data.partita_iva || '—'}<br><br>
-        <strong>Codice Fiscale:</strong> ${data.codice_fiscale || '—'}<br><br>
-        <strong>Data Inserimento:</strong> ${new Date(data.created_at).toLocaleDateString('it-IT')}
-      `;
     }
-
-    caricaDettagliCliente();
   </script>
 
-  <!-- Auth Guard -->
-  <script type="module" src="../assets/js/auth-guard.js"></script>
-  
   <script src="../assets/js/components.js"></script>
 </body>
 </html>

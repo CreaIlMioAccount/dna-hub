@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/app-shell.css">
+  <style> body { visibility: hidden; } </style>
 </head>
 <body class="app-body">
 
@@ -73,10 +74,12 @@
       </div>
     </div>
     <div class="header-right">
-      <button class="header-action-btn" aria-label="Notifiche">
+      <button class="header-action-btn" aria-label="Notifiche" onclick="window.location.href='ticket.html'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <span class="notification-badge">3</span>
       </button>
+      <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
+      <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
   </header>
 
@@ -87,19 +90,6 @@
         <p class="page-subtitle">Gestisci tutti i clienti attivi e archiviati.</p>
       </div>
       <button class="btn btn--primary" onclick="window.location.href='nuovo-cliente.html'">+ Nuovo Cliente</button>
-    </div>
-
-    <div class="card mb-6" style="padding: var(--space-4); display:flex; gap: var(--space-4); align-items:center;">
-      <div class="input-wrap" style="flex:1; max-width:400px;">
-        <span class="input-wrap__icon">🔍</span>
-        <input class="input" type="search" placeholder="Cerca per nome, P.IVA, email...">
-      </div>
-      <select class="select" style="width:180px;">
-        <option>Tutti gli stati</option>
-        <option>Attivo</option>
-        <option>In scadenza</option>
-        <option>Scaduto</option>
-      </select>
     </div>
 
     <div class="table-wrap">
@@ -116,7 +106,7 @@
           </tr>
         </thead>
         <tbody id="tabellaClienti">
-          <tr><td colspan="7" class="text-center p-4">Caricamento dal database...</td></tr>
+          <tr><td colspan="7" class="text-center p-4">Caricamento...</td></tr>
         </tbody>
       </table>
     </div>
@@ -125,77 +115,86 @@
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
 
-    async function caricaClienti() {
-      const tbody = document.getElementById('tabellaClienti');
-      const { data: clienti, error } = await supabase.from('clienti').select('*').order('created_at', { ascending: false });
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = '../login.html';
+    } else {
+      document.body.style.visibility = 'visible';
 
-      if (error) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
-        return;
-      }
+      document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '../login.html';
+      });
 
-      if (clienti.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center p-4">Nessun cliente trovato.</td></tr>';
-        return;
-      }
+      async function caricaClienti() {
+        const tbody = document.getElementById('tabellaClienti');
+        const { data: clienti, error } = await supabase.from('clienti').select('*').order('created_at', { ascending: false });
 
-      tbody.innerHTML = clienti.map(cliente => `
-        <tr id="riga-${cliente.id}" style="cursor:pointer;">
-          <td onclick="event.stopPropagation()"><input type="checkbox"></td>
-          <td onclick="window.location.href='cliente.html?id=${cliente.id}'">
-            <strong>${cliente.ragione_sociale}</strong><br>
-            <span class="t-xs text-secondary">P.IVA ${cliente.partita_iva || '—'}</span>
-          </td>
-          <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.azienda || '—'}</td>
-          <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.contatti_count || 0} contatti</td>
-          <td onclick="window.location.href='cliente.html?id=${cliente.id}'">
-            <span class="badge badge--${cliente.stato === 'Attivo' ? 'success' : (cliente.stato === 'In scadenza' ? 'warning' : 'danger')}">${cliente.stato}</span>
-          </td>
-          <td onclick="window.location.href='cliente.html?id=${cliente.id}'" class="text-secondary">
-            ${new Date(cliente.created_at).toLocaleDateString('it-IT')}
-          </td>
-          <td style="position:relative;" onclick="event.stopPropagation()">
-            <button class="btn btn--ghost btn--sm" onclick="toggleMenu(this)">⋯</button>
-            <div class="dropdown-menu" style="display:none; position:absolute; right:100%; top:0; background:#fff; border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-md); z-index:100; width:150px; overflow:hidden;">
-              <a href="modifica-cliente.html?id=${cliente.id}" style="display:block; padding:8px 16px; text-decoration:none; color:var(--color-text); font-size:14px;">Modifica</a>
-              <button onclick="eliminaCliente('${cliente.id}')" style="display:block; width:100%; text-align:left; padding:8px 16px; background:none; border:none; cursor:pointer; color:var(--color-danger); font-size:14px;">Elimina</button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    window.toggleMenu = function(btn) {
-      const menu = btn.nextElementSibling;
-      document.querySelectorAll('.dropdown-menu').forEach(m => { if (m !== menu) m.style.display = 'none'; });
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    };
-
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.dropdown-menu') && !e.target.closest('button')) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
-      }
-    });
-
-    window.eliminaCliente = async function(id) {
-      if (confirm("Sei sicuro di voler eliminare questo cliente? L'operazione è irreversibile.")) {
-        const { error } = await supabase.from('clienti').delete().eq('id', id);
         if (error) {
-          if (window.DNAHub) window.DNAHub.Toast.show({ title: "Errore", message: error.message, variant: "danger" });
-        } else {
-          if (window.DNAHub) window.DNAHub.Toast.show({ title: "Eliminato", message: "Cliente rimosso.", variant: "success" });
-          const riga = document.getElementById(`riga-${id}`);
-          if (riga) { riga.style.opacity = '0'; setTimeout(() => riga.remove(), 300); }
+          tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
+          return;
         }
-      }
-    };
 
-    caricaClienti();
+        if (clienti.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" class="text-center p-4">Nessun cliente trovato.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = clienti.map(cliente => `
+          <tr id="riga-${cliente.id}" style="cursor:pointer;">
+            <td onclick="event.stopPropagation()"><input type="checkbox"></td>
+            <td onclick="window.location.href='cliente.html?id=${cliente.id}'">
+              <strong>${cliente.ragione_sociale}</strong><br>
+              <span class="t-xs text-secondary">P.IVA ${cliente.partita_iva || '—'}</span>
+            </td>
+            <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.azienda || '—'}</td>
+            <td onclick="window.location.href='cliente.html?id=${cliente.id}'">${cliente.contatti_count || 0} contatti</td>
+            <td onclick="window.location.href='cliente.html?id=${cliente.id}'">
+              <span class="badge badge--${cliente.stato === 'Attivo' ? 'success' : (cliente.stato === 'In scadenza' ? 'warning' : 'danger')}">${cliente.stato}</span>
+            </td>
+            <td onclick="window.location.href='cliente.html?id=${cliente.id}'" class="text-secondary">
+              ${new Date(cliente.created_at).toLocaleDateString('it-IT')}
+            </td>
+            <td style="position:relative;" onclick="event.stopPropagation()">
+              <button class="btn btn--ghost btn--sm" onclick="toggleMenu(this)">⋯</button>
+              <div class="dropdown-menu" style="display:none; position:absolute; right:100%; top:0; background:#fff; border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-md); z-index:100; width:150px; overflow:hidden;">
+                <a href="modifica-cliente.html?id=${cliente.id}" style="display:block; padding:8px 16px; text-decoration:none; color:var(--color-text); font-size:14px;">Modifica</a>
+                <button onclick="eliminaCliente('${cliente.id}')" style="display:block; width:100%; text-align:left; padding:8px 16px; background:none; border:none; cursor:pointer; color:var(--color-danger); font-size:14px;">Elimina</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      window.toggleMenu = function(btn) {
+        const menu = btn.nextElementSibling;
+        document.querySelectorAll('.dropdown-menu').forEach(m => { if (m !== menu) m.style.display = 'none'; });
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      };
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown-menu') && !e.target.closest('button')) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+        }
+      });
+
+      window.eliminaCliente = async function(id) {
+        if (confirm("Sei sicuro di voler eliminare questo cliente? L'operazione è irreversibile.")) {
+          const { error } = await supabase.from('clienti').delete().eq('id', id);
+          if (error) {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Errore", message: error.message, variant: "danger" });
+          } else {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Eliminato", message: "Cliente rimosso.", variant: "success" });
+            const riga = document.getElementById(`riga-${id}`);
+            if (riga) { riga.style.opacity = '0'; setTimeout(() => riga.remove(), 300); }
+          }
+        }
+      };
+
+      caricaClienti();
+    }
   </script>
 
-  <!-- Auth Guard -->
-  <script type="module" src="../assets/js/auth-guard.js"></script>
-  
   <script src="../assets/js/components.js"></script>
 </body>
 </html>

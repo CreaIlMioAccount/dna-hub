@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/app-shell.css">
+  <style> body { visibility: hidden; } </style>
 </head>
 <body class="app-body">
 
@@ -70,9 +71,12 @@
       </div>
     </div>
     <div class="header-right">
-      <button class="header-action-btn" aria-label="Notifiche">
+      <button class="header-action-btn" aria-label="Notifiche" onclick="window.location.href='ticket.html'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notification-badge">3</span>
       </button>
+      <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
+      <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
   </header>
 
@@ -155,47 +159,56 @@
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
 
-    document.getElementById('btnSalvaCliente').addEventListener('click', async (e) => {
-      e.preventDefault();
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = '../login.html';
+    } else {
+      document.body.style.visibility = 'visible';
 
-      const ragione = document.getElementById('ragione').value;
-      const piva = document.getElementById('piva').value;
-      
-      if (!ragione || !piva) {
-        alert("Ragione Sociale e Partita IVA sono obbligatorie!");
-        return;
-      }
+      document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '../login.html';
+      });
 
-      const btn = document.getElementById('btnSalvaCliente');
-      const testoOriginale = btn.innerHTML;
-      btn.innerHTML = 'Salvataggio...';
-      btn.disabled = true;
+      document.getElementById('btnSalvaCliente').addEventListener('click', async (e) => {
+        e.preventDefault();
 
-      const { error } = await supabase.from('clienti').insert([{
-        ragione_sociale: ragione,
-        partita_iva: piva,
-        codice_fiscale: document.getElementById('cf').value,
-        azienda: '—',
-        stato: 'Attivo',
-        contatti_count: 1
-      }]);
-
-      btn.innerHTML = testoOriginale;
-      btn.disabled = false;
-
-      if (error) {
-        alert("Errore: " + error.message);
-      } else {
-        if (window.DNAHub) {
-          window.DNAHub.Toast.show({ title: "Successo", message: "Cliente creato.", variant: "success" });
+        const ragione = document.getElementById('ragione').value;
+        const piva = document.getElementById('piva').value;
+        
+        if (!ragione || !piva) {
+          alert("Ragione Sociale e Partita IVA sono obbligatorie!");
+          return;
         }
-        setTimeout(() => window.location.href = 'elenco-clienti.html', 1500);
-      }
-    });
-  </script>
 
-  <!-- Auth Guard -->
-  <script type="module" src="../assets/js/auth-guard.js"></script>
+        const btn = document.getElementById('btnSalvaCliente');
+        const testoOriginale = btn.innerHTML;
+        btn.innerHTML = 'Salvataggio...';
+        btn.disabled = true;
+
+        const { error } = await supabase.from('clienti').insert([{
+          ragione_sociale: ragione,
+          partita_iva: piva,
+          codice_fiscale: document.getElementById('cf').value,
+          azienda: '—',
+          stato: 'Attivo',
+          contatti_count: 1
+        }]);
+
+        btn.innerHTML = testoOriginale;
+        btn.disabled = false;
+
+        if (error) {
+          alert("Errore: " + error.message);
+        } else {
+          if (window.DNAHub) {
+            window.DNAHub.Toast.show({ title: "Successo", message: "Cliente creato.", variant: "success" });
+          }
+          setTimeout(() => window.location.href = 'elenco-clienti.html', 1500);
+        }
+      });
+    }
+  </script>
 
   <script src="../assets/js/components.js"></script>
 </body>
