@@ -51,11 +51,16 @@
       </div>
     </nav>
 
+    <!-- SIDEBAR FOOTER CON ID -->
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
-      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
+        <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
+        <span id="sidebarAvatarIniziali">MR</span>
+      </div>
       <div class="sidebar-user-info">
-        <div class="sidebar-user-name">Mario Rossi</div>
-        <div class="sidebar-user-role">Amministratore</div>
+        <div class="sidebar-user-name" id="sidebarUserName">Mario Rossi</div>
+        <!-- AGGIUNTO ID AL RUOLO -->
+        <div class="sidebar-user-role" id="sidebarUserRole">Amministratore</div>
       </div>
     </a>
   </aside>
@@ -126,6 +131,12 @@
           <input class="input" id="prog-nome" type="text" placeholder="Es. Sviluppo Sito Web">
         </div>
         <div class="field mb-4">
+          <label class="field__label" for="prog-cliente">Cliente <span class="req">*</span></label>
+          <select class="select" id="prog-cliente">
+            <option value="">Seleziona un cliente...</option>
+          </select>
+        </div>
+        <div class="field mb-4">
           <label class="field__label" for="prog-stato">Stato Iniziale</label>
           <select class="select" id="prog-stato">
             <option value="In corso">In corso</option>
@@ -159,6 +170,31 @@
         await supabase.auth.signOut();
         window.location.href = '../login.html';
       });
+
+      // --- POPOLAMENTO SIDEBAR CON DATI UTENTE ---
+      const user = session.user;
+      const userMetadata = { ...(user.user_metadata || {}) };
+      
+      let nome = (typeof userMetadata.nome === 'string' && userMetadata.nome.trim() !== '') ? userMetadata.nome : 'Mario';
+      let cognome = (typeof userMetadata.cognome === 'string' && userMetadata.cognome.trim() !== '' && !userMetadata.cognome.includes('@')) ? userMetadata.cognome : 'Rossi';
+      
+      const sidebarImg = document.getElementById('sidebarAvatarImage');
+      const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
+      const sidebarNome = document.getElementById('sidebarUserName');
+
+      if (sidebarNome) sidebarNome.textContent = `${nome} ${cognome}`;
+
+      if (sidebarImg && sidebarIniziali) {
+          if (userMetadata.avatar_url) {
+              sidebarImg.src = userMetadata.avatar_url;
+              sidebarImg.style.display = 'block';
+              sidebarIniziali.style.display = 'none';
+          } else {
+              sidebarImg.style.display = 'none';
+              sidebarIniziali.style.display = 'block';
+              sidebarIniziali.textContent = (nome.charAt(0) + cognome.charAt(0)).toUpperCase();
+          }
+      }
 
       // --- RICERCA GLOBALE (Header) ---
       window.supabaseClient = supabase;
@@ -210,6 +246,22 @@
           }
         });
       }
+
+      // --- POPOLA LA TENDINA DEI CLIENTI ---
+      async function caricaClientiPerTendina() {
+        const select = document.getElementById('prog-cliente');
+        if (!select) return;
+        const { data: clienti } = await supabase.from('clienti').select('id, ragione_sociale').order('ragione_sociale');
+        if (clienti) {
+          clienti.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c.id;
+            option.textContent = c.ragione_sociale;
+            select.appendChild(option);
+          });
+        }
+      }
+      caricaClientiPerTendina();
 
       // --- CARICAMENTO PROGETTI ---
       async function caricaProgetti() {
@@ -273,14 +325,21 @@
         const nome = document.getElementById('prog-nome').value;
         const stato = document.getElementById('prog-stato').value;
         const avanzamento = parseInt(document.getElementById('prog-avanzamento').value) || 0;
+        const clienteId = document.getElementById('prog-cliente').value;
         
         if (!nome) { alert("Il nome del progetto è obbligatorio!"); return; }
+        if (!clienteId) { alert("Devi selezionare un cliente!"); return; }
 
         const btn = document.getElementById('btnCreaProgetto');
         btn.innerHTML = 'Creazione...';
         btn.disabled = true;
 
-        const { error } = await supabase.from('progetti').insert([{ nome: nome, stato: stato, avanzamento: avanzamento }]);
+        const { error } = await supabase.from('progetti').insert([{ 
+          nome: nome, 
+          stato: stato, 
+          avanzamento: avanzamento,
+          cliente_id: clienteId
+        }]);
 
         btn.innerHTML = 'Crea Progetto';
         btn.disabled = false;
@@ -294,6 +353,7 @@
           }
           document.getElementById('prog-nome').value = '';
           document.getElementById('prog-avanzamento').value = '0';
+          document.getElementById('prog-cliente').value = '';
           caricaProgetti();
         }
       });

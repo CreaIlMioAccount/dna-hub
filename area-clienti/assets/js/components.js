@@ -177,10 +177,9 @@
     });
   }
 
-  // ---------- MOTORE DI RICERCA GLOBALE (Solo logica) ----------
+  // ---------- MOTORE DI RICERCA GLOBALE ----------
   const GlobalSearch = {
     async cerca(query) {
-      // Usiamo window.supabaseClient che impostiamo in ogni pagina
       if (!window.supabaseClient) {
         console.warn("Supabase client non trovato per la ricerca.");
         return [];
@@ -203,37 +202,44 @@
     }
   };
 
-  document.addEventListener("click", (e) => {
-    const trigger = e.target.closest("[data-open-modal]");
-    if (trigger) {
-      Modal.open(trigger.getAttribute("data-open-modal"));
-      return;
-    }
-    const drawerTrigger = e.target.closest("[data-open-drawer]");
-    if (drawerTrigger) {
-      Drawer.open(drawerTrigger.getAttribute("data-open-drawer"));
-      return;
-    }
-    const closeBtn = e.target.closest("[data-close-modal]");
-    if (closeBtn) {
-      Modal.close(closeBtn.getAttribute("data-close-modal"));
-      return;
-    }
-    const closeDrawerBtn = e.target.closest("[data-close-drawer]");
-    if (closeDrawerBtn) {
-      Drawer.close(closeDrawerBtn.getAttribute("data-close-drawer"));
-      return;
-    }
-    const toastTrigger = e.target.closest("[data-toast]");
-    if (toastTrigger) {
-      Toast.show({
-        title: toastTrigger.getAttribute("data-toast-title") || "",
-        message: toastTrigger.getAttribute("data-toast") || "",
-        variant: toastTrigger.getAttribute("data-toast-variant") || "info",
-      });
-    }
-  });
+  // ---------- AGGIORNAMENTO SIDEBAR CON DATI UTENTE ----------
+  async function aggiornaSidebar() {
+    if (!window.supabaseClient) return;
 
+    const { data: { session } } = await window.supabaseClient.auth.getSession();
+    if (!session) return;
+
+    const user = session.user;
+    const metadata = user.user_metadata || {};
+
+    const nome = (typeof metadata.nome === 'string' && metadata.nome.trim() !== '') ? metadata.nome : 'Mario';
+    const cognome = (typeof metadata.cognome === 'string' && metadata.cognome.trim() !== '' && !metadata.cognome.includes('@')) ? metadata.cognome : 'Rossi';
+    const nomeCompleto = `${nome} ${cognome}`;
+    const avatarUrl = metadata.avatar_url || null;
+
+    const sidebarAvatar = document.getElementById('sidebarAvatar');
+    const sidebarAvatarImage = document.getElementById('sidebarAvatarImage');
+    const sidebarAvatarIniziali = document.getElementById('sidebarAvatarIniziali');
+    const sidebarUserName = document.getElementById('sidebarUserName');
+
+    if (sidebarUserName) {
+      sidebarUserName.textContent = nomeCompleto;
+    }
+
+    if (sidebarAvatarImage && sidebarAvatarIniziali) {
+      if (avatarUrl) {
+        sidebarAvatarImage.src = avatarUrl;
+        sidebarAvatarImage.style.display = 'block';
+        sidebarAvatarIniziali.style.display = 'none';
+      } else {
+        sidebarAvatarImage.style.display = 'none';
+        sidebarAvatarIniziali.style.display = 'block';
+        sidebarAvatarIniziali.textContent = (nome.charAt(0) + cognome.charAt(0)).toUpperCase();
+      }
+    }
+  }
+
+  // --- INIZIALIZZAZIONE ---
   document.addEventListener("DOMContentLoaded", () => {
     initTabs();
   });
@@ -273,6 +279,11 @@
         });
       });
     }
+  });
+
+  // Aggiorna la sidebar quando la pagina è pronta
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(aggiornaSidebar, 300);
   });
 
   window.DNAHub = { Modal, Drawer, Toast, GlobalSearch };

@@ -51,11 +51,15 @@
       </div>
     </nav>
 
+    <!-- SIDEBAR FOOTER CON ID -->
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
-      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
+        <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
+        <span id="sidebarAvatarIniziali">MR</span>
+      </div>
       <div class="sidebar-user-info">
-        <div class="sidebar-user-name">Mario Rossi</div>
-        <div class="sidebar-user-role">Amministratore</div>
+        <div class="sidebar-user-name" id="sidebarUserName">Mario Rossi</div>
+        <div class="sidebar-user-role" id="sidebarUserRole">Amministratore</div>
       </div>
     </a>
   </aside>
@@ -66,7 +70,6 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       
-      <!-- BARRA DI RICERCA CON SUGGERIMENTI -->
       <div style="position:relative; width:320px;">
         <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
           <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -75,18 +78,15 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        
         <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
       </div>
     </div>
     <div class="header-right">
-      
       <div style="position:relative;">
         <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="notification-badge" id="badgeNotifiche" style="display:none;">0</span>
         </button>
-        
         <div id="pannelloNotifiche" style="display:none; position:absolute; right:0; top:100%; margin-top:8px; width:320px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:1000; overflow:hidden;">
           <div style="padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-border); font-weight:var(--weight-semibold);">Notifiche Recenti</div>
           <div id="listaNotifiche" style="max-height:300px; overflow-y:auto;">
@@ -94,7 +94,6 @@
           </div>
         </div>
       </div>
-
       <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
       <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
@@ -106,14 +105,19 @@
         <h1 class="page-title">Ticket e Assistenza</h1>
         <p class="page-subtitle">Gestisci le richieste di supporto dei tuoi clienti.</p>
       </div>
-      <button class="btn btn--primary" data-open-modal="modal-nuovo-ticket">+ Nuovo Ticket</button>
+      <div class="flex gap-3 items-center">
+        <button class="btn btn--danger" id="btnEliminaSelezionati" style="display: none;" onclick="eliminaSelezionati()">
+          Elimina Selezionati (<span id="countSelezionati">0</span>)
+        </button>
+        <button class="btn btn--primary" id="btnApriModaleTicket" data-open-modal="modal-nuovo-ticket">+ Nuovo Ticket</button>
+      </div>
     </div>
 
     <div class="table-wrap">
       <table class="table">
         <thead>
           <tr>
-            <th style="width:40px;"><input type="checkbox" aria-label="Seleziona tutto"></th>
+            <th style="width:40px;"><input type="checkbox" id="checkTutti" onchange="toggleTutti(this)"></th>
             <th>ID</th>
             <th>Oggetto / Cliente</th>
             <th>Priorità</th>
@@ -128,16 +132,24 @@
     </div>
   </main>
 
+  <!-- MODALE NUOVO TICKET -->
   <div class="modal-backdrop" id="modal-nuovo-ticket" role="dialog" aria-modal="true" aria-labelledby="modal-ticket-title">
     <div class="modal">
       <div class="modal__header">
         <h3 class="modal__title" id="modal-ticket-title">Nuovo Ticket</h3>
-        <button class="btn btn--ghost btn--icon btn--sm" data-close-modal="modal-nuovo-ticket" aria-label="Chiudi">×</button>
+        <!-- ID per chiudere -->
+        <button class="btn btn--ghost btn--icon btn--sm" id="btnChiudiModaleX" aria-label="Chiudi">×</button>
       </div>
       <div class="modal__body">
         <div class="field mb-4">
           <label class="field__label" for="global-ticket-oggetto">Oggetto <span class="req">*</span></label>
           <input class="input" id="global-ticket-oggetto" type="text" placeholder="Es. Errore accesso portale">
+        </div>
+        <div class="field mb-4">
+          <label class="field__label" for="global-ticket-cliente">Cliente (opzionale)</label>
+          <select class="select" id="global-ticket-cliente">
+            <option value="">Nessun cliente associato</option>
+          </select>
         </div>
         <div class="field">
           <label class="field__label" for="global-ticket-priorita">Priorità</label>
@@ -150,7 +162,8 @@
         </div>
       </div>
       <div class="modal__footer">
-        <button class="btn btn--secondary" data-close-modal="modal-nuovo-ticket">Annulla</button>
+        <!-- ID per chiudere -->
+        <button class="btn btn--secondary" id="btnAnnullaModale">Annulla</button>
         <button class="btn btn--primary" id="btnCreaTicket">Crea Ticket</button>
       </div>
     </div>
@@ -170,6 +183,31 @@
         await supabase.auth.signOut();
         window.location.href = '../login.html';
       });
+
+      // --- POPOLAMENTO SIDEBAR CON DATI UTENTE ---
+      const user = session.user;
+      const userMetadata = { ...(user.user_metadata || {}) };
+      
+      let nome = (typeof userMetadata.nome === 'string' && userMetadata.nome.trim() !== '') ? userMetadata.nome : 'Mario';
+      let cognome = (typeof userMetadata.cognome === 'string' && userMetadata.cognome.trim() !== '' && !userMetadata.cognome.includes('@')) ? userMetadata.cognome : 'Rossi';
+      
+      const sidebarImg = document.getElementById('sidebarAvatarImage');
+      const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
+      const sidebarNome = document.getElementById('sidebarUserName');
+
+      if (sidebarNome) sidebarNome.textContent = `${nome} ${cognome}`;
+
+      if (sidebarImg && sidebarIniziali) {
+          if (userMetadata.avatar_url) {
+              sidebarImg.src = userMetadata.avatar_url;
+              sidebarImg.style.display = 'block';
+              sidebarIniziali.style.display = 'none';
+          } else {
+              sidebarImg.style.display = 'none';
+              sidebarIniziali.style.display = 'block';
+              sidebarIniziali.textContent = (nome.charAt(0) + cognome.charAt(0)).toUpperCase();
+          }
+      }
 
       // --- RICERCA GLOBALE (Header) ---
       window.supabaseClient = supabase;
@@ -222,9 +260,66 @@
         });
       }
 
+      // --- CARICAMENTO CLIENTI PER LA TENDINA ---
+      async function caricaClientiTendina() {
+        const select = document.getElementById('global-ticket-cliente');
+        const { data: clienti } = await supabase.from('clienti').select('id, ragione_sociale').order('ragione_sociale');
+        if (clienti) {
+          clienti.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c.id;
+            option.textContent = c.ragione_sociale;
+            select.appendChild(option);
+          });
+        }
+      }
+      caricaClientiTendina();
+
+      // --- GESTIONE APERTURA/CHIUSURA MODALE (A PROVA DI ERRORE) ---
+      const modalTicket = document.getElementById('modal-nuovo-ticket');
+      
+      // Funzione di supporto per aprire/chiudere
+      const apriModale = () => {
+        if (window.DNAHub && window.DNAHub.Modal) {
+          window.DNAHub.Modal.open('modal-nuovo-ticket');
+        } else {
+          modalTicket.classList.add('is-open');
+        }
+      };
+
+      const chiudiModale = () => {
+        if (window.DNAHub && window.DNAHub.Modal) {
+          window.DNAHub.Modal.close('modal-nuovo-ticket');
+        } else {
+          modalTicket.classList.remove('is-open');
+        }
+      };
+
+      // Collega i bottoni
+      document.getElementById('btnApriModaleTicket').addEventListener('click', apriModale);
+      document.getElementById('btnAnnullaModale').addEventListener('click', chiudiModale);
+      document.getElementById('btnChiudiModaleX').addEventListener('click', chiudiModale);
+
+      // Chiudi cliccando sullo sfondo scuro fuori dal modale
+      modalTicket.addEventListener('click', (e) => {
+        if (e.target === modalTicket) chiudiModale();
+      });
+
+
+      // --- CARICAMENTO TICKETS ---
       async function caricaTickets() {
         const tbody = document.getElementById('tabellaTickets');
-        const { data: tickets, error } = await supabase.from('tickets').select('*').order('created_at', { ascending: false });
+        
+        const { data: tickets, error } = await supabase
+          .from('tickets')
+          .select(`
+            *,
+            clienti (ragione_sociale)
+          `)
+          .order('created_at', { ascending: false });
+
+        document.getElementById('checkTutti').checked = false;
+        aggiornaPulsanteElimina();
 
         if (error) {
           tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
@@ -236,26 +331,101 @@
           return;
         }
 
-        tbody.innerHTML = tickets.map(ticket => `
-          <tr style="cursor:pointer;">
-            <td onclick="event.stopPropagation()"><input type="checkbox"></td>
+        tbody.innerHTML = tickets.map(ticket => {
+          const nomeCliente = ticket.clienti ? ticket.clienti.ragione_sociale : '—';
+
+          return `
+          <tr style="cursor:pointer;" id="riga-ticket-${ticket.id}" onclick="window.location.href='dettaglio-ticket.html?id=${ticket.id}'">
+            <td onclick="event.stopPropagation()">
+              <input type="checkbox" class="check-ticket" value="${ticket.id}" onchange="aggiornaPulsanteElimina()">
+            </td>
             <td><span class="w-semibold text-secondary">#${ticket.id.substring(0,4)}</span></td>
             <td>
               <strong>${ticket.oggetto}</strong><br>
-              <span class="t-xs text-secondary">Cliente: —</span>
+              <span class="t-xs text-secondary">Cliente: ${nomeCliente}</span>
             </td>
             <td><span class="badge badge--${ticket.priorita === 'Alta' ? 'warning' : (ticket.priorita === 'Critica' ? 'danger' : 'neutral')}">${ticket.priorita}</span></td>
             <td><span class="badge badge--${ticket.stato === 'Aperto' ? 'success' : (ticket.stato === 'In lavorazione' ? 'info' : 'warning')}">${ticket.stato}</span></td>
             <td class="text-secondary">${new Date(ticket.created_at).toLocaleDateString('it-IT')}</td>
           </tr>
-        `).join('');
+        `}).join('');
       }
 
+      // --- GESTIONE SELEZIONE MULTIPLA ---
+      window.toggleTutti = function(source) {
+        const checkboxes = document.querySelectorAll('.check-ticket');
+        checkboxes.forEach(cb => cb.checked = source.checked);
+        aggiornaPulsanteElimina();
+      };
+
+      window.aggiornaPulsanteElimina = function() {
+        const selezionati = document.querySelectorAll('.check-ticket:checked');
+        const count = selezionati.length;
+        const btn = document.getElementById('btnEliminaSelezionati');
+        const countSpan = document.getElementById('countSelezionati');
+
+        if (count > 0) {
+          countSpan.textContent = count;
+          btn.style.display = 'inline-block';
+        } else {
+          btn.style.display = 'none';
+        }
+
+        const tutti = document.querySelectorAll('.check-ticket');
+        const checkTutti = document.getElementById('checkTutti');
+        if (tutti.length > 0 && count === tutti.length) {
+          checkTutti.checked = true;
+        } else {
+          checkTutti.checked = false;
+        }
+      };
+
+      // --- ELIMINAZIONE MULTIPLA ---
+      window.eliminaSelezionati = async function() {
+        const selezionati = document.querySelectorAll('.check-ticket:checked');
+        const ids = Array.from(selezionati).map(cb => cb.value);
+
+        if (ids.length === 0) return;
+
+        if (confirm(`Sei sicuro di voler eliminare i ${ids.length} ticket selezionati? L'operazione è irreversibile.`)) {
+          const btn = document.getElementById('btnEliminaSelezionati');
+          const testoOriginale = btn.innerHTML;
+          btn.innerHTML = 'Eliminazione...';
+          btn.disabled = true;
+
+          const { error } = await supabase.from('tickets').delete().in('id', ids);
+          
+          btn.innerHTML = testoOriginale;
+          btn.disabled = false;
+
+          if (error) {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Errore", message: error.message, variant: "danger" });
+          } else {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Eliminati", message: `${ids.length} ticket rimossi con successo.`, variant: "success" });
+            
+            ids.forEach(id => {
+              const riga = document.getElementById(`riga-ticket-${id}`);
+              if (riga) {
+                riga.style.opacity = '0';
+                setTimeout(() => riga.remove(), 300);
+              }
+            });
+
+            setTimeout(() => {
+              aggiornaPulsanteElimina();
+              document.getElementById('checkTutti').checked = false;
+            }, 300);
+          }
+        }
+      };
+
+      // --- CREAZIONE NUOVO TICKET ---
       document.getElementById('btnCreaTicket').addEventListener('click', async (e) => {
         e.preventDefault();
         
         const oggetto = document.getElementById('global-ticket-oggetto').value;
         const priorita = document.getElementById('global-ticket-priorita').value;
+        const clienteId = document.getElementById('global-ticket-cliente').value;
         
         if (!oggetto) { alert("L'oggetto è obbligatorio!"); return; }
 
@@ -263,7 +433,12 @@
         btn.innerHTML = 'Creazione...';
         btn.disabled = true;
 
-        const { error } = await supabase.from('tickets').insert([{ oggetto: oggetto, priorita: priorita, stato: 'Aperto' }]);
+        const { error } = await supabase.from('tickets').insert([{ 
+          oggetto: oggetto, 
+          priorita: priorita, 
+          stato: 'Aperto',
+          cliente_id: clienteId || null 
+        }]);
 
         btn.innerHTML = 'Crea Ticket';
         btn.disabled = false;
@@ -271,11 +446,11 @@
         if (error) {
           alert("Errore: " + error.message);
         } else {
-          if (window.DNAHub) {
-            window.DNAHub.Modal.close('modal-nuovo-ticket');
-            window.DNAHub.Toast.show({ title: "Successo", message: "Ticket creato.", variant: "success" });
-          }
+          chiudiModale();
+          if (window.DNAHub) window.DNAHub.Toast.show({ title: "Successo", message: "Ticket creato.", variant: "success" });
+          
           document.getElementById('global-ticket-oggetto').value = '';
+          document.getElementById('global-ticket-cliente').value = '';
           caricaTickets();
         }
       });

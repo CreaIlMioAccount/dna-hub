@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dettaglio Ticket — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+  <style> body { visibility: hidden; } </style>
+</head>
+<body class="app-body">
+
+  <!-- SIDEBAR (Identica alle altre pagine) -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+        <a href="elenco-clienti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Elenco Clienti</span>
+        </a>
+        <a href="nuovo-cliente.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-item-text">Nuovo Cliente</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+        <a href="ticket.html" class="nav-item is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <span class="nav-item-text">Ticket e Assistenza</span>
+        </a>
+        <a href="progetti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-item-text">Progetti</span>
+        </a>
+      </div>
+    </nav>
+    <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
+        <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
+        <span id="sidebarAvatarIniziali">MR</span>
+      </div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarUserName">Mario Rossi</div>
+        <div class="sidebar-user-role" id="sidebarUserRole">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div style="position:relative; width:320px;">
+        <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
+          <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="headerSearchInput" placeholder="Cerca un cliente..." style="border:none; background:transparent; outline:none; font-size:14px; color:var(--color-text); flex:1; margin-left:8px; font-family:inherit;">
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
+      <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
+    </div>
+  </header>
+
+  <!-- CONTENUTO PRINCIPALE -->
+  <main class="app-main">
+    <div class="t-sm text-secondary mb-4">
+      <a href="ticket.html" style="color:inherit; text-decoration:none;">Ticket e Assistenza</a> / <span class="text-primary w-medium" id="breadcrumbTicket">Caricamento...</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-6);">
+      
+      <!-- COLONNA SINISTRA: CONVERSAZIONE -->
+      <div class="card" style="padding: var(--space-6); display:flex; flex-direction:column; height: calc(100vh - 200px);">
+        <div style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-4); margin-bottom: var(--space-4);">
+          <h2 class="t-xl w-semibold mb-2" id="ticketOggetto">Caricamento...</h2>
+          <div class="t-sm text-secondary" id="ticketMeta">Aperto il —</div>
+        </div>
+
+        <!-- Area Messaggi -->
+        <div id="areaMessaggi" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:var(--space-4); padding-right:var(--space-2);">
+          <div class="text-center text-secondary p-4">Caricamento messaggi...</div>
+        </div>
+
+        <!-- Area Risposta -->
+        <div style="margin-top: var(--space-4); border-top: 1px solid var(--color-border); padding-top: var(--space-4);">
+          <textarea class="textarea" id="inputRisposta" placeholder="Scrivi una risposta al cliente..." style="min-height: 80px; margin-bottom: var(--space-3);"></textarea>
+          <div class="flex justify-end">
+            <button class="btn btn--primary" id="btnInviaRisposta">Invia Risposta</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLONNA DESTRA: AZIONI E DETTAGLI -->
+      <div>
+        <div class="card mb-6">
+          <h3 class="t-md w-semibold mb-4" style="border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2);">Gestione Ticket</h3>
+          
+          <div class="field mb-4">
+            <label class="field__label">Stato</label>
+            <select class="select" id="selectStato">
+              <option value="Aperto">Aperto</option>
+              <option value="In lavorazione">In lavorazione</option>
+              <option value="In attesa">In attesa</option>
+              <option value="Chiuso">Chiuso</option>
+            </select>
+          </div>
+
+          <div class="field mb-4">
+            <label class="field__label">Priorità</label>
+            <select class="select" id="selectPriorita">
+              <option value="Bassa">Bassa</option>
+              <option value="Media">Media</option>
+              <option value="Alta">Alta</option>
+              <option value="Critica">Critica</option>
+            </select>
+          </div>
+
+          <button class="btn btn--primary w-full" id="btnSalvaStato">Aggiorna Ticket</button>
+        </div>
+
+        <div class="card">
+          <h3 class="t-md w-semibold mb-4" style="border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2);">Informazioni Cliente</h3>
+          <p class="t-sm text-secondary" id="infoCliente">Caricamento...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module">
+    import { supabase } from '../assets/js/supabase-client.js';
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = '../login.html';
+    } else {
+      document.body.style.visibility = 'visible';
+
+      document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '../login.html';
+      });
+
+      // Popola Sidebar
+      const user = session.user;
+      const userMetadata = { ...(user.user_metadata || {}) };
+      let nome = userMetadata.nome || 'Mario';
+      let cognome = userMetadata.cognome || 'Rossi';
+      const sidebarImg = document.getElementById('sidebarAvatarImage');
+      const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
+      
+      if (sidebarImg && sidebarIniziali) {
+          if (userMetadata.avatar_url) {
+              sidebarImg.src = userMetadata.avatar_url;
+              sidebarImg.style.display = 'block';
+              sidebarIniziali.style.display = 'none';
+          } else {
+              sidebarIniziali.textContent = (nome.charAt(0) + cognome.charAt(0)).toUpperCase();
+          }
+      }
+      document.getElementById('sidebarUserName').textContent = `${nome} ${cognome}`;
+
+      // Caricamento Ticket
+      const urlParams = new URLSearchParams(window.location.search);
+      const ticketId = urlParams.get('id');
+      let ticketData = null;
+
+      if (!ticketId) {
+        alert("Nessun ID ticket specificato.");
+        window.location.href = 'ticket.html';
+      } else {
+        // Carica dati ticket
+        const { data, error } = await supabase.from('tickets').select('*').eq('id', ticketId).single();
+        
+        if (error || !data) {
+          alert("Ticket non trovato.");
+          window.location.href = 'ticket.html';
+        } else {
+          ticketData = data;
+          document.getElementById('breadcrumbTicket').textContent = `#${data.id.substring(0,4)}`;
+          document.getElementById('ticketOggetto').textContent = data.oggetto;
+          document.getElementById('ticketMeta').textContent = `Aperto il ${new Date(data.created_at).toLocaleDateString('it-IT')}`;
+          
+          document.getElementById('selectStato').value = data.stato;
+          document.getElementById('selectPriorita').value = data.priorita;
+          
+          if (data.cliente_id) {
+            const { data: cliente } = await supabase.from('clienti').select('ragione_sociale, partita_iva').eq('id', data.cliente_id).single();
+            if (cliente) {
+              document.getElementById('infoCliente').innerHTML = `<strong>${cliente.ragione_sociale}</strong><br>P.IVA: ${cliente.partita_iva || '—'}`;
+            }
+          } else {
+             document.getElementById('infoCliente').innerHTML = `Nessun cliente associato.`;
+          }
+        }
+
+        // Funzione per caricare i messaggi
+        async function caricaMessaggi() {
+          const container = document.getElementById('areaMessaggi');
+          const { data: messaggi, error } = await supabase
+            .from('ticket_messaggi')
+            .select('*')
+            .eq('ticket_id', ticketId)
+            .order('created_at', { ascending: true });
+
+          if (error) {
+            container.innerHTML = `<p class="text-danger">Errore caricamento messaggi: ${error.message}</p>`;
+            return;
+          }
+
+          if (messaggi.length === 0) {
+            container.innerHTML = '<div class="text-center text-secondary p-4">Nessun messaggio. Inizia la conversazione!</div>';
+          } else {
+            container.innerHTML = messaggi.map(m => `
+              <div style="background: ${m.autore === 'Amministratore' ? 'var(--color-primary-subtle)' : 'var(--color-surface-hover)'}; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); align-self: ${m.autore === 'Amministratore' ? 'flex-end' : 'flex-start'}; max-width: 80%;">
+                <div class="t-xs text-secondary mb-1">${m.autore} · ${new Date(m.created_at).toLocaleTimeString('it-IT', {hour: '2-digit', minute:'2-digit'})}</div>
+                <div class="t-sm">${m.testo}</div>
+              </div>
+            `).join('');
+          }
+          // Scroll in fondo
+          container.scrollTop = container.scrollHeight;
+        }
+
+        caricaMessaggi();
+
+        // Invia risposta
+        document.getElementById('btnInviaRisposta').addEventListener('click', async () => {
+          const testo = document.getElementById('inputRisposta').value.trim();
+          if (!testo) return;
+
+          const btn = document.getElementById('btnInviaRisposta');
+          btn.innerHTML = 'Invio...';
+          btn.disabled = true;
+
+          const { error } = await supabase.from('ticket_messaggi').insert([{
+            ticket_id: ticketId,
+            testo: testo,
+            autore: 'Amministratore'
+          }]);
+
+          btn.innerHTML = 'Invia Risposta';
+          btn.disabled = false;
+
+          if (error) {
+            alert("Errore: " + error.message);
+          } else {
+            document.getElementById('inputRisposta').value = '';
+            caricaMessaggi();
+          }
+        });
+
+        // Salva stato e priorità
+        document.getElementById('btnSalvaStato').addEventListener('click', async () => {
+          const nuovoStato = document.getElementById('selectStato').value;
+          const nuovaPriorita = document.getElementById('selectPriorita').value;
+
+          const btn = document.getElementById('btnSalvaStato');
+          btn.innerHTML = 'Salvataggio...';
+          btn.disabled = true;
+
+          const { error } = await supabase.from('tickets').update({
+            stato: nuovoStato,
+            priorita: nuovaPriorita
+          }).eq('id', ticketId);
+
+          btn.innerHTML = 'Aggiorna Ticket';
+          btn.disabled = false;
+
+          if (error) {
+            alert("Errore: " + error.message);
+          } else {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Successo", message: "Ticket aggiornato.", variant: "success" });
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../assets/js/components.js"></script>
+</body>
+</html>

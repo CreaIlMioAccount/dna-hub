@@ -12,6 +12,9 @@
   
   <style>
     body { visibility: hidden; }
+    /* Aggiunge un feedback visivo al passaggio del mouse sulla timeline */
+    .timeline__item { transition: background 0.2s, transform 0.2s; border-radius: var(--radius-md); padding: var(--space-2); margin-left: calc(var(--space-2) * -1); }
+    .timeline__item:hover { background: var(--color-surface-hover); transform: translateX(4px); }
   </style>
 </head>
 <body class="app-body">
@@ -56,11 +59,15 @@
       </div>
     </nav>
 
+    <!-- SIDEBAR FOOTER CON ID -->
     <a href="pages/impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
-      <div class="sidebar-avatar">MR</div>
+      <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
+        <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
+        <span id="sidebarAvatarIniziali">MR</span>
+      </div>
       <div class="sidebar-user-info">
-        <div class="sidebar-user-name">Mario Rossi</div>
-        <div class="sidebar-user-role">Amministratore</div>
+        <div class="sidebar-user-name" id="sidebarUserName">Mario Rossi</div>
+        <div class="sidebar-user-role" id="sidebarUserRole">Amministratore</div>
       </div>
     </a>
   </aside>
@@ -74,23 +81,13 @@
       <!-- BARRA DI RICERCA CON SUGGERIMENTI -->
       <div style="position:relative; width:320px;">
         <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
-          
-          <!-- Icona Lente Cliccabile -->
           <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
-          
-          <!-- Input di ricerca -->
           <input type="text" id="headerSearchInput" placeholder="Cerca un cliente..." style="border:none; background:transparent; outline:none; font-size:14px; color:var(--color-text); flex:1; margin-left:8px; font-family:inherit;">
-          
-          <!-- X per resettare (nascosta di default) -->
           <button id="btnClearSearch" style="display:none; background:none; border:none; cursor:pointer; color:var(--color-text-secondary); padding:0; margin-left:8px;" aria-label="Cancella ricerca">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        
-        <!-- Tendina dei suggerimenti -->
-        <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;">
-          <!-- I risultati vengono iniettati qui -->
-        </div>
+        <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
       </div>
     </div>
     <div class="header-right">
@@ -139,10 +136,10 @@
         <div class="kpi__delta kpi__delta--down">Da risolvere</div>
       </button>
 
-      <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
+      <button class="kpi" id="cardContratti">
         <div class="kpi__label">Contratti Attivi</div>
-        <div class="kpi__value tabular">210</div>
-        <div class="kpi__delta kpi__delta--up">+5 questo mese</div>
+        <div class="kpi__value tabular" id="kpiContratti">—</div>
+        <div class="kpi__delta kpi__delta--up" id="kpiContrattiDelta">—</div>
       </button>
     </div>
 
@@ -189,6 +186,31 @@
         window.location.href = 'login.html';
       });
 
+      // --- POPOLAMENTO SIDEBAR CON DATI UTENTE ---
+      const user = session.user;
+      const userMetadata = { ...(user.user_metadata || {}) };
+      
+      let nome = (typeof userMetadata.nome === 'string' && userMetadata.nome.trim() !== '') ? userMetadata.nome : 'Mario';
+      let cognome = (typeof userMetadata.cognome === 'string' && userMetadata.cognome.trim() !== '' && !userMetadata.cognome.includes('@')) ? userMetadata.cognome : 'Rossi';
+      
+      const sidebarImg = document.getElementById('sidebarAvatarImage');
+      const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
+      const sidebarNome = document.getElementById('sidebarUserName');
+
+      if (sidebarNome) sidebarNome.textContent = `${nome} ${cognome}`;
+
+      if (sidebarImg && sidebarIniziali) {
+          if (userMetadata.avatar_url) {
+              sidebarImg.src = userMetadata.avatar_url;
+              sidebarImg.style.display = 'block';
+              sidebarIniziali.style.display = 'none';
+          } else {
+              sidebarImg.style.display = 'none';
+              sidebarIniziali.style.display = 'block';
+              sidebarIniziali.textContent = (nome.charAt(0) + cognome.charAt(0)).toUpperCase();
+          }
+      }
+
       // --- LOGICA DI RICERCA CON SUGGERIMENTI ---
       window.supabaseClient = supabase;
       const searchInput = document.getElementById('headerSearchInput');
@@ -201,8 +223,6 @@
       if (searchInput && searchResults) {
         searchInput.addEventListener('input', async (e) => {
           const query = e.target.value.trim();
-          
-          // Mostra/nascondi la X
           btnClearSearch.style.display = query.length > 0 ? 'block' : 'none';
 
           if (query.length < 2) {
@@ -231,7 +251,6 @@
           searchResults.style.display = 'block';
         });
 
-        // Cliccando sulla X, svuota tutto
         btnClearSearch.addEventListener('click', () => {
           searchInput.value = '';
           searchResults.style.display = 'none';
@@ -247,15 +266,55 @@
       }
 
       async function caricaDashboard() {
+        // 1. Clienti Totali
         const { count: clientiCount } = await supabase.from('clienti').select('*', { count: 'exact', head: true });
         if (clientiCount !== null) document.getElementById('kpiClienti').textContent = clientiCount;
 
+        // 2. Aziende Totali
         const { count: aziendeCount } = await supabase.from('clienti').select('*', { count: 'exact', head: true }).neq('azienda', '—').not('azienda', 'is', null);
         if (aziendeCount !== null) document.getElementById('kpiAziende').textContent = aziendeCount;
 
+        // 3. Ticket Aperti
         const { count: ticketCount } = await supabase.from('tickets').select('*', { count: 'exact', head: true }).eq('stato', 'Aperto');
         if (ticketCount !== null) document.getElementById('kpiTicket').textContent = ticketCount;
 
+        // 4. Contratti Attivi e Delta
+        try {
+          const { count: contrattiCount, error: contrattiError } = await supabase
+            .from('contratti')
+            .select('*', { count: 'exact', head: true })
+            .eq('stato', 'Attivo');
+
+          if (!contrattiError && contrattiCount !== null) {
+            document.getElementById('kpiContratti').textContent = contrattiCount;
+            
+            const inizioMese = new Date();
+            inizioMese.setDate(1);
+            inizioMese.setHours(0, 0, 0, 0);
+
+            const { count: nuoviContrattiCount } = await supabase
+              .from('contratti')
+              .select('*', { count: 'exact', head: true })
+              .eq('stato', 'Attivo')
+              .gte('created_at', inizioMese.toISOString());
+
+            const deltaText = document.getElementById('kpiContrattiDelta');
+            if (nuoviContrattiCount > 0) {
+              deltaText.textContent = `+${nuoviContrattiCount} questo mese`;
+              deltaText.className = 'kpi__delta kpi__delta--up';
+            } else {
+              deltaText.textContent = 'Nessun nuovo contratto';
+              deltaText.className = 'kpi__delta kpi__delta--flat';
+            }
+          } else {
+             document.getElementById('kpiContratti').textContent = "0";
+             document.getElementById('kpiContrattiDelta').textContent = "Tabella non trovata";
+          }
+        } catch (err) {
+          console.log("Tabella contratti non ancora creata su Supabase.");
+        }
+
+        // 5. Ultimi Clienti
         const { data: ultimiClienti } = await supabase.from('clienti').select('*').order('created_at', { ascending: false }).limit(3);
         const tbody = document.getElementById('tabellaUltimiClienti');
         if (ultimiClienti && ultimiClienti.length > 0) {
@@ -270,11 +329,12 @@
           tbody.innerHTML = '<tr><td colspan="3" class="text-center p-4">Nessun cliente trovato.</td></tr>';
         }
 
+        // 6. Attività Recenti (Tickets) - ORA CLICCABILI
         const { data: ultimiTickets } = await supabase.from('tickets').select('*').order('created_at', { ascending: false }).limit(3);
         const timeline = document.getElementById('listaAttivita');
         if (ultimiTickets && ultimiTickets.length > 0) {
           timeline.innerHTML = ultimiTickets.map(t => `
-            <div class="timeline__item">
+            <div class="timeline__item" style="cursor:pointer;" onclick="window.location.href='pages/dettaglio-ticket.html?id=${t.id}'">
               <span class="timeline__dot timeline__dot--${t.priorita === 'Alta' ? 'warning' : (t.priorita === 'Critica' ? 'danger' : 'info')}"></span>
               <div class="timeline__title">Ticket: ${t.oggetto}</div>
               <div class="timeline__meta">Stato: ${t.stato} · ${new Date(t.created_at).toLocaleDateString('it-IT')}</div>
