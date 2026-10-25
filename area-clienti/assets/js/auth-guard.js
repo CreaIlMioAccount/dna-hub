@@ -1,15 +1,21 @@
 import { supabase } from "./supabase-client.js";
 
-async function checkAuth() {
-  const { data: { session } } = await supabase.auth.getSession();
-  
-  // Se non c'è una sessione attiva, reindirizza al login
-  if (!session) {
-    const currentPath = window.location.pathname;
-    // Se siamo nella cartella pages, dobbiamo tornare indietro di un livello
-    const isInPagesFolder = currentPath.includes('/pages/');
-    window.location.href = isInPagesFolder ? '../login.html' : 'login.html';
+// Piccolo ritardo per assicurarci che il browser abbia inizializzato Supabase
+setTimeout(async () => {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    // Se c'è un errore o non c'è sessione, manda al login
+    if (error || !session) {
+      const currentPath = window.location.pathname;
+      const isInPagesFolder = currentPath.includes('/pages/');
+      
+      // Se siamo già nella pagina di login, non fare nulla (evita loop)
+      if (!currentPath.includes('login.html')) {
+        window.location.href = isInPagesFolder ? '../login.html' : 'login.html';
+      }
+    }
+  } catch (err) {
+    console.error("Errore durante il controllo di autenticazione:", err);
   }
-}
-
-checkAuth();
+}, 100);

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentazione — DNA Hub</title>
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/app-shell.css">
+  <style> body { visibility: hidden; } </style>
+</head>
+<body class="app-body">
+
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span class="sidebar-logo-text">DNA Hub</span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Clienti</div>
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-item-text">Dashboard</span>
+        </a>
+        <a href="elenco-clienti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Elenco Clienti</span>
+        </a>
+        <a href="nuovo-cliente.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-item-text">Nuovo Cliente</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Operatività</div>
+        <a href="ticket.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <span class="nav-item-text">Ticket e Assistenza</span>
+        </a>
+        <a href="progetti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-item-text">Progetti</span>
+        </a>
+        <a href="servizi.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span class="nav-item-text">Servizi</span>
+        </a>
+        <a href="collaboratori.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Collaboratori</span>
+        </a>
+        <a href="documentazione.html" class="nav-item is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-item-text">Documentazione</span>
+        </a>
+      </div>
+    </nav>
+
+    <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
+      <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
+        <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
+        <span id="sidebarAvatarIniziali">MR</span>
+      </div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarUserName">Mario Rossi</div>
+        <div class="sidebar-user-role" id="sidebarUserRole">Amministratore</div>
+      </div>
+    </a>
+  </aside>
+
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      
+      <div style="position:relative; width:320px;">
+        <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
+          <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="headerSearchInput" placeholder="Cerca un cliente..." style="border:none; background:transparent; outline:none; font-size:14px; color:var(--color-text); flex:1; margin-left:8px; font-family:inherit;">
+          <button id="btnClearSearch" style="display:none; background:none; border:none; cursor:pointer; color:var(--color-text-secondary); padding:0; margin-left:8px;" aria-label="Cancella ricerca">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
+      </div>
+    </div>
+    <div class="header-right">
+      
+      <div style="position:relative;">
+        <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notification-badge" id="badgeNotifiche" style="display:none;">0</span>
+        </button>
+        
+        <div id="pannelloNotifiche" style="display:none; position:absolute; right:0; top:100%; margin-top:8px; width:320px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:1000; overflow:hidden;">
+          <div style="padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-border); font-weight:var(--weight-semibold);">Notifiche Recenti</div>
+          <div id="listaNotifiche" style="max-height:300px; overflow-y:auto;">
+            <div style="padding:var(--space-4); text-align:center; color:var(--color-text-secondary); font-size:var(--text-sm);">Caricamento...</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
+      <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="page-title">Documentazione</h1>
+        <p class="page-subtitle">Archivia e consulta i documenti aziendali.</p>
+      </div>
+      <button class="btn btn--primary" id="btnApriModaleDocumento">+ Carica Documento</button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome File</th>
+            <th>Tipo</th>
+            <th>Cliente</th>
+            <th>Data Caricamento</th>
+            <th style="width:120px; text-align:right;">Azioni</th>
+          </tr>
+        </thead>
+        <tbody id="tabellaDocumenti">
+          <tr><td colspan="5" class="text-center p-4">Caricamento documenti...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="modal-nuovo-documento" role="dialog" aria-modal="true" aria-labelledby="modal-documento-title">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-documento-title">Carica Nuovo Documento</h3>
+        <button class="btn btn--ghost btn--icon btn--sm" id="btnChiudiModaleX" aria-label="Chiudi">×</button>
+      </div>
+      <div class="modal__body">
+        <div class="field mb-4">
+          <label class="field__label" for="doc-nome">Nome Documento <span class="req">*</span></label>
+          <input class="input" id="doc-nome" type="text" placeholder="Es. Contratto Manutenzione 2024">
+        </div>
+        <div class="field mb-4">
+          <label class="field__label" for="doc-tipo">Tipo</label>
+          <select class="select" id="doc-tipo">
+            <option>Contratto</option>
+            <option>Preventivo</option>
+            <option>Fattura</option>
+            <option>Generico</option>
+          </select>
+        </div>
+        <div class="field mb-4">
+          <label class="field__label" for="doc-cliente">Cliente (opzionale)</label>
+          <select class="select" id="doc-cliente">
+            <option value="">Nessun cliente associato</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="doc-file">File <span class="req">*</span></label>
+          <input type="file" id="doc-file" class="input" style="padding-top: 8px;">
+          <span class="field__helper">Carica PDF, immagini o documenti Word/Excel.</span>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--secondary" id="btnAnnullaModale">Annulla</button>
+        <button class="btn btn--primary" id="btnCaricaDocumento">Carica</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from '../assets/js/supabase-client.js';
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = '../login.html';
+    } else {
+      document.body.style.visibility = 'visible';
+
+      document.getElementById('btnLogoutHeader')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '../login.html';
+      });
+
+      // --- POPOLAMENTO SIDEBAR CON DATI UTENTE ---
+      const user = session.user;
+      const userMetadata = { ...(user.user_metadata || {}) };
+      
+      let nome = (typeof userMetadata.nome === 'string' && userMetadata.nome.trim() !== '') ? userMetadata.nome : 'Mario';
+      let cognome = (typeof userMetadata.cognome === 'string' && userMetadata.cognome.trim() !== '' && !userMetadata.cognome.includes('@')) ? userMetadata.cognome : 'Rossi';
+      
+      const sidebarImg = document.getElementById('sidebarAvatarImage');
+      const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
+      const sidebarNome = document.getElementById('sidebarUserName');
+
+      if (sidebarNome) sidebarNome.textContent = `${nome} ${cognome}`;
+
+      if (sidebarImg && sidebarIniziali) {
+          if (userMetadata.avatar_url) {
+              sidebarImg.src = userMetadata.avatar_url;
+              sidebarImg.style.display = 'block';
+              sidebarIniziali.style.display = 'none';
+          } else {
+              sidebarImg.style.display = 'none';
+              sidebarIniziali.style.display = 'block';
+              sidebarIniziali.textContent = (nome.charAt(0) + cognome.charAt(0)).toUpperCase();
+          }
+      }
+
+      // ==========================================
+      // LOGICA NOTIFICHE
+      // ==========================================
+      const btnNotifiche = document.getElementById('btnNotifiche');
+      const pannelloNotifiche = document.getElementById('pannelloNotifiche');
+      const listaNotifiche = document.getElementById('listaNotifiche');
+      const badgeNotifiche = document.getElementById('badgeNotifiche');
+
+      if (btnNotifiche) {
+          const { data: ticketsNotif } = await supabase
+            .from('tickets')
+            .select('*')
+            .eq('stato', 'Aperto')
+            .eq('notifica_letta', false);
+
+          if (ticketsNotif && ticketsNotif.length > 0) {
+              badgeNotifiche.textContent = ticketsNotif.length;
+              badgeNotifiche.style.display = 'flex';
+              
+              listaNotifiche.innerHTML = ticketsNotif.map(t => `
+                <div class="notifica-item" data-id="${t.id}" style="padding:10px; border-bottom:1px solid var(--color-border); cursor:pointer;">
+                  <div style="font-weight:bold; font-size:13px;">${t.oggetto}</div>
+                  <div style="font-size:11px; color:var(--color-text-secondary);">${t.priorita} - ${new Date(t.created_at).toLocaleDateString('it-IT')}</div>
+                </div>
+              `).join('');
+
+              document.querySelectorAll('.notifica-item').forEach(item => {
+                  item.addEventListener('click', async (e) => {
+                      e.stopPropagation();
+                      const id = item.getAttribute('data-id');
+                      await supabase.from('tickets').update({ notifica_letta: true }).eq('id', id);
+                      window.location.href = `dettaglio-ticket.html?id=${id}`;
+                  });
+              });
+          } else {
+              badgeNotifiche.style.display = 'none';
+              listaNotifiche.innerHTML = '<div style="padding:15px; text-align:center;">Nessuna notifica.</div>';
+          }
+
+          btnNotifiche.addEventListener('click', (e) => {
+            e.stopPropagation();
+            pannelloNotifiche.style.display = pannelloNotifiche.style.display === 'block' ? 'none' : 'block';
+          });
+          document.addEventListener('click', (e) => {
+            if (pannelloNotifiche && !pannelloNotifiche.contains(e.target) && !btnNotifiche.contains(e.target)) {
+              pannelloNotifiche.style.display = 'none';
+            }
+          });
+      }
+      // ==========================================
+      // FINE LOGICA NOTIFICHE
+      // ==========================================
+
+      // --- RICERCA GLOBALE (Header) ---
+      window.supabaseClient = supabase;
+      const headerSearchInput = document.getElementById('headerSearchInput');
+      const headerSearchResults = document.getElementById('headerSearchResults');
+      const btnClearHeaderSearch = document.getElementById('btnClearSearch');
+
+      if (headerSearchInput && headerSearchResults) {
+        headerSearchInput.addEventListener('input', async (e) => {
+          const query = e.target.value.trim();
+          btnClearHeaderSearch.style.display = query.length > 0 ? 'block' : 'none';
+
+          if (query.length < 2) {
+            headerSearchResults.style.display = 'none';
+            return;
+          }
+
+          const clienti = await window.DNAHub.GlobalSearch.cerca(query);
+          
+          if (clienti.length === 0) {
+            headerSearchResults.innerHTML = '<div style="padding:12px; text-align:center; color:var(--color-text-secondary); font-size:13px;">Nessun cliente trovato.</div>';
+            headerSearchResults.style.display = 'block';
+            return;
+          }
+
+          headerSearchResults.innerHTML = clienti.map(c => `
+            <div onclick="window.location.href='cliente.html?id=${c.id}'" style="display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; border-bottom:1px solid var(--color-border);" onmouseover="this.style.background='var(--color-surface-hover)'" onmouseout="this.style.background='transparent'">
+              <div style="width:28px; height:28px; background:var(--color-primary-subtle); color:var(--color-primary); border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px;">${c.ragione_sociale.substring(0,2).toUpperCase()}</div>
+              <div>
+                <div style="font-weight:600; font-size:13px; color:var(--color-text);">${c.ragione_sociale}</div>
+                <div style="font-size:11px; color:var(--color-text-secondary);">P.IVA ${c.partita_iva || '—'}</div>
+              </div>
+            </div>
+          `).join('');
+          
+          headerSearchResults.style.display = 'block';
+        });
+
+        btnClearHeaderSearch.addEventListener('click', () => {
+          headerSearchInput.value = '';
+          headerSearchResults.style.display = 'none';
+          btnClearHeaderSearch.style.display = 'none';
+          headerSearchInput.focus();
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!headerSearchInput.contains(e.target) && !headerSearchResults.contains(e.target)) {
+            headerSearchResults.style.display = 'none';
+          }
+        });
+      }
+
+      // --- GESTIONE MODALE DOCUMENTO ---
+      const modalDocumento = document.getElementById('modal-nuovo-documento');
+      
+      const apriModale = () => {
+        document.getElementById('doc-nome').value = '';
+        document.getElementById('doc-file').value = '';
+        document.getElementById('doc-cliente').value = '';
+        if (window.DNAHub && window.DNAHub.Modal) window.DNAHub.Modal.open('modal-nuovo-documento');
+        else modalDocumento.classList.add('is-open');
+      };
+
+      const chiudiModale = () => {
+        if (window.DNAHub && window.DNAHub.Modal) window.DNAHub.Modal.close('modal-nuovo-documento');
+        else modalDocumento.classList.remove('is-open');
+      };
+
+      document.getElementById('btnApriModaleDocumento').addEventListener('click', apriModale);
+      document.getElementById('btnAnnullaModale').addEventListener('click', chiudiModale);
+      document.getElementById('btnChiudiModaleX').addEventListener('click', chiudiModale);
+      modalDocumento.addEventListener('click', (e) => { if (e.target === modalDocumento) chiudiModale(); });
+
+      // Popola la tendina dei clienti
+      async function caricaClientiTendina() {
+        const select = document.getElementById('doc-cliente');
+        const { data: clienti } = await supabase.from('clienti').select('id, ragione_sociale').order('ragione_sociale');
+        if (clienti) {
+          clienti.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c.id;
+            option.textContent = c.ragione_sociale;
+            select.appendChild(option);
+          });
+        }
+      }
+      caricaClientiTendina();
+
+      // --- CARICAMENTO DOCUMENTI ---
+      async function caricaDocumenti() {
+        const tbody = document.getElementById('tabellaDocumenti');
+        const { data: documenti, error } = await supabase
+          .from('documenti')
+          .select(`*, clienti (ragione_sociale)`)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
+          return;
+        }
+
+        if (documenti.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Nessun documento archiviato.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = documenti.map(doc => {
+          const nomeCliente = doc.clienti ? doc.clienti.ragione_sociale : '—';
+          return `
+            <tr style="cursor:pointer;" id="riga-doc-${doc.id}" onclick="window.open('${doc.file_url}', '_blank')">
+              <td><strong>${doc.nome_file}</strong></td>
+              <td><span class="badge badge--info">${doc.tipo_file}</span></td>
+              <td>${nomeCliente}</td>
+              <td class="text-secondary">${new Date(doc.created_at).toLocaleDateString('it-IT')}</td>
+              <td style="text-align:right;" onclick="event.stopPropagation()">
+                <button class="btn btn--ghost btn--sm" onclick="window.open('${doc.file_url}', '_blank')" title="Apri" style="margin-right: 4px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+                <button class="btn btn--ghost btn--sm" style="color: var(--color-danger);" onclick="eliminaDocumento('${doc.id}', '${doc.file_url}')" title="Elimina">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // --- FUNZIONE PER ELIMINARE IL DOCUMENTO ---
+      window.eliminaDocumento = async function(id, fileUrl) {
+        if (confirm("Sei sicuro di voler eliminare questo documento? L'operazione è irreversibile.")) {
+          // 1. Estraiamo il nome del file dall'URL per cancellarlo dallo Storage
+          // L'URL è tipo: https://[progetto].supabase.co/storage/v1/object/public/documenti/[nomefile]
+          const fileName = fileUrl.split('/').pop();
+
+          // 2. Cancelliamo il file fisico dallo Storage
+          const { error: storageError } = await supabase.storage
+            .from('documenti')
+            .remove([fileName]);
+
+          if (storageError) {
+            console.error("Errore eliminazione file:", storageError);
+            // Continuiamo comunque a cancellare il record dal DB, per non lasciare "blocchi"
+          }
+
+          // 3. Cancelliamo il record dal Database
+          const { error } = await supabase.from('documenti').delete().eq('id', id);
+          
+          if (error) {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Errore", message: error.message, variant: "danger" });
+          } else {
+            if (window.DNAHub) window.DNAHub.Toast.show({ title: "Eliminato", message: "Documento rimosso.", variant: "success" });
+            const riga = document.getElementById(`riga-doc-${id}`);
+            if (riga) {
+              riga.style.opacity = '0';
+              setTimeout(() => riga.remove(), 300);
+            }
+          }
+        }
+      };
+
+      // --- CARICAMENTO NUOVO DOCUMENTO ---
+      document.getElementById('btnCaricaDocumento').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const nome = document.getElementById('doc-nome').value;
+        const tipo = document.getElementById('doc-tipo').value;
+        const clienteId = document.getElementById('doc-cliente').value;
+        const fileInput = document.getElementById('doc-file');
+        const file = fileInput.files[0];
+
+        if (!nome || !file) { alert("Nome e File sono obbligatori!"); return; }
+
+        const btn = document.getElementById('btnCaricaDocumento');
+        btn.innerHTML = 'Caricamento...';
+        btn.disabled = true;
+
+        // 1. Carica il file su Supabase Storage
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('documenti')
+          .upload(fileName, file);
+
+        if (uploadError) {
+          alert("Errore upload file: " + uploadError.message);
+          btn.innerHTML = 'Carica';
+          btn.disabled = false;
+          return;
+        }
+
+        // 2. Ottieni l'URL pubblico
+        const { data: { publicUrl } } = supabase.storage
+          .from('documenti')
+          .getPublicUrl(fileName);
+
+        // 3. Salva il record nel database
+        const { error: dbError } = await supabase.from('documenti').insert([{
+          nome_file: nome,
+          file_url: publicUrl,
+          tipo_file: tipo,
+          cliente_id: clienteId || null
+        }]);
+
+        btn.innerHTML = 'Carica';
+        btn.disabled = false;
+
+        if (dbError) {
+          alert("Errore database: " + dbError.message);
+        } else {
+          chiudiModale();
+          if (window.DNAHub) window.DNAHub.Toast.show({ title: "Successo", message: "Documento caricato.", variant: "success" });
+          caricaDocumenti();
+        }
+      });
+
+      caricaDocumenti();
+    }
+  </script>
+
+  <script src="../assets/js/components.js"></script>
+</body>
+</html>

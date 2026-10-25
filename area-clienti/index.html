@@ -12,19 +12,52 @@
   
   <style>
     body { visibility: hidden; }
-    /* Aggiunge un feedback visivo al passaggio del mouse sulla timeline */
     .timeline__item { transition: background 0.2s, transform 0.2s; border-radius: var(--radius-md); padding: var(--space-2); margin-left: calc(var(--space-2) * -1); }
     .timeline__item:hover { background: var(--color-surface-hover); transform: translateX(4px); }
+    
+    /* Stile per le card operative */
+    .op-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .op-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary-subtle);
+    }
+    .op-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .op-icon--primary { background: var(--color-primary-subtle); color: var(--color-primary); }
+    .op-icon--success { background: #e6f4ea; color: #1e8e3e; }
+    .op-icon--warning { background: #fef7e0; color: #b06000; }
+    .op-icon--info { background: #e8f0fe; color: #1a73e8; }
+    .op-content h3 { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-semibold); }
+    .op-content p { margin: 2px 0 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
   </style>
 </head>
 <body class="app-body">
 
+  <!-- SIDEBAR -->
   <aside class="app-sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="sidebar-logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         <span class="sidebar-logo-text">DNA Hub</span>
       </a>
     </div>
@@ -56,15 +89,23 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           <span class="nav-item-text">Progetti</span>
         </a>
-        <!-- AGGIUNTA VOCE SERVIZI -->
         <a href="pages/servizi.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <span class="nav-item-text">Servizi</span>
         </a>
+        <a href="pages/collaboratori.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Collaboratori</span>
+        </a>
+        <!-- AGGIUNTA VOCE DOCUMENTAZIONE -->
+        <a href="pages/documentazione.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-item-text">Documentazione</span>
+        </a>
       </div>
     </nav>
 
-    <!-- SIDEBAR FOOTER CON ID -->
+    <!-- SIDEBAR FOOTER CON ID E LINK A IMPOSTAZIONI -->
     <a href="pages/impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
       <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
         <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
@@ -77,13 +118,13 @@
     </a>
   </aside>
 
+  <!-- HEADER -->
   <header class="app-header">
     <div class="header-left">
       <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       
-      <!-- BARRA DI RICERCA CON SUGGERIMENTI -->
       <div style="position:relative; width:320px;">
         <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
           <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -97,6 +138,7 @@
     </div>
     <div class="header-right">
       
+      <!-- CAMPANELLA -->
       <div style="position:relative;">
         <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -116,13 +158,15 @@
     </div>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main class="app-main">
     <div class="page-header">
       <h1 class="page-title">Dashboard</h1>
       <p class="page-subtitle">Benvenuto nell'Area Clienti di DNA Hub.</p>
     </div>
 
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
+    <!-- KPI CLASSICI IN ALTO (4) -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
       <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
         <div class="kpi__label">Clienti Totali</div>
         <div class="kpi__value tabular" id="kpiClienti">—</div>
@@ -148,6 +192,57 @@
       </button>
     </div>
 
+    <!-- NUOVA SEZIONE OPERATIVA (4 Card) -->
+    <h2 class="t-lg w-semibold mb-4" style="margin-top: var(--space-8);">Panoramica Operativa</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
+      
+      <!-- Card Progetti -->
+      <a href="pages/progetti.html" class="op-card">
+        <div class="op-icon op-icon--primary">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Progetti Attivi</h3>
+          <p><span id="kpiProgetti">—</span> in corso</p>
+        </div>
+      </a>
+
+      <!-- Card Servizi -->
+      <a href="pages/servizi.html" class="op-card">
+        <div class="op-icon op-icon--success">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Catalogo Servizi</h3>
+          <p><span id="kpiServizi">—</span> servizi disponibili</p>
+        </div>
+      </a>
+
+      <!-- Card Collaboratori -->
+      <a href="pages/collaboratori.html" class="op-card">
+        <div class="op-icon op-icon--warning">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Collaboratori</h3>
+          <p><span id="kpiCollaboratori">—</span> nel team</p>
+        </div>
+      </a>
+
+      <!-- Card Documentazione -->
+      <a href="pages/documentazione.html" class="op-card">
+        <div class="op-icon op-icon--info">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Documentazione</h3>
+          <p><span id="kpiDocumenti">—</span> file archiviati</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- TIMELINE E ULTIMI CLIENTI -->
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
       <div class="card">
         <div class="card__header">
@@ -177,7 +272,6 @@
 
   <script type="module">
     import { supabase } from './assets/js/supabase-client.js';
-    import { initNotifiche } from './assets/js/notifiche.js';
 
     const { data: { session } } = await supabase.auth.getSession();
     
@@ -195,8 +289,8 @@
       const user = session.user;
       const userMetadata = { ...(user.user_metadata || {}) };
       
-      let nome = (typeof userMetadata.nome === 'string' && userMetadata.nome.trim() !== '') ? userMetadata.nome : 'Mario';
-      let cognome = (typeof userMetadata.cognome === 'string' && userMetadata.cognome.trim() !== '' && !userMetadata.cognome.includes('@')) ? userMetadata.cognome : 'Rossi';
+      let nome = userMetadata.nome || 'Mario';
+      let cognome = userMetadata.cognome || 'Rossi';
       
       const sidebarImg = document.getElementById('sidebarAvatarImage');
       const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
@@ -216,24 +310,74 @@
           }
       }
 
-      // --- LOGICA DI RICERCA CON SUGGERIMENTI ---
+      // ==========================================
+      // LOGICA NOTIFICHE
+      // ==========================================
+      const btnNotifiche = document.getElementById('btnNotifiche');
+      const pannelloNotifiche = document.getElementById('pannelloNotifiche');
+      const listaNotifiche = document.getElementById('listaNotifiche');
+      const badgeNotifiche = document.getElementById('badgeNotifiche');
+
+      if (btnNotifiche) {
+          const { data: ticketsNotif } = await supabase
+            .from('tickets')
+            .select('*')
+            .eq('stato', 'Aperto')
+            .eq('notifica_letta', false);
+
+          if (ticketsNotif && ticketsNotif.length > 0) {
+              badgeNotifiche.textContent = ticketsNotif.length;
+              badgeNotifiche.style.display = 'flex';
+              
+              listaNotifiche.innerHTML = ticketsNotif.map(t => `
+                <div class="notifica-item" data-id="${t.id}" style="padding:10px; border-bottom:1px solid var(--color-border); cursor:pointer;">
+                  <div style="font-weight:bold; font-size:13px;">${t.oggetto}</div>
+                  <div style="font-size:11px; color:var(--color-text-secondary);">${t.priorita} - ${new Date(t.created_at).toLocaleDateString('it-IT')}</div>
+                </div>
+              `).join('');
+
+              document.querySelectorAll('.notifica-item').forEach(item => {
+                  item.addEventListener('click', async (e) => {
+                      e.stopPropagation();
+                      const id = item.getAttribute('data-id');
+                      await supabase.from('tickets').update({ notifica_letta: true }).eq('id', id);
+                      window.location.href = `pages/dettaglio-ticket.html?id=${id}`;
+                  });
+              });
+          } else {
+              badgeNotifiche.style.display = 'none';
+              listaNotifiche.innerHTML = '<div style="padding:15px; text-align:center;">Nessuna notifica.</div>';
+          }
+
+          btnNotifiche.addEventListener('click', (e) => {
+            e.stopPropagation();
+            pannelloNotifiche.style.display = pannelloNotifiche.style.display === 'block' ? 'none' : 'block';
+          });
+          document.addEventListener('click', (e) => {
+            if (pannelloNotifiche && !pannelloNotifiche.contains(e.target) && !btnNotifiche.contains(e.target)) {
+              pannelloNotifiche.style.display = 'none';
+            }
+          });
+      }
+      // ==========================================
+      // FINE LOGICA NOTIFICHE
+      // ==========================================
+
+      // ==========================================
+      // RICERCA GLOBALE
+      // ==========================================
       window.supabaseClient = supabase;
       const searchInput = document.getElementById('headerSearchInput');
       const searchResults = document.getElementById('headerSearchResults');
       const btnClearSearch = document.getElementById('btnClearSearch');
-      
-      const isInPages = window.location.pathname.includes('/pages/');
-      const targetPage = isInPages ? 'cliente.html' : 'pages/cliente.html';
+      const targetPage = 'pages/cliente.html';
 
       if (searchInput && searchResults) {
         searchInput.addEventListener('input', async (e) => {
           const query = e.target.value.trim();
           btnClearSearch.style.display = query.length > 0 ? 'block' : 'none';
 
-          if (query.length < 2) {
-            searchResults.style.display = 'none';
-            return;
-          }
+          if (query.length < 2) { searchResults.style.display = 'none'; return; }
 
           const clienti = await window.DNAHub.GlobalSearch.cerca(query);
           
@@ -252,7 +396,6 @@
               </div>
             </div>
           `).join('');
-          
           searchResults.style.display = 'block';
         });
 
@@ -270,39 +413,26 @@
         });
       }
 
+      // ==========================================
+      // CARICAMENTO DATI DASHBOARD
+      // ==========================================
       async function caricaDashboard() {
-        // 1. Clienti Totali
+        // KPI Classici
         const { count: clientiCount } = await supabase.from('clienti').select('*', { count: 'exact', head: true });
         if (clientiCount !== null) document.getElementById('kpiClienti').textContent = clientiCount;
 
-        // 2. Aziende Totali
         const { count: aziendeCount } = await supabase.from('clienti').select('*', { count: 'exact', head: true }).neq('azienda', '—').not('azienda', 'is', null);
         if (aziendeCount !== null) document.getElementById('kpiAziende').textContent = aziendeCount;
 
-        // 3. Ticket Aperti
         const { count: ticketCount } = await supabase.from('tickets').select('*', { count: 'exact', head: true }).eq('stato', 'Aperto');
         if (ticketCount !== null) document.getElementById('kpiTicket').textContent = ticketCount;
 
-        // 4. Contratti Attivi e Delta
         try {
-          const { count: contrattiCount, error: contrattiError } = await supabase
-            .from('contratti')
-            .select('*', { count: 'exact', head: true })
-            .eq('stato', 'Attivo');
-
+          const { count: contrattiCount, error: contrattiError } = await supabase.from('contratti').select('*', { count: 'exact', head: true }).eq('stato', 'Attivo');
           if (!contrattiError && contrattiCount !== null) {
             document.getElementById('kpiContratti').textContent = contrattiCount;
-            
-            const inizioMese = new Date();
-            inizioMese.setDate(1);
-            inizioMese.setHours(0, 0, 0, 0);
-
-            const { count: nuoviContrattiCount } = await supabase
-              .from('contratti')
-              .select('*', { count: 'exact', head: true })
-              .eq('stato', 'Attivo')
-              .gte('created_at', inizioMese.toISOString());
-
+            const inizioMese = new Date(); inizioMese.setDate(1); inizioMese.setHours(0, 0, 0, 0);
+            const { count: nuoviContrattiCount } = await supabase.from('contratti').select('*', { count: 'exact', head: true }).eq('stato', 'Attivo').gte('created_at', inizioMese.toISOString());
             const deltaText = document.getElementById('kpiContrattiDelta');
             if (nuoviContrattiCount > 0) {
               deltaText.textContent = `+${nuoviContrattiCount} questo mese`;
@@ -316,10 +446,23 @@
              document.getElementById('kpiContrattiDelta').textContent = "Tabella non trovata";
           }
         } catch (err) {
-          console.log("Tabella contratti non ancora creata su Supabase.");
+          console.log("Tabella contratti non ancora creata.");
         }
 
-        // 5. Ultimi Clienti
+        // Nuovi KPI Operativi
+        const { count: progettiCount } = await supabase.from('progetti').select('*', { count: 'exact', head: true }).eq('stato', 'In corso');
+        if (progettiCount !== null) document.getElementById('kpiProgetti').textContent = progettiCount;
+
+        const { count: serviziCount } = await supabase.from('servizi').select('*', { count: 'exact', head: true });
+        if (serviziCount !== null) document.getElementById('kpiServizi').textContent = serviziCount;
+
+        const { count: collaboratoriCount } = await supabase.from('collaboratori').select('*', { count: 'exact', head: true });
+        if (collaboratoriCount !== null) document.getElementById('kpiCollaboratori').textContent = collaboratoriCount;
+
+        const { count: documentiCount } = await supabase.from('documenti').select('*', { count: 'exact', head: true });
+        if (documentiCount !== null) document.getElementById('kpiDocumenti').textContent = documentiCount;
+
+        // Ultimi Clienti
         const { data: ultimiClienti } = await supabase.from('clienti').select('*').order('created_at', { ascending: false }).limit(3);
         const tbody = document.getElementById('tabellaUltimiClienti');
         if (ultimiClienti && ultimiClienti.length > 0) {
@@ -334,7 +477,7 @@
           tbody.innerHTML = '<tr><td colspan="3" class="text-center p-4">Nessun cliente trovato.</td></tr>';
         }
 
-        // 6. Attività Recenti (Tickets) - ORA CLICCABILI
+        // Attività Recenti
         const { data: ultimiTickets } = await supabase.from('tickets').select('*').order('created_at', { ascending: false }).limit(3);
         const timeline = document.getElementById('listaAttivita');
         if (ultimiTickets && ultimiTickets.length > 0) {
@@ -348,8 +491,6 @@
         } else {
           timeline.innerHTML = '<div class="timeline__item text-secondary t-sm p-2">Nessuna attività recente.</div>';
         }
-        
-        initNotifiche();
       }
       
       caricaDashboard();
