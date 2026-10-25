@@ -48,6 +48,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           <span class="nav-item-text">Progetti</span>
         </a>
+        <!-- AGGIUNTA VOCE SERVIZI -->
+        <a href="servizi.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span class="nav-item-text">Servizi</span>
+        </a>
       </div>
     </nav>
 
@@ -278,7 +283,6 @@
       // --- GESTIONE APERTURA/CHIUSURA MODALE (A PROVA DI ERRORE) ---
       const modalTicket = document.getElementById('modal-nuovo-ticket');
       
-      // Funzione di supporto per aprire/chiudere
       const apriModale = () => {
         if (window.DNAHub && window.DNAHub.Modal) {
           window.DNAHub.Modal.open('modal-nuovo-ticket');
@@ -295,12 +299,10 @@
         }
       };
 
-      // Collega i bottoni
       document.getElementById('btnApriModaleTicket').addEventListener('click', apriModale);
       document.getElementById('btnAnnullaModale').addEventListener('click', chiudiModale);
       document.getElementById('btnChiudiModaleX').addEventListener('click', chiudiModale);
 
-      // Chiudi cliccando sullo sfondo scuro fuori dal modale
       modalTicket.addEventListener('click', (e) => {
         if (e.target === modalTicket) chiudiModale();
       });
