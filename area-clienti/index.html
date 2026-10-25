@@ -15,6 +15,41 @@
     /* Aggiunge un feedback visivo al passaggio del mouse sulla timeline */
     .timeline__item { transition: background 0.2s, transform 0.2s; border-radius: var(--radius-md); padding: var(--space-2); margin-left: calc(var(--space-2) * -1); }
     .timeline__item:hover { background: var(--color-surface-hover); transform: translateX(4px); }
+    
+    /* Stile per le card operative */
+    .op-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .op-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary-subtle);
+    }
+    .op-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .op-icon--primary { background: var(--color-primary-subtle); color: var(--color-primary); }
+    .op-icon--success { background: #e6f4ea; color: #1e8e3e; }
+    .op-icon--warning { background: #fef7e0; color: #b06000; }
+    .op-icon--info { background: #e8f0fe; color: #1a73e8; }
+    .op-content h3 { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-semibold); }
+    .op-content p { margin: 2px 0 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
   </style>
 </head>
 <body class="app-body">
@@ -56,10 +91,22 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           <span class="nav-item-text">Progetti</span>
         </a>
-        <!-- AGGIUNTA VOCE SERVIZI -->
         <a href="pages/servizi.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <span class="nav-item-text">Servizi</span>
+        </a>
+        <!-- VOCI AGGIUNTE -->
+        <a href="pages/contratti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-item-text">Contratti</span>
+        </a>
+        <a href="pages/collaboratori.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Collaboratori</span>
+        </a>
+        <a href="pages/documentazione.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-item-text">Documentazione</span>
         </a>
       </div>
     </nav>
@@ -122,7 +169,8 @@
       <p class="page-subtitle">Benvenuto nell'Area Clienti di DNA Hub.</p>
     </div>
 
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
+    <!-- KPI CLASSICI IN ALTO (4) -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
       <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
         <div class="kpi__label">Clienti Totali</div>
         <div class="kpi__value tabular" id="kpiClienti">—</div>
@@ -148,6 +196,81 @@
       </button>
     </div>
 
+    <!-- SEZIONE OPERATIVA (4 Card) -->
+    <h2 class="t-lg w-semibold mb-4" style="margin-top: var(--space-8);">Panoramica Operativa</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
+      
+      <a href="pages/progetti.html" class="op-card">
+        <div class="op-icon op-icon--primary">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Progetti Attivi</h3>
+          <p><span id="kpiProgetti">—</span> in corso</p>
+        </div>
+      </a>
+
+      <a href="pages/servizi.html" class="op-card">
+        <div class="op-icon op-icon--success">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Catalogo Servizi</h3>
+          <p><span id="kpiServizi">—</span> servizi disponibili</p>
+        </div>
+      </a>
+
+      <a href="pages/collaboratori.html" class="op-card">
+        <div class="op-icon op-icon--warning">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Collaboratori</h3>
+          <p><span id="kpiCollaboratori">—</span> nel team</p>
+        </div>
+      </a>
+
+      <a href="pages/documentazione.html" class="op-card">
+        <div class="op-icon op-icon--info">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Documentazione</h3>
+          <p><span id="kpiDocumenti">—</span> file archiviati</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- SEZIONE SCADENZE CONTRATTI -->
+    <div style="margin-bottom: var(--space-8);">
+      <div class="card" style="border-left: 4px solid var(--color-warning);">
+        <div class="card__header" style="padding-bottom: var(--space-2);">
+          <h3 class="card__title flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Contratti in scadenza
+          </h3>
+          <button class="btn btn--link" onclick="window.location.href='pages/contratti.html'">Vedi tutti i contratti</button>
+        </div>
+        <div class="table-wrap" style="border:none;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Contratto</th>
+                <th>Cliente</th>
+                <th>Data Scadenza</th>
+                <th>Importo</th>
+              </tr>
+            </thead>
+            <tbody id="tabellaScadenzeContratti">
+              <tr><td colspan="4" class="text-center p-4">Caricamento scadenze...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE E ULTIMI CLIENTI -->
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
       <div class="card">
         <div class="card__header">
@@ -319,7 +442,59 @@
           console.log("Tabella contratti non ancora creata su Supabase.");
         }
 
-        // 5. Ultimi Clienti
+        // Nuovi KPI Operativi
+        const { count: progettiCount } = await supabase.from('progetti').select('*', { count: 'exact', head: true }).eq('stato', 'In corso');
+        if (progettiCount !== null) document.getElementById('kpiProgetti').textContent = progettiCount;
+
+        const { count: serviziCount } = await supabase.from('servizi').select('*', { count: 'exact', head: true });
+        if (serviziCount !== null) document.getElementById('kpiServizi').textContent = serviziCount;
+
+        const { count: collaboratoriCount } = await supabase.from('collaboratori').select('*', { count: 'exact', head: true });
+        if (collaboratoriCount !== null) document.getElementById('kpiCollaboratori').textContent = collaboratoriCount;
+
+        const { count: documentiCount } = await supabase.from('documenti').select('*', { count: 'exact', head: true });
+        if (documentiCount !== null) document.getElementById('kpiDocumenti').textContent = documentiCount;
+
+        // 5. Scadenze Contratti
+        const oggi = new Date();
+        const tra30Giorni = new Date();
+        tra30Giorni.setDate(oggi.getDate() + 30);
+
+        const { data: contrattiInScadenza } = await supabase
+          .from('contratti')
+          .select('*, clienti (ragione_sociale)')
+          .eq('stato', 'Attivo')
+          .lte('data_fine', tra30Giorni.toISOString().split('T')[0])
+          .gte('data_fine', oggi.toISOString().split('T')[0])
+          .order('data_fine', { ascending: true })
+          .limit(5);
+
+        const tbodyScadenze = document.getElementById('tabellaScadenzeContratti');
+        
+        if (contrattiInScadenza && contrattiInScadenza.length > 0) {
+          tbodyScadenze.innerHTML = contrattiInScadenza.map(c => {
+            const nomeCliente = c.clienti ? c.clienti.ragione_sociale : '—';
+            const dataScadenza = new Date(c.data_fine).toLocaleDateString('it-IT');
+            const diffGiorni = Math.ceil((new Date(c.data_fine) - oggi) / (1000 * 60 * 60 * 24));
+            const coloreData = diffGiorni <= 7 ? 'var(--color-danger)' : 'var(--color-warning)';
+            const pesoData = diffGiorni <= 7 ? 'bold' : 'normal';
+
+            return `
+              <tr onclick="window.location.href='pages/contratti.html'" style="cursor:pointer;">
+                <td><strong>${c.nome_contratto}</strong></td>
+                <td>${nomeCliente}</td>
+                <td style="color: ${coloreData}; font-weight: ${pesoData};">
+                  ${dataScadenza} <span style="font-size:11px; opacity:0.8;">(${diffGiorni} gg)</span>
+                </td>
+                <td class="w-semibold">€ ${parseFloat(c.importo || 0).toFixed(2)}</td>
+              </tr>
+            `;
+          }).join('');
+        } else {
+          tbodyScadenze.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-secondary">Nessun contratto in scadenza nei prossimi 30 giorni. Tutto tranquillo! ✅</td></tr>';
+        }
+
+        // 6. Ultimi Clienti
         const { data: ultimiClienti } = await supabase.from('clienti').select('*').order('created_at', { ascending: false }).limit(3);
         const tbody = document.getElementById('tabellaUltimiClienti');
         if (ultimiClienti && ultimiClienti.length > 0) {
@@ -334,7 +509,7 @@
           tbody.innerHTML = '<tr><td colspan="3" class="text-center p-4">Nessun cliente trovato.</td></tr>';
         }
 
-        // 6. Attività Recenti (Tickets) - ORA CLICCABILI
+        // 7. Attività Recenti (Tickets)
         const { data: ultimiTickets } = await supabase.from('tickets').select('*').order('created_at', { ascending: false }).limit(3);
         const timeline = document.getElementById('listaAttivita');
         if (ultimiTickets && ultimiTickets.length > 0) {
