@@ -1,0 +1,22 @@
+/* Badge di riservatezza */
+.badge { 
+    padding: 4px 8px; 
+    border-radius: 12px; 
+    font-size: 0.75rem; 
+    font-weight: 600; 
+    text-transform: capitalize; 
+}
+
+.badge-pubblico { background-color: #DFF6DD; color: #107C10; }
+.badge-riservato { background-color: #FDE7E9; color: #D13438; }
+.badge-interno { background-color: #FFF4CE; color: #797673; }
+.badge-amministrazione { background-color: #E1DFDD; color: #323130; }
+
+.action-btn { 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    color: #0078D4; 
+    font-weight: 600; 
+    text-decoration: underline; 
+}

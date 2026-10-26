@@ -21,15 +21,8 @@
     .client-kpi-label { font-size: var(--text-sm); color: var(--color-text-secondary); font-weight: var(--weight-medium); }
     .client-kpi-value { font-size: var(--text-xl); font-weight: var(--weight-semibold); }
     .tab-content-area { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-sm); min-height: 400px; }
-
-    /* Effetto Hover per tabelle e timeline */
-    .table tbody tr:hover {
-      background-color: var(--color-surface-hover) !important;
-    }
-    .timeline__item:hover {
-      background-color: var(--color-surface-hover);
-      border-radius: var(--radius-sm);
-    }
+    .table tbody tr:hover { background-color: var(--color-surface-hover) !important; }
+    .timeline__item:hover { background-color: var(--color-surface-hover); border-radius: var(--radius-sm); }
   </style>
 </head>
 <body class="app-body">
@@ -69,15 +62,25 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           <span class="nav-item-text">Progetti</span>
         </a>
-        <!-- AGGIUNTA VOCE SERVIZI -->
         <a href="servizi.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <span class="nav-item-text">Servizi</span>
         </a>
+        <a href="contratti.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-item-text">Contratti</span>
+        </a>
+        <a href="collaboratori.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-item-text">Collaboratori</span>
+        </a>
+        <a href="documentazione.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="nav-item-text">Documentazione</span>
+        </a>
       </div>
     </nav>
 
-    <!-- SIDEBAR FOOTER CON ID -->
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
       <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
         <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
@@ -85,7 +88,6 @@
       </div>
       <div class="sidebar-user-info">
         <div class="sidebar-user-name" id="sidebarUserName">Mario Rossi</div>
-        <!-- AGGIUNTO ID AL RUOLO -->
         <div class="sidebar-user-role" id="sidebarUserRole">Amministratore</div>
       </div>
     </a>
@@ -97,7 +99,6 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       
-      <!-- BARRA DI RICERCA CON SUGGERIMENTI -->
       <div style="position:relative; width:320px;">
         <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
           <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -106,18 +107,15 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        
         <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
       </div>
     </div>
     <div class="header-right">
-      
       <div style="position:relative;">
         <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="notification-badge" id="badgeNotifiche" style="display:none;">0</span>
         </button>
-        
         <div id="pannelloNotifiche" style="display:none; position:absolute; right:0; top:100%; margin-top:8px; width:320px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:1000; overflow:hidden;">
           <div style="padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-border); font-weight:var(--weight-semibold);">Notifiche Recenti</div>
           <div id="listaNotifiche" style="max-height:300px; overflow-y:auto;">
@@ -125,7 +123,6 @@
           </div>
         </div>
       </div>
-
       <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
       <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
@@ -154,19 +151,19 @@
       <div class="client-kpi-row">
         <div class="client-kpi">
           <span class="client-kpi-label">Progetti attivi</span>
-          <span class="client-kpi-value">0</span>
+          <span class="client-kpi-value" id="kpiProgettiAttivi">0</span>
         </div>
         <div class="client-kpi">
           <span class="client-kpi-label">Ticket aperti</span>
           <span class="client-kpi-value" id="kpiTicket" style="color:var(--color-danger);">0</span>
         </div>
         <div class="client-kpi">
-          <span class="client-kpi-label">Contratti</span>
-          <span class="client-kpi-value">0</span>
+          <span class="client-kpi-label">Contratti Attivi</span>
+          <span class="client-kpi-value" id="kpiContratti">0</span>
         </div>
         <div class="client-kpi" style="margin-left:auto; text-align:right;">
           <span class="client-kpi-label">Prossima scadenza</span>
-          <span class="client-kpi-value" style="color:var(--color-warning);">—</span>
+          <span class="client-kpi-value" id="kpiScadenza" style="color:var(--color-warning);">—</span>
         </div>
       </div>
     </div>
@@ -178,6 +175,8 @@
         <button class="tab" role="tab" aria-selected="false" data-target="timeline">Timeline</button>
         <button class="tab" role="tab" aria-selected="false" data-target="ticket">Ticket <span class="tab__count" id="countTicketTab">0</span></button>
         <button class="tab" role="tab" aria-selected="false" data-target="progetti">Progetti <span class="tab__count" id="countProgettiTab">0</span></button>
+        <button class="tab" role="tab" aria-selected="false" data-target="contratti">Contratti</button>
+        <button class="tab" role="tab" aria-selected="false" data-target="documenti">Documenti</button>
       </div>
     </div>
 
@@ -188,12 +187,8 @@
         <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-6);">
           <div>
             <h4 class="t-base w-semibold mb-4">Attività Recenti</h4>
-            <div class="timeline">
-              <div class="timeline__item">
-                <span class="timeline__dot timeline__dot--info"></span>
-                <div class="timeline__title">Nessuna attività recente</div>
-                <div class="timeline__meta">Le attività appariranno qui</div>
-              </div>
+            <div class="timeline" id="timelineOverview">
+              <div class="timeline__item text-secondary t-sm p-2">Caricamento...</div>
             </div>
           </div>
           <div>
@@ -207,7 +202,7 @@
       
       <!-- TAB TIMELINE -->
       <div data-tab-panel="timeline" hidden>
-        <h3 class="t-lg w-semibold mb-4">Timeline del Cliente</h3>
+        <h3 class="t-lg w-semibold mb-4">Timeline Completa</h3>
         <div class="timeline" id="timelineCliente" style="padding-left: var(--space-6);">
           <div class="text-center text-secondary p-4">Caricamento eventi...</div>
         </div>
@@ -248,6 +243,46 @@
               </tr>
             </thead>
             <tbody id="tabellaProgettiCliente">
+              <tr><td colspan="4" class="text-center p-4">Caricamento...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB CONTRATTI (NUOVO) -->
+      <div data-tab-panel="contratti" hidden>
+        <h3 class="t-lg w-semibold mb-4">Contratti del Cliente</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome Contratto</th>
+                <th>Importo</th>
+                <th>Data Scadenza</th>
+                <th>Stato</th>
+              </tr>
+            </thead>
+            <tbody id="tabellaContrattiCliente">
+              <tr><td colspan="4" class="text-center p-4">Caricamento...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB DOCUMENTI (NUOVO) -->
+      <div data-tab-panel="documenti" hidden>
+        <h3 class="t-lg w-semibold mb-4">Documenti del Cliente</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Titolo</th>
+                <th>Livello Riservatezza</th>
+                <th>Data Caricamento</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="tabellaDocumentiCliente">
               <tr><td colspan="4" class="text-center p-4">Caricamento...</td></tr>
             </tbody>
           </table>
@@ -302,16 +337,13 @@
       // --- POPOLAMENTO SIDEBAR CON DATI UTENTE ---
       const user = session.user;
       const userMetadata = { ...(user.user_metadata || {}) };
-      
       let nome = (typeof userMetadata.nome === 'string' && userMetadata.nome.trim() !== '') ? userMetadata.nome : 'Mario';
       let cognome = (typeof userMetadata.cognome === 'string' && userMetadata.cognome.trim() !== '' && !userMetadata.cognome.includes('@')) ? userMetadata.cognome : 'Rossi';
-      
       const sidebarImg = document.getElementById('sidebarAvatarImage');
       const sidebarIniziali = document.getElementById('sidebarAvatarIniziali');
       const sidebarNome = document.getElementById('sidebarUserName');
 
       if (sidebarNome) sidebarNome.textContent = `${nome} ${cognome}`;
-
       if (sidebarImg && sidebarIniziali) {
           if (userMetadata.avatar_url) {
               sidebarImg.src = userMetadata.avatar_url;
@@ -334,14 +366,9 @@
         headerSearchInput.addEventListener('input', async (e) => {
           const query = e.target.value.trim();
           btnClearHeaderSearch.style.display = query.length > 0 ? 'block' : 'none';
-
-          if (query.length < 2) {
-            headerSearchResults.style.display = 'none';
-            return;
-          }
+          if (query.length < 2) { headerSearchResults.style.display = 'none'; return; }
 
           const clienti = await window.DNAHub.GlobalSearch.cerca(query);
-          
           if (clienti.length === 0) {
             headerSearchResults.innerHTML = '<div style="padding:12px; text-align:center; color:var(--color-text-secondary); font-size:13px;">Nessun cliente trovato.</div>';
             headerSearchResults.style.display = 'block';
@@ -357,7 +384,6 @@
               </div>
             </div>
           `).join('');
-          
           headerSearchResults.style.display = 'block';
         });
 
@@ -395,6 +421,7 @@
       if (!clienteId) {
         document.getElementById('clienteNome').textContent = "Cliente non specificato";
       } else {
+        // Caricamento Dati Base Cliente
         const { data, error } = await supabase.from('clienti').select('*').eq('id', clienteId).single();
         if (error || !data) {
           document.getElementById('clienteNome').textContent = "Cliente non trovato";
@@ -415,118 +442,137 @@
           `;
         }
 
-        // Caricamento Ticket
-        async function caricaTicketCliente() {
-          const tbody = document.getElementById('tabellaTicketCliente');
-          const { data: tickets, error } = await supabase
-            .from('tickets')
-            .select('*')
-            .eq('cliente_id', clienteId)
-            .order('created_at', { ascending: false });
+        // --- CARICAMENTO KPI E DATI ---
+        async function caricaDatiCliente() {
+            // 1. Ticket
+            const { data: tickets, error: errT } = await supabase.from('tickets').select('*').eq('cliente_id', clienteId).order('created_at', { ascending: false });
+            const tbodyTicket = document.getElementById('tabellaTicketCliente');
+            const ticketAperti = tickets ? tickets.filter(t => t.stato === 'Aperto').length : 0;
+            document.getElementById('kpiTicket').textContent = ticketAperti;
+            document.getElementById('countTicketTab').textContent = tickets ? tickets.length : 0;
 
-          if (error) {
-            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
-            return;
-          }
+            if (tickets && tickets.length > 0) {
+                tbodyTicket.innerHTML = tickets.map(ticket => `
+                  <tr style="cursor:pointer;">
+                    <td><span class="w-semibold text-secondary">#${ticket.id.substring(0,4)}</span></td>
+                    <td><strong>${ticket.oggetto}</strong></td>
+                    <td><span class="badge badge--${ticket.priorita === 'Alta' ? 'warning' : (ticket.priorita === 'Critica' ? 'danger' : 'neutral')}">${ticket.priorita}</span></td>
+                    <td><span class="badge badge--${ticket.stato === 'Aperto' ? 'success' : (ticket.stato === 'In lavorazione' ? 'info' : 'warning')}">${ticket.stato}</span></td>
+                    <td class="text-secondary">${new Date(ticket.created_at).toLocaleDateString('it-IT')}</td>
+                  </tr>
+                `).join('');
+            } else {
+                tbodyTicket.innerHTML = '<tr><td colspan="5" class="text-center p-4">Nessun ticket trovato.</td></tr>';
+            }
 
-          if (tickets.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center p-4">Nessun ticket trovato.</td></tr>';
-          } else {
-            tbody.innerHTML = tickets.map(ticket => `
-              <tr style="cursor:pointer;" onclick="window.DNAHub.Toast.show({ title: 'Dettaglio Ticket', message: 'Funzione in costruzione', variant: 'info' })">
-                <td><span class="w-semibold text-secondary">#${ticket.id.substring(0,4)}</span></td>
-                <td><strong>${ticket.oggetto}</strong></td>
-                <td><span class="badge badge--${ticket.priorita === 'Alta' ? 'warning' : (ticket.priorita === 'Critica' ? 'danger' : 'neutral')}">${ticket.priorita}</span></td>
-                <td><span class="badge badge--${ticket.stato === 'Aperto' ? 'success' : (ticket.stato === 'In lavorazione' ? 'info' : 'warning')}">${ticket.stato}</span></td>
-                <td class="text-secondary">${new Date(ticket.created_at).toLocaleDateString('it-IT')}</td>
-              </tr>
-            `).join('');
-          }
+            // 2. Progetti
+            const { data: progetti, error: errP } = await supabase.from('progetti').select('*').eq('cliente_id', clienteId).order('created_at', { ascending: false });
+            const tbodyProg = document.getElementById('tabellaProgettiCliente');
+            const progAttivi = progetti ? progetti.filter(p => p.stato === 'In corso').length : 0;
+            document.getElementById('kpiProgettiAttivi').textContent = progAttivi;
+            document.getElementById('countProgettiTab').textContent = progetti ? progetti.length : 0;
 
-          document.getElementById('kpiTicket').textContent = tickets.length;
-          document.getElementById('countTicketTab').textContent = tickets.length;
+            if (progetti && progetti.length > 0) {
+                tbodyProg.innerHTML = progetti.map(progetto => {
+                  let coloreBarra = 'var(--color-primary)'; let classeBadge = 'badge--info';
+                  if (progetto.stato === 'In ritardo') { coloreBarra = 'var(--color-danger)'; classeBadge = 'badge--danger'; }
+                  if (progetto.stato === 'Completato') { coloreBarra = 'var(--color-success)'; classeBadge = 'badge--success'; }
+                  const avanzamento = Math.min(100, Math.max(0, progetto.avanzamento || 0));
+                  return `
+                    <tr>
+                      <td><strong>${progetto.nome}</strong></td>
+                      <td><span class="badge ${classeBadge}">${progetto.stato}</span></td>
+                      <td>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                          <div style="flex:1; height: 6px; background: var(--color-surface-hover); border-radius: var(--radius-full); overflow: hidden;">
+                            <div style="width: ${avanzamento}%; height: 100%; background: ${coloreBarra}; border-radius: var(--radius-full);"></div>
+                          </div>
+                          <span class="t-xs w-semibold">${avanzamento}%</span>
+                        </div>
+                      </td>
+                      <td class="text-secondary">${new Date(progetto.created_at).toLocaleDateString('it-IT')}</td>
+                    </tr>
+                  `;
+                }).join('');
+            } else {
+                tbodyProg.innerHTML = '<tr><td colspan="4" class="text-center p-4">Nessun progetto trovato.</td></tr>';
+            }
+
+            // 3. Contratti
+            const { data: contratti, error: errC } = await supabase.from('contratti').select('*').eq('cliente_id', clienteId).order('data_fine', { ascending: true });
+            const tbodyContratti = document.getElementById('tabellaContrattiCliente');
+            let contrattiAttivi = 0;
+            let prossimaScadenza = null;
+
+            if (contratti && contratti.length > 0) {
+                tbodyContratti.innerHTML = contratti.map(c => {
+                    if (c.stato === 'Attivo') contrattiAttivi++;
+                    // Trova la prossima scadenza tra i contratti attivi
+                    if (c.stato === 'Attivo' && c.data_fine && (!prossimaScadenza || new Date(c.data_fine) < new Date(prossimaScadenza))) {
+                        prossimaScadenza = c.data_fine;
+                    }
+                    return `
+                    <tr>
+                      <td><strong>${c.nome_contratto}</strong></td>
+                      <td>€ ${parseFloat(c.importo || 0).toFixed(2)}</td>
+                      <td>${c.data_fine ? new Date(c.data_fine).toLocaleDateString('it-IT') : '—'}</td>
+                      <td><span class="badge badge--${c.stato === 'Attivo' ? 'success' : 'neutral'}">${c.stato}</span></td>
+                    </tr>
+                  `;
+                }).join('');
+            } else {
+                tbodyContratti.innerHTML = '<tr><td colspan="4" class="text-center p-4">Nessun contratto trovato.</td></tr>';
+            }
+            document.getElementById('kpiContratti').textContent = contrattiAttivi;
+            if (prossimaScadenza) {
+                document.getElementById('kpiScadenza').textContent = new Date(prossimaScadenza).toLocaleDateString('it-IT');
+            }
+
+            // 4. Documenti
+            const { data: documenti, error: errD } = await supabase.from('documenti').select('*').eq('cliente_id', clienteId).order('created_at', { ascending: false });
+            const tbodyDoc = document.getElementById('tabellaDocumentiCliente');
+
+            if (documenti && documenti.length > 0) {
+                tbodyDoc.innerHTML = documenti.map(d => `
+                  <tr>
+                    <td><strong>${d.titolo || d.nome_file}</strong></td>
+                    <td><span class="badge badge--${d.livello_riservatezza === 'riservato' ? 'danger' : (d.livello_riservatezza === 'pubblico' ? 'success' : 'warning')}">${d.livello_riservatezza || 'interno'}</span></td>
+                    <td>${new Date(d.created_at).toLocaleDateString('it-IT')}</td>
+                    <td><a href="${d.file_url}" target="_blank" class="btn btn--secondary btn--sm">Apri</a></td>
+                  </tr>
+                `).join('');
+            } else {
+                tbodyDoc.innerHTML = '<tr><td colspan="4" class="text-center p-4">Nessun documento caricato.</td></tr>';
+            }
+
+            // 5. Timeline
+            await caricaTimeline();
         }
 
-        // Caricamento Progetti
-        async function caricaProgettiCliente() {
-          const tbody = document.getElementById('tabellaProgettiCliente');
-          const { data: progetti, error } = await supabase
-            .from('progetti')
-            .select('*')
-            .eq('cliente_id', clienteId)
-            .order('created_at', { ascending: false });
-
-          if (error) {
-            tbody.innerHTML = `<tr><td colspan="4" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
-            return;
-          }
-
-          if (progetti.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4">Nessun progetto trovato.</td></tr>';
-          } else {
-            tbody.innerHTML = progetti.map(progetto => {
-              let coloreBarra = 'var(--color-primary)';
-              let classeBadge = 'badge--info';
-              if (progetto.stato === 'In ritardo') { coloreBarra = 'var(--color-danger)'; classeBadge = 'badge--danger'; }
-              if (progetto.stato === 'Completato') { coloreBarra = 'var(--color-success)'; classeBadge = 'badge--success'; }
-              
-              const avanzamento = Math.min(100, Math.max(0, progetto.avanzamento || 0));
-
-              return `
-                <tr style="cursor:pointer;" onclick="window.DNAHub.Toast.show({ title: 'Dettaglio Progetto', message: 'Funzione in costruzione', variant: 'info' })">
-                  <td><strong>${progetto.nome}</strong></td>
-                  <td><span class="badge ${classeBadge}">${progetto.stato}</span></td>
-                  <td>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <div style="flex:1; height: 6px; background: var(--color-surface-hover); border-radius: var(--radius-full); overflow: hidden;">
-                        <div style="width: ${avanzamento}%; height: 100%; background: ${coloreBarra}; border-radius: var(--radius-full);"></div>
-                      </div>
-                      <span class="t-xs w-semibold">${avanzamento}%</span>
-                    </div>
-                  </td>
-                  <td class="text-secondary">${new Date(progetto.created_at).toLocaleDateString('it-IT')}</td>
-                </tr>
-              `;
-            }).join('');
-          }
-
-          document.getElementById('countProgettiTab').textContent = progetti.length;
-        }
-
-        // Caricamento Timeline
         async function caricaTimeline() {
           const container = document.getElementById('timelineCliente');
-          
-          const [ticketsRes, progettiRes] = await Promise.all([
+          const containerOverview = document.getElementById('timelineOverview');
+
+          // Recuperiamo tutti gli eventi
+          const [ticketsRes, progettiRes, documentiRes] = await Promise.all([
             supabase.from('tickets').select('*').eq('cliente_id', clienteId),
-            supabase.from('progetti').select('*').eq('cliente_id', clienteId)
+            supabase.from('progetti').select('*').eq('cliente_id', clienteId),
+            supabase.from('documenti').select('*').eq('cliente_id', clienteId)
           ]);
 
-          const tickets = ticketsRes.data || [];
-          const progetti = progettiRes.data || [];
-
           const eventi = [
-            ...tickets.map(t => ({
-              data: new Date(t.created_at),
-              titolo: `Ticket aperto: ${t.oggetto}`,
-              meta: `Priorità: ${t.priorita} · Stato: ${t.stato}`,
-              tipo: 'ticket',
-              colore: 'info'
-            })),
-            ...progetti.map(p => ({
-              data: new Date(p.created_at),
-              titolo: `Progetto avviato: ${p.nome}`,
-              meta: `Stato: ${p.stato} · Avanzamento: ${p.avanzamento}%`,
-              tipo: 'progetto',
-              colore: 'success'
-            }))
+            ...(ticketsRes.data || []).map(t => ({ data: new Date(t.created_at), titolo: `Ticket: ${t.oggetto}`, tipo: 'ticket', colore: 'info' })),
+            ...(progettiRes.data || []).map(p => ({ data: new Date(p.created_at), titolo: `Progetto: ${p.nome}`, tipo: 'progetto', colore: 'success' })),
+            ...(documentiRes.data || []).map(d => ({ data: new Date(d.created_at), titolo: `Documento: ${d.titolo || d.nome_file}`, tipo: 'documento', colore: 'warning' }))
           ].sort((a, b) => b.data - a.data);
 
           if (eventi.length === 0) {
-            container.innerHTML = '<div class="text-center text-secondary p-4">Nessun evento registrato per questo cliente.</div>';
+            container.innerHTML = '<div class="text-center text-secondary p-4">Nessun evento registrato.</div>';
+            containerOverview.innerHTML = '<div class="text-secondary t-sm p-2">Nessuna attività recente.</div>';
             return;
           }
 
+          // Popoliamo la timeline completa
           const gruppi = {};
           eventi.forEach(e => {
             const giorno = e.data.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -540,27 +586,33 @@
               <div class="timeline__group">
                 <div class="timeline__date">${giorno.charAt(0).toUpperCase() + giorno.slice(1)}</div>
                 ${evs.map(e => `
-                  <div class="timeline__item" style="cursor:pointer;" onclick="window.DNAHub.Toast.show({ title: 'Dettaglio Evento', message: 'Funzione in costruzione', variant: 'info' })">
+                  <div class="timeline__item">
                     <span class="timeline__dot timeline__dot--${e.colore}"></span>
                     <div class="timeline__title">${e.titolo}</div>
-                    <div class="timeline__meta">${e.meta} · ore ${e.data.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}</div>
+                    <div class="timeline__meta">Ore ${e.data.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}</div>
                   </div>
                 `).join('')}
               </div>
             `;
           }
-
           container.innerHTML = html;
+
+          // Popoliamo la mini-timeline dell'Overview (solo primi 3)
+          containerOverview.innerHTML = eventi.slice(0, 3).map(e => `
+             <div class="timeline__item">
+                <span class="timeline__dot timeline__dot--${e.colore}"></span>
+                <div class="timeline__title">${e.titolo}</div>
+                <div class="timeline__meta">${e.data.toLocaleDateString('it-IT')}</div>
+              </div>
+          `).join('');
         }
 
-        caricaTicketCliente();
-        caricaProgettiCliente();
-        caricaTimeline();
+        caricaDatiCliente();
       }
 
+      // --- GESTIONE NUOVO TICKET ---
       document.getElementById('btnNuovoTicketCliente')?.addEventListener('click', () => {
-        const nomeCliente = document.getElementById('clienteNome').textContent;
-        document.getElementById('nomeClienteModale').textContent = nomeCliente;
+        document.getElementById('nomeClienteModale').textContent = document.getElementById('clienteNome').textContent;
         window.DNAHub.Modal.open('modal-nuovo-ticket-cliente');
       });
 
@@ -571,27 +623,18 @@
         if (!oggetto) { alert("L'oggetto è obbligatorio!"); return; }
 
         const btn = document.getElementById('btnCreaTicketCliente');
-        btn.innerHTML = 'Creazione...';
-        btn.disabled = true;
+        btn.innerHTML = 'Creazione...'; btn.disabled = true;
 
-        const { error } = await supabase.from('tickets').insert([{ 
-          oggetto: oggetto, 
-          priorita: priorita, 
-          stato: 'Aperto',
-          cliente_id: clienteId 
-        }]);
+        const { error } = await supabase.from('tickets').insert([{ oggetto, priorita, stato: 'Aperto', cliente_id: clienteId }]);
 
-        btn.innerHTML = 'Crea Ticket';
-        btn.disabled = false;
+        btn.innerHTML = 'Crea Ticket'; btn.disabled = false;
 
-        if (error) {
-          alert("Errore: " + error.message);
-        } else {
+        if (error) { alert("Errore: " + error.message); } 
+        else {
           window.DNAHub.Modal.close('modal-nuovo-ticket-cliente');
           window.DNAHub.Toast.show({ title: "Successo", message: "Ticket creato.", variant: "success" });
           document.getElementById('cliente-ticket-oggetto').value = '';
-          caricaTicketCliente();
-          caricaTimeline();
+          caricaDatiCliente(); // Ricarica tutta la scheda
         }
       });
 

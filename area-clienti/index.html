@@ -48,6 +48,7 @@
     .op-icon--success { background: #e6f4ea; color: #1e8e3e; }
     .op-icon--warning { background: #fef7e0; color: #b06000; }
     .op-icon--info { background: #e8f0fe; color: #1a73e8; }
+    .op-icon--purple { background: #f3e8fd; color: #9333ea; } /* Nuovo colore per statistiche */
     .op-content h3 { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-semibold); }
     .op-content p { margin: 2px 0 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
   </style>
@@ -95,7 +96,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <span class="nav-item-text">Servizi</span>
         </a>
-        <!-- VOCI AGGIUNTE -->
         <a href="pages/contratti.html" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           <span class="nav-item-text">Contratti</span>
@@ -108,10 +108,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           <span class="nav-item-text">Documentazione</span>
         </a>
+        <!-- NUOVA VOCE STATISTICHE -->
+        <a href="pages/statistiche.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <span class="nav-item-text">Statistiche & Report</span>
+        </a>
       </div>
     </nav>
 
-    <!-- SIDEBAR FOOTER CON ID -->
     <a href="pages/impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
       <div class="sidebar-avatar" id="sidebarAvatar" style="background:var(--color-primary); color:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative;">
         <img id="sidebarAvatarImage" src="" style="width:100%; height:100%; object-fit:cover; display:none; position:absolute; top:0; left:0;">
@@ -130,7 +134,6 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       
-      <!-- BARRA DI RICERCA CON SUGGERIMENTI -->
       <div style="position:relative; width:320px;">
         <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
           <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -139,6 +142,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
+        
         <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
       </div>
     </div>
@@ -196,7 +200,7 @@
       </button>
     </div>
 
-    <!-- SEZIONE OPERATIVA (4 Card) -->
+    <!-- SEZIONE OPERATIVA (5 Card) -->
     <h2 class="t-lg w-semibold mb-4" style="margin-top: var(--space-8);">Panoramica Operativa</h2>
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
       
@@ -237,6 +241,17 @@
         <div class="op-content">
           <h3>Documentazione</h3>
           <p><span id="kpiDocumenti">—</span> file archiviati</p>
+        </div>
+      </a>
+
+      <!-- NUOVA CARD STATISTICHE -->
+      <a href="pages/statistiche.html" class="op-card">
+        <div class="op-icon op-icon--purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+        <div class="op-content">
+          <h3>Statistiche & Report</h3>
+          <p>Analisi economica</p>
         </div>
       </a>
 

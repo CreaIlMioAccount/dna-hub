@@ -52,7 +52,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <span class="nav-item-text">Servizi</span>
         </a>
-        <!-- VOCE CONTRATTI (ATTIVA) -->
         <a href="contratti.html" class="nav-item is-active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           <span class="nav-item-text">Contratti</span>
@@ -136,6 +135,7 @@
         <thead>
           <tr>
             <th style="width:40px;"><input type="checkbox" id="checkTutti" onchange="toggleTutti(this)"></th>
+            <th>Codice</th>
             <th>Nome Contratto</th>
             <th>Cliente</th>
             <th>Importo</th>
@@ -144,7 +144,7 @@
           </tr>
         </thead>
         <tbody id="tabellaContratti">
-          <tr><td colspan="6" class="text-center p-4">Caricamento contratti...</td></tr>
+          <tr><td colspan="7" class="text-center p-4">Caricamento contratti...</td></tr>
         </tbody>
       </table>
     </div>
@@ -158,16 +158,30 @@
         <button class="btn btn--ghost btn--icon btn--sm" id="btnChiudiModaleX" aria-label="Chiudi">×</button>
       </div>
       <div class="modal__body">
-        <div class="field mb-4">
-          <label class="field__label" for="contratto-nome">Nome Contratto <span class="req">*</span></label>
-          <input class="input" id="contratto-nome" type="text" placeholder="Es. Manutenzione Annuale">
+        
+        <div class="flex gap-4 mb-4">
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="contratto-nome">Nome Contratto <span class="req">*</span></label>
+            <input class="input" id="contratto-nome" type="text" placeholder="Es. Manutenzione Annuale">
+          </div>
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="contratto-codice">Codice Contratto</label>
+            <input class="input" id="contratto-codice" type="text" placeholder="Es. CNT-2024-01">
+          </div>
         </div>
+
         <div class="field mb-4">
           <label class="field__label" for="contratto-cliente">Cliente <span class="req">*</span></label>
           <select class="select" id="contratto-cliente">
             <option value="">Seleziona un cliente...</option>
           </select>
         </div>
+
+        <div class="field mb-4">
+          <label class="field__label" for="contratto-descrizione">Descrizione</label>
+          <textarea class="textarea" id="contratto-descrizione" placeholder="Breve descrizione del contratto..." style="min-height: 60px;"></textarea>
+        </div>
+
         <div class="flex gap-4 mb-4">
           <div class="field" style="flex:1;">
             <label class="field__label" for="contratto-importo">Importo (€)</label>
@@ -182,7 +196,8 @@
             </select>
           </div>
         </div>
-        <div class="flex gap-4">
+
+        <div class="flex gap-4 mb-4">
           <div class="field" style="flex:1;">
             <label class="field__label" for="contratto-inizio">Data Inizio</label>
             <input class="input" id="contratto-inizio" type="date">
@@ -192,6 +207,19 @@
             <input class="input" id="contratto-fine" type="date">
           </div>
         </div>
+
+        <!-- AGGIUNTA RINNOVO E PREAVVISO -->
+        <div class="flex gap-4">
+          <div class="field" style="flex:1; display:flex; align-items:center; gap:8px; margin-top:24px;">
+            <input type="checkbox" id="contratto-rinnovo" style="width:18px; height:18px; cursor:pointer;">
+            <label class="field__label" for="contratto-rinnovo" style="margin-bottom:0; cursor:pointer;">Rinnovo Automatico</label>
+          </div>
+          <div class="field" style="flex:1;">
+            <label class="field__label" for="contratto-preavviso">Preavviso Disdetta (Giorni)</label>
+            <input class="input" id="contratto-preavviso" type="number" placeholder="30" value="30">
+          </div>
+        </div>
+
       </div>
       <div class="modal__footer">
         <button class="btn btn--secondary" id="btnAnnullaModale">Annulla</button>
@@ -371,12 +399,12 @@
         aggiornaPulsanteElimina();
 
         if (error) {
-          tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger p-4">Errore: ${error.message}</td></tr>`;
           return;
         }
 
         if (contratti.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="6" class="text-center p-4">Nessun contratto trovato.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="7" class="text-center p-4">Nessun contratto trovato.</td></tr>';
           return;
         }
 
@@ -385,6 +413,7 @@
           return `
             <tr id="riga-contratto-${c.id}" style="cursor:pointer;">
               <td onclick="event.stopPropagation()"><input type="checkbox" class="check-contratto" value="${c.id}" onchange="aggiornaPulsanteElimina()"></td>
+              <td class="text-secondary">${c.codice_contratto || '—'}</td>
               <td><strong>${c.nome_contratto}</strong></td>
               <td>${nomeCliente}</td>
               <td class="w-semibold">€ ${parseFloat(c.importo || 0).toFixed(2)}</td>
@@ -400,8 +429,15 @@
       
       const apriModale = () => {
         document.getElementById('contratto-nome').value = '';
+        document.getElementById('contratto-codice').value = '';
         document.getElementById('contratto-cliente').value = '';
+        document.getElementById('contratto-descrizione').value = '';
         document.getElementById('contratto-importo').value = '0';
+        document.getElementById('contratto-inizio').value = '';
+        document.getElementById('contratto-fine').value = '';
+        document.getElementById('contratto-rinnovo').checked = false;
+        document.getElementById('contratto-preavviso').value = '30';
+
         if (window.DNAHub && window.DNAHub.Modal) window.DNAHub.Modal.open('modal-nuovo-contratto');
         else modalContratto.classList.add('is-open');
       };
@@ -420,11 +456,15 @@
       document.getElementById('btnCreaContratto').addEventListener('click', async (e) => {
         e.preventDefault();
         const nome = document.getElementById('contratto-nome').value;
+        const codice = document.getElementById('contratto-codice').value;
         const clienteId = document.getElementById('contratto-cliente').value;
+        const descrizione = document.getElementById('contratto-descrizione').value;
         const importo = parseFloat(document.getElementById('contratto-importo').value) || 0;
         const stato = document.getElementById('contratto-stato').value;
         const dataInizio = document.getElementById('contratto-inizio').value;
         const dataFine = document.getElementById('contratto-fine').value;
+        const rinnovo = document.getElementById('contratto-rinnovo').checked;
+        const preavviso = parseInt(document.getElementById('contratto-preavviso').value) || 30;
 
         if (!nome || !clienteId) { alert("Nome e Cliente sono obbligatori!"); return; }
 
@@ -434,11 +474,15 @@
 
         const { error } = await supabase.from('contratti').insert([{
           nome_contratto: nome,
+          codice_contratto: codice || null,
           cliente_id: clienteId,
+          descrizione: descrizione,
           importo: importo,
           stato: stato,
           data_inizio: dataInizio || null,
-          data_fine: dataFine || null
+          data_fine: dataFine || null,
+          rinnovo_automatico: rinnovo,
+          preavviso_giorni: preavviso
         }]);
 
         btn.innerHTML = 'Crea Contratto';
