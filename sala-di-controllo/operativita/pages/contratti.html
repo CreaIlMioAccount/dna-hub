@@ -9,7 +9,22 @@
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/app-shell.css">
-  <style> body { visibility: hidden; } </style>
+  
+  <style>
+    body { visibility: hidden; }
+
+    /* --- NUOVI STILI PER IL MENU A FISARMONICA --- */
+    .nav-group-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; cursor: pointer; font-size: 0.95rem; font-weight: var(--weight-semibold);
+      color: var(--color-text); transition: background 0.2s; border-radius: var(--radius-md); margin: 0 10px;
+    }
+    .nav-group-header:hover { background-color: var(--color-surface-hover); }
+    .nav-group-header svg.chevron { transition: transform 0.3s ease; width: 16px; height: 16px; color: var(--color-text-secondary); }
+    .nav-group-header.is-open svg.chevron { transform: rotate(180deg); }
+    .nav-submenu { display: none; flex-direction: column; padding-left: 10px; margin-top: 5px; }
+    .nav-submenu.is-open { display: flex; }
+  </style>
 </head>
 <body class="app-body">
 
@@ -22,49 +37,60 @@
     </div>
 
     <nav class="sidebar-nav">
+      
+      <!-- MACRO MODULO: OPERATIVITÀ (A FISARMONICA) -->
       <div class="nav-group">
-        <div class="nav-group-title">Clienti</div>
-        <a href="../index.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span class="nav-item-text">Dashboard</span>
-        </a>
-        <a href="elenco-clienti.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span class="nav-item-text">Elenco Clienti</span>
-        </a>
-        <a href="nuovo-cliente.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          <span class="nav-item-text">Nuovo Cliente</span>
-        </a>
+        
+        <div class="nav-group-header is-open" onclick="toggleMenuOperativita()">
+          <div class="flex items-center gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Operatività</span>
+          </div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+
+        <div class="nav-submenu is-open" id="submenuOperativita">
+          
+          <a href="../index.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="nav-item-text">Dashboard</span>
+          </a>
+          <a href="elenco-clienti.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="nav-item-text">Clienti</span>
+          </a>
+          <a href="ticket.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <span class="nav-item-text">Ticket e Assistenza</span>
+          </a>
+          <a href="progetti.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="nav-item-text">Progetti</span>
+          </a>
+          <a href="servizi.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span class="nav-item-text">Servizi</span>
+          </a>
+          <a href="contratti.html" class="nav-item is-active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span class="nav-item-text">Contratti</span>
+          </a>
+          <a href="collaboratori.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="nav-item-text">Collaboratori</span>
+          </a>
+          <a href="documentazione.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span class="nav-item-text">Documentazione</span>
+          </a>
+          <a href="statistiche.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            <span class="nav-item-text">Statistiche & Report</span>
+          </a>
+
+        </div>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-group-title">Operatività</div>
-        <a href="ticket.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-          <span class="nav-item-text">Ticket e Assistenza</span>
-        </a>
-        <a href="progetti.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <span class="nav-item-text">Progetti</span>
-        </a>
-        <a href="servizi.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <span class="nav-item-text">Servizi</span>
-        </a>
-        <a href="contratti.html" class="nav-item is-active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <span class="nav-item-text">Contratti</span>
-        </a>
-        <a href="collaboratori.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span class="nav-item-text">Collaboratori</span>
-        </a>
-        <a href="documentazione.html" class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <span class="nav-item-text">Documentazione</span>
-        </a>
-      </div>
     </nav>
 
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
@@ -230,6 +256,14 @@
 
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
+
+    // --- FUNZIONE PER IL MENU A FISARMONICA ---
+    window.toggleMenuOperativita = function() {
+      const header = document.querySelector('.nav-group-header');
+      const submenu = document.getElementById('submenuOperativita');
+      header.classList.toggle('is-open');
+      submenu.classList.toggle('is-open');
+    };
 
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
