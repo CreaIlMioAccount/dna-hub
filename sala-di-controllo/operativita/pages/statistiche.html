@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Statistiche — DNA Hub</title>
+  <title>Statistiche — DnaHub</title>
   
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/base.css">
@@ -12,13 +12,7 @@
   
   <style>
     body { visibility: hidden; }
-
-    /* --- NUOVI STILI PER IL MENU A FISARMONICA --- */
-    .nav-group-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px; cursor: pointer; font-size: 0.95rem; font-weight: var(--weight-semibold);
-      color: var(--color-text); transition: background 0.2s; border-radius: var(--radius-md); margin: 0 10px;
-    }
+    .nav-group-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; cursor: pointer; font-size: 0.95rem; font-weight: var(--weight-semibold); color: var(--color-text); transition: background 0.2s; border-radius: var(--radius-md); margin: 0 10px; }
     .nav-group-header:hover { background-color: var(--color-surface-hover); }
     .nav-group-header svg.chevron { transition: transform 0.3s ease; width: 16px; height: 16px; color: var(--color-text-secondary); }
     .nav-group-header.is-open svg.chevron { transform: rotate(180deg); }
@@ -32,15 +26,12 @@
     <div class="sidebar-header">
       <a href="../index.html" class="sidebar-logo">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        <span class="sidebar-logo-text">DNA Hub</span>
+        <span class="sidebar-logo-text">DnaHub</span>
       </a>
     </div>
 
     <nav class="sidebar-nav">
-      
-      <!-- MACRO MODULO: OPERATIVITÀ (A FISARMONICA) -->
       <div class="nav-group">
-        
         <div class="nav-group-header is-open" onclick="toggleMenuOperativita()">
           <div class="flex items-center gap-3">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -50,7 +41,6 @@
         </div>
 
         <div class="nav-submenu is-open" id="submenuOperativita">
-          
           <a href="../index.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span class="nav-item-text">Dashboard</span>
@@ -87,10 +77,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
             <span class="nav-item-text">Statistiche & Report</span>
           </a>
-
         </div>
       </div>
-
     </nav>
 
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
@@ -105,13 +93,37 @@
     </a>
   </aside>
 
+  <!-- HEADER CON RICERCA E NOTIFICHE -->
   <header class="app-header">
     <div class="header-left">
       <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
+      
+      <div style="position:relative; width:320px;">
+        <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
+          <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="headerSearchInput" placeholder="Cerca un cliente..." style="border:none; background:transparent; outline:none; font-size:14px; color:var(--color-text); flex:1; margin-left:8px; font-family:inherit;">
+          <button id="btnClearSearch" style="display:none; background:none; border:none; cursor:pointer; color:var(--color-text-secondary); padding:0; margin-left:8px;" aria-label="Cancella ricerca">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
+      </div>
     </div>
     <div class="header-right">
+      <div style="position:relative;">
+        <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notification-badge" id="badgeNotifiche" style="display:none;">0</span>
+        </button>
+        <div id="pannelloNotifiche" style="display:none; position:absolute; right:0; top:100%; margin-top:8px; width:320px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:1000; overflow:hidden;">
+          <div style="padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-border); font-weight:var(--weight-semibold);">Notifiche Recenti</div>
+          <div id="listaNotifiche" style="max-height:300px; overflow-y:auto;">
+            <div style="padding:var(--space-4); text-align:center; color:var(--color-text-secondary); font-size:var(--text-sm);">Caricamento...</div>
+          </div>
+        </div>
+      </div>
       <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
       <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
@@ -123,7 +135,6 @@
       <p class="page-subtitle">Analisi economica e operativa in tempo reale.</p>
     </div>
 
-    <!-- KPI ECONOMICI -->
     <h2 class="t-lg w-semibold mb-4">Economia Aziendale</h2>
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
       
@@ -144,10 +155,8 @@
 
     </div>
 
-    <!-- CLASSIFICHE E TABELLE -->
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
       
-      <!-- TOP CLIENTI -->
       <div class="card">
         <div class="card__header">
           <h3 class="card__title">Top Clienti per Fatturato</h3>
@@ -168,7 +177,6 @@
         </div>
       </div>
 
-      <!-- SERVIZI PIU' VENDUTI -->
       <div class="card">
         <div class="card__header">
           <h3 class="card__title">Servizi nei Contratti</h3>
@@ -196,7 +204,6 @@
     import { supabase } from '../assets/js/supabase-client.js';
     import { initNotifiche } from '../assets/js/notifiche.js';
 
-    // --- FUNZIONE PER IL MENU A FISARMONICA ---
     window.toggleMenuOperativita = function() {
       const header = document.querySelector('.nav-group-header');
       const submenu = document.getElementById('submenuOperativita');
@@ -238,28 +245,66 @@
           }
       }
 
+      // --- RICERCA GLOBALE (Header) ---
+      window.supabaseClient = supabase;
+      const headerSearchInput = document.getElementById('headerSearchInput');
+      const headerSearchResults = document.getElementById('headerSearchResults');
+      const btnClearHeaderSearch = document.getElementById('btnClearSearch');
+
+      if (headerSearchInput && headerSearchResults) {
+        headerSearchInput.addEventListener('input', async (e) => {
+          const query = e.target.value.trim();
+          btnClearHeaderSearch.style.display = query.length > 0 ? 'block' : 'none';
+          if (query.length < 2) { headerSearchResults.style.display = 'none'; return; }
+
+          const clienti = await window.DNAHub.GlobalSearch.cerca(query);
+          if (clienti.length === 0) {
+            headerSearchResults.innerHTML = '<div style="padding:12px; text-align:center; color:var(--color-text-secondary); font-size:13px;">Nessun cliente trovato.</div>';
+            headerSearchResults.style.display = 'block';
+            return;
+          }
+
+          headerSearchResults.innerHTML = clienti.map(c => `
+            <div onclick="window.location.href='cliente.html?id=${c.id}'" style="display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; border-bottom:1px solid var(--color-border);" onmouseover="this.style.background='var(--color-surface-hover)'" onmouseout="this.style.background='transparent'">
+              <div style="width:28px; height:28px; background:var(--color-primary-subtle); color:var(--color-primary); border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px;">${c.ragione_sociale.substring(0,2).toUpperCase()}</div>
+              <div>
+                <div style="font-weight:600; font-size:13px; color:var(--color-text);">${c.ragione_sociale}</div>
+                <div style="font-size:11px; color:var(--color-text-secondary);">P.IVA ${c.partita_iva || '—'}</div>
+              </div>
+            </div>
+          `).join('');
+          headerSearchResults.style.display = 'block';
+        });
+
+        btnClearHeaderSearch.addEventListener('click', () => {
+          headerSearchInput.value = '';
+          headerSearchResults.style.display = 'none';
+          btnClearHeaderSearch.style.display = 'none';
+          headerSearchInput.focus();
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!headerSearchInput.contains(e.target) && !headerSearchResults.contains(e.target)) {
+            headerSearchResults.style.display = 'none';
+          }
+        });
+      }
+
       // --- CALCOLO STATISTICHE ---
       async function calcolaStatistiche() {
-        
-        // 1. KPI Fatturato Contratti
         const { data: contratti } = await supabase.from('contratti').select('importo').eq('stato', 'Attivo');
         const fatturato = contratti?.reduce((acc, curr) => acc + (parseFloat(curr.importo) || 0), 0) || 0;
         document.getElementById('kpiFatturato').textContent = '€ ' + fatturato.toLocaleString('it-IT', { minimumFractionDigits: 2 });
 
-        // 2. KPI Budget Progetti
         const { data: progetti } = await supabase.from('progetti').select('budget_previsto').eq('stato', 'In corso');
         const budgetProgetti = progetti?.reduce((acc, curr) => acc + (parseFloat(curr.budget_previsto) || 0), 0) || 0;
         document.getElementById('kpiBudgetProgetti').textContent = '€ ' + budgetProgetti.toLocaleString('it-IT', { minimumFractionDigits: 2 });
 
-        // 3. KPI Costo Interno Servizi
         const { data: servizi } = await supabase.from('servizi').select('costo_interno');
         const costoServizi = servizi?.reduce((acc, curr) => acc + (parseFloat(curr.costo_interno) || 0), 0) || 0;
         document.getElementById('kpiCostoServizi').textContent = '€ ' + costoServizi.toLocaleString('it-IT', { minimumFractionDigits: 2 });
 
-        // 4. Top Clienti (Query raggruppata)
-        // Recuperiamo tutti i contratti con i nomi clienti
         const { data: tuttiContratti } = await supabase.from('contratti').select('importo, stato, clienti(ragione_sociale)');
-        
         const clientiMap = {};
         tuttiContratti?.forEach(c => {
             if (c.stato === 'Attivo' && c.clienti) {
@@ -273,7 +318,7 @@
         const topClienti = Object.entries(clientiMap)
             .map(([nome, dati]) => ({ nome, ...dati }))
             .sort((a, b) => b.totale - a.totale)
-            .slice(0, 5); // Primi 5
+            .slice(0, 5);
 
         const tbodyClienti = document.getElementById('tabellaTopClienti');
         if (topClienti.length > 0) {
@@ -288,9 +333,7 @@
             tbodyClienti.innerHTML = '<tr><td colspan="3" class="text-center p-4">Nessun dato disponibile.</td></tr>';
         }
 
-        // 5. Servizi nei Contratti
         const { data: contrattiServizi } = await supabase.from('contratti_servizi').select('quantita, totale, servizi(nome)');
-        
         const serviziMap = {};
         contrattiServizi?.forEach(cs => {
             if (cs.servizi) {

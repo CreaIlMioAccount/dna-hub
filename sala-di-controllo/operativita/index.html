@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Area Clienti — DNA Hub</title>
+  <title>Dashboard — DnaHub</title>
   
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
@@ -12,38 +12,17 @@
   
   <style>
     body { visibility: hidden; }
-    /* Aggiunge un feedback visivo al passaggio del mouse sulla timeline */
     .timeline__item { transition: background 0.2s, transform 0.2s; border-radius: var(--radius-md); padding: var(--space-2); margin-left: calc(var(--space-2) * -1); }
     .timeline__item:hover { background: var(--color-surface-hover); transform: translateX(4px); }
     
-    /* Stile per le card operative */
     .op-card {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
-      padding: var(--space-5);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: var(--shadow-sm);
+      display: flex; align-items: center; gap: var(--space-4); padding: var(--space-5);
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); text-decoration: none; color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s; box-shadow: var(--shadow-sm);
     }
-    .op-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--color-primary-subtle);
-    }
-    .op-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
+    .op-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--color-primary-subtle); }
+    .op-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .op-icon--primary { background: var(--color-primary-subtle); color: var(--color-primary); }
     .op-icon--success { background: #e6f4ea; color: #1e8e3e; }
     .op-icon--warning { background: #fef7e0; color: #b06000; }
@@ -52,7 +31,7 @@
     .op-content h3 { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-semibold); }
     .op-content p { margin: 2px 0 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
 
-    /* --- NUOVI STILI PER IL MENU A FISARMONICA --- */
+    /* --- STILI PER IL MENU A FISARMONICA --- */
     .nav-group-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 20px; cursor: pointer; font-size: 0.95rem; font-weight: var(--weight-semibold);
@@ -73,15 +52,12 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
-        <span class="sidebar-logo-text">DNA Hub</span>
+        <span class="sidebar-logo-text">DnaHub</span>
       </a>
     </div>
 
     <nav class="sidebar-nav">
-      
-      <!-- MACRO MODULO: OPERATIVITÀ (A FISARMONICA) -->
       <div class="nav-group">
-        
         <div class="nav-group-header is-open" onclick="toggleMenuOperativita()">
           <div class="flex items-center gap-3">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -91,7 +67,6 @@
         </div>
 
         <div class="nav-submenu is-open" id="submenuOperativita">
-          
           <a href="index.html" class="nav-item is-active">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span class="nav-item-text">Dashboard</span>
@@ -128,10 +103,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
             <span class="nav-item-text">Statistiche & Report</span>
           </a>
-
         </div>
       </div>
-
     </nav>
 
     <a href="pages/impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
@@ -184,13 +157,22 @@
   </header>
 
   <main class="app-main">
-    <div class="page-header">
+    <div class="page-header mb-8">
       <h1 class="page-title">Dashboard</h1>
-      <p class="page-subtitle">Benvenuto nell'Area Clienti di DNA Hub.</p>
+      <p class="page-subtitle">Benvenuto nell'area Operatività di DnaHub.</p>
     </div>
 
-    <!-- KPI CLASSICI IN ALTO (4) -->
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
+    <!-- SEZIONE 1: PANORAMICA GENERALE -->
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="t-lg w-semibold flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          Panoramica Generale
+        </h2>
+        <p class="t-sm text-secondary">I numeri principali del tuo business in un colpo d'occhio.</p>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
       <button class="kpi" onclick="window.location.href='pages/elenco-clienti.html'">
         <div class="kpi__label">Clienti Totali</div>
         <div class="kpi__value tabular" id="kpiClienti">—</div>
@@ -216,8 +198,16 @@
       </button>
     </div>
 
-    <!-- SEZIONE OPERATIVA (4 Card) -->
-    <h2 class="t-lg w-semibold mb-4" style="margin-top: var(--space-8);">Panoramica Operativa</h2>
+    <!-- SEZIONE 2: PANORAMICA OPERATIVA -->
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="t-lg w-semibold flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Panoramica Operativa
+        </h2>
+        <p class="t-sm text-secondary">Stato di avanzamento delle aree aziendali.</p>
+      </div>
+    </div>
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
       
       <a href="pages/progetti.html" class="op-card">
@@ -262,78 +252,75 @@
 
     </div>
 
-    <!-- NUOVA SEZIONE STATISTICHE -->
-    <div style="margin-bottom: var(--space-8);">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h2 class="t-lg w-semibold flex items-center gap-2">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-            Analisi Economica & Performance
-          </h2>
-          <p class="t-sm text-secondary">Panoramica in tempo reale sui ricavi e sullo stato dell'azienda.</p>
-        </div>
-        <a href="pages/statistiche.html" class="btn btn--secondary btn--sm">Vedi Report Completo &rarr;</a>
+    <!-- SEZIONE 3: ANALISI ECONOMICA -->
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="t-lg w-semibold flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          Analisi Economica & Performance
+        </h2>
+        <p class="t-sm text-secondary">Panoramica in tempo reale sui ricavi e sullo stato dell'azienda.</p>
       </div>
-
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
-        
-        <!-- KPI FATTURATO -->
-        <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-success);">
-          <div class="flex items-center gap-2 mb-2">
-            <div style="background:#e6f4ea; padding:6px; border-radius:6px; color:#1e8e3e;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <span class="t-sm text-secondary w-semibold">Fatturato Attivo</span>
-          </div>
-          <div class="t-xl w-bold text-primary mt-auto" id="kpiWidgetFatturato">€ 0.00</div>
-        </a>
-
-        <!-- KPI BUDGET PROGETTI -->
-        <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-primary);">
-          <div class="flex items-center gap-2 mb-2">
-            <div style="background:var(--color-primary-subtle); padding:6px; border-radius:6px; color:var(--color-primary);">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <span class="t-sm text-secondary w-semibold">Budget Progetti</span>
-          </div>
-          <div class="t-xl w-bold mt-auto" id="kpiWidgetBudget">€ 0.00</div>
-        </a>
-
-        <!-- KPI COSTO SERVIZI -->
-        <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-warning);">
-          <div class="flex items-center gap-2 mb-2">
-            <div style="background:#fef7e0; padding:6px; border-radius:6px; color:#b06000;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-            </div>
-            <span class="t-sm text-secondary w-semibold">Costi Interni</span>
-          </div>
-          <div class="t-xl w-bold mt-auto" id="kpiWidgetCosti">€ 0.00</div>
-        </a>
-
-        <!-- KPI PROGETTI RITARDO -->
-        <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-danger);">
-          <div class="flex items-center gap-2 mb-2">
-            <div style="background:#FDE7E9; padding:6px; border-radius:6px; color:#D13438;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <span class="t-sm text-secondary w-semibold">Progetti in Ritardo</span>
-          </div>
-          <div class="t-xl w-bold mt-auto" id="kpiWidgetRitardi">0</div>
-        </a>
-
-      </div>
+      <a href="pages/statistiche.html" class="btn btn--secondary btn--sm">Vedi Report Completo &rarr;</a>
     </div>
 
-    <!-- SEZIONE SCADENZE CONTRATTI -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8);">
+      
+      <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-success);">
+        <div class="flex items-center gap-2 mb-2">
+          <div style="background:#e6f4ea; padding:6px; border-radius:6px; color:#1e8e3e;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <span class="t-sm text-secondary w-semibold">Fatturato Attivo</span>
+        </div>
+        <div class="t-xl w-bold text-primary mt-auto" id="kpiWidgetFatturato">€ 0.00</div>
+      </a>
+
+      <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-primary);">
+        <div class="flex items-center gap-2 mb-2">
+          <div style="background:var(--color-primary-subtle); padding:6px; border-radius:6px; color:var(--color-primary);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <span class="t-sm text-secondary w-semibold">Budget Progetti</span>
+        </div>
+        <div class="t-xl w-bold mt-auto" id="kpiWidgetBudget">€ 0.00</div>
+      </a>
+
+      <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-warning);">
+        <div class="flex items-center gap-2 mb-2">
+          <div style="background:#fef7e0; padding:6px; border-radius:6px; color:#b06000;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <span class="t-sm text-secondary w-semibold">Costi Interni</span>
+        </div>
+        <div class="t-xl w-bold mt-auto" id="kpiWidgetCosti">€ 0.00</div>
+      </a>
+
+      <a href="pages/statistiche.html" class="card" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; border-left: 4px solid var(--color-danger);">
+        <div class="flex items-center gap-2 mb-2">
+          <div style="background:#FDE7E9; padding:6px; border-radius:6px; color:#D13438;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span class="t-sm text-secondary w-semibold">Progetti in Ritardo</span>
+        </div>
+        <div class="t-xl w-bold mt-auto" id="kpiWidgetRitardi">0</div>
+      </a>
+
+    </div>
+
+    <!-- SEZIONE 4: CONTRATTI IN SCADENZA (CON TITOLO AGGIUNTO) -->
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="t-lg w-semibold flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Scadenze e Avvisi
+        </h2>
+        <p class="t-sm text-secondary">Contratti in scadenza nei prossimi 30 giorni.</p>
+      </div>
+    </div>
+    
     <div style="margin-bottom: var(--space-8);">
       <div class="card" style="border-left: 4px solid var(--color-warning);">
-        <div class="card__header" style="padding-bottom: var(--space-2);">
-          <h3 class="card__title flex items-center gap-2">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Contratti in scadenza
-          </h3>
-          <button class="btn btn--link" onclick="window.location.href='pages/contratti.html'">Vedi tutti i contratti</button>
-        </div>
         <div class="table-wrap" style="border:none;">
           <table class="table">
             <thead>
@@ -352,7 +339,17 @@
       </div>
     </div>
 
-    <!-- TIMELINE E ULTIMI CLIENTI -->
+    <!-- SEZIONE 5: TIMELINE E ULTIMI CLIENTI (CON TITOLO AGGIUNTO) -->
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="t-lg w-semibold flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+          Attività e Ultimi Inserimenti
+        </h2>
+        <p class="t-sm text-secondary">Le ultime interazioni e i clienti appena aggiunti.</p>
+      </div>
+    </div>
+
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
       <div class="card">
         <div class="card__header">
@@ -388,7 +385,6 @@
     window.toggleMenuOperativita = function() {
       const header = document.querySelector('.nav-group-header');
       const submenu = document.getElementById('submenuOperativita');
-      
       header.classList.toggle('is-open');
       submenu.classList.toggle('is-open');
     };

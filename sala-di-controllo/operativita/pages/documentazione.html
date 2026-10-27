@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documentazione — DNA Hub</title>
+  <title>Documentazione — DnaHub</title>
   
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/base.css">
@@ -12,21 +12,14 @@
   
   <style>
     body { visibility: hidden; }
-
-    /* Stili per la tabella documenti */
     .doc-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: capitalize; }
     .doc-badge-pubblico { background-color: var(--color-success-subtle); color: var(--color-success); }
     .doc-badge-riservato { background-color: var(--color-danger-subtle); color: var(--color-danger); }
     .doc-badge-interno { background-color: var(--color-warning-subtle); color: var(--color-warning); }
     .doc-badge-amministrazione { background-color: var(--color-surface-hover); color: var(--color-text); }
     .action-btn { background: none; border: none; cursor: pointer; color: var(--color-primary); font-weight: 600; text-decoration: underline; }
-
-    /* --- NUOVI STILI PER IL MENU A FISARMONICA --- */
-    .nav-group-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px; cursor: pointer; font-size: 0.95rem; font-weight: var(--weight-semibold);
-      color: var(--color-text); transition: background 0.2s; border-radius: var(--radius-md); margin: 0 10px;
-    }
+    
+    .nav-group-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; cursor: pointer; font-size: 0.95rem; font-weight: var(--weight-semibold); color: var(--color-text); transition: background 0.2s; border-radius: var(--radius-md); margin: 0 10px; }
     .nav-group-header:hover { background-color: var(--color-surface-hover); }
     .nav-group-header svg.chevron { transition: transform 0.3s ease; width: 16px; height: 16px; color: var(--color-text-secondary); }
     .nav-group-header.is-open svg.chevron { transform: rotate(180deg); }
@@ -40,15 +33,12 @@
     <div class="sidebar-header">
       <a href="../index.html" class="sidebar-logo">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        <span class="sidebar-logo-text">DNA Hub</span>
+        <span class="sidebar-logo-text">DnaHub</span>
       </a>
     </div>
 
     <nav class="sidebar-nav">
-      
-      <!-- MACRO MODULO: OPERATIVITÀ (A FISARMONICA) -->
       <div class="nav-group">
-        
         <div class="nav-group-header is-open" onclick="toggleMenuOperativita()">
           <div class="flex items-center gap-3">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -58,7 +48,6 @@
         </div>
 
         <div class="nav-submenu is-open" id="submenuOperativita">
-          
           <a href="../index.html" class="nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span class="nav-item-text">Dashboard</span>
@@ -95,10 +84,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
             <span class="nav-item-text">Statistiche & Report</span>
           </a>
-
         </div>
       </div>
-
     </nav>
 
     <a href="impostazioni.html" class="sidebar-footer" style="text-decoration:none; color:inherit;">
@@ -113,15 +100,37 @@
     </a>
   </aside>
 
+  <!-- HEADER CON RICERCA E NOTIFICHE -->
   <header class="app-header">
     <div class="header-left">
       <button class="btn-toggle-sidebar" id="toggleSidebar" aria-label="Comprimi menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <!-- Spazio vuoto per mantenere l'allineamento, dato che la ricerca globale non c'è in questa pagina -->
-      <div style="width:320px;"></div>
+      
+      <div style="position:relative; width:320px;">
+        <div class="header-search" style="width:100%; display:flex; align-items:center; border-radius:8px; padding: 0 var(--space-3); height: 36px; background: var(--color-bg); border: 1px solid var(--color-border);">
+          <svg onclick="document.getElementById('headerSearchInput').focus()" style="cursor:pointer; color:var(--color-text-secondary);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="headerSearchInput" placeholder="Cerca un cliente..." style="border:none; background:transparent; outline:none; font-size:14px; color:var(--color-text); flex:1; margin-left:8px; font-family:inherit;">
+          <button id="btnClearSearch" style="display:none; background:none; border:none; cursor:pointer; color:var(--color-text-secondary); padding:0; margin-left:8px;" aria-label="Cancella ricerca">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="headerSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; margin-top:8px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); z-index:1000; max-height:300px; overflow-y:auto;"></div>
+      </div>
     </div>
     <div class="header-right">
+      <div style="position:relative;">
+        <button class="header-action-btn" id="btnNotifiche" aria-label="Notifiche">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notification-badge" id="badgeNotifiche" style="display:none;">0</span>
+        </button>
+        <div id="pannelloNotifiche" style="display:none; position:absolute; right:0; top:100%; margin-top:8px; width:320px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:1000; overflow:hidden;">
+          <div style="padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-border); font-weight:var(--weight-semibold);">Notifiche Recenti</div>
+          <div id="listaNotifiche" style="max-height:300px; overflow-y:auto;">
+            <div style="padding:var(--space-4); text-align:center; color:var(--color-text-secondary); font-size:var(--text-sm);">Caricamento...</div>
+          </div>
+        </div>
+      </div>
       <a href="../../index.html" class="btn btn--secondary btn--sm" style="margin-left: 8px;">Torna al sito</a>
       <button class="btn btn--danger btn--sm" style="margin-left: 8px;" id="btnLogoutHeader">Esci</button>
     </div>
@@ -136,7 +145,6 @@
       <button class="btn btn--primary" onclick="apriModaleUpload()">+ Carica Documento</button>
     </div>
 
-    <!-- CARD STATISTICHE -->
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
       <div class="card">
         <h3 class="t-sm text-secondary mb-2">Documenti Totali</h3>
@@ -152,7 +160,6 @@
       </div>
     </div>
 
-    <!-- TABELLA DOCUMENTI -->
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -210,11 +217,10 @@
     </div>
   </div>
 
-  <!-- Script originale della logica documenti (che usa supabase-client.js) -->
   <script type="module">
     import { supabase } from '../assets/js/supabase-client.js';
+    import { initNotifiche } from '../assets/js/notifiche.js';
 
-    // --- FUNZIONE PER IL MENU A FISARMONICA ---
     window.toggleMenuOperativita = function() {
       const header = document.querySelector('.nav-group-header');
       const submenu = document.getElementById('submenuOperativita');
@@ -222,7 +228,6 @@
       submenu.classList.toggle('is-open');
     };
 
-    // --- LOGICA DOCUMENTI (Adattata per il nuovo layout) ---
     document.addEventListener("DOMContentLoaded", async () => {
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) { window.location.href = '../login.html'; return; }
@@ -257,7 +262,52 @@
             }
         }
 
-        // Carica le categorie per la modale
+        // --- RICERCA GLOBALE (Header) ---
+        window.supabaseClient = supabase;
+        const headerSearchInput = document.getElementById('headerSearchInput');
+        const headerSearchResults = document.getElementById('headerSearchResults');
+        const btnClearHeaderSearch = document.getElementById('btnClearSearch');
+
+        if (headerSearchInput && headerSearchResults) {
+          headerSearchInput.addEventListener('input', async (e) => {
+            const query = e.target.value.trim();
+            btnClearHeaderSearch.style.display = query.length > 0 ? 'block' : 'none';
+            if (query.length < 2) { headerSearchResults.style.display = 'none'; return; }
+
+            const clienti = await window.DNAHub.GlobalSearch.cerca(query);
+            if (clienti.length === 0) {
+              headerSearchResults.innerHTML = '<div style="padding:12px; text-align:center; color:var(--color-text-secondary); font-size:13px;">Nessun cliente trovato.</div>';
+              headerSearchResults.style.display = 'block';
+              return;
+            }
+
+            headerSearchResults.innerHTML = clienti.map(c => `
+              <div onclick="window.location.href='cliente.html?id=${c.id}'" style="display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; border-bottom:1px solid var(--color-border);" onmouseover="this.style.background='var(--color-surface-hover)'" onmouseout="this.style.background='transparent'">
+                <div style="width:28px; height:28px; background:var(--color-primary-subtle); color:var(--color-primary); border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px;">${c.ragione_sociale.substring(0,2).toUpperCase()}</div>
+                <div>
+                  <div style="font-weight:600; font-size:13px; color:var(--color-text);">${c.ragione_sociale}</div>
+                  <div style="font-size:11px; color:var(--color-text-secondary);">P.IVA ${c.partita_iva || '—'}</div>
+                </div>
+              </div>
+            `).join('');
+            headerSearchResults.style.display = 'block';
+          });
+
+          btnClearHeaderSearch.addEventListener('click', () => {
+            headerSearchInput.value = '';
+            headerSearchResults.style.display = 'none';
+            btnClearHeaderSearch.style.display = 'none';
+            headerSearchInput.focus();
+          });
+
+          document.addEventListener('click', (e) => {
+            if (!headerSearchInput.contains(e.target) && !headerSearchResults.contains(e.target)) {
+              headerSearchResults.style.display = 'none';
+            }
+          });
+        }
+
+        // --- LOGICA DOCUMENTI ---
         async function caricaCategorie() {
             const select = document.getElementById('doc-categoria');
             const { data, error } = await supabase.from('categorie_documenti').select('id, nome');
@@ -270,7 +320,6 @@
             });
         }
 
-        // Carica la tabella documenti
         async function caricaDocumenti() {
             const tbody = document.getElementById('lista-documenti');
             const { data, error } = await supabase
@@ -315,10 +364,7 @@
             document.getElementById('stat-spazio').textContent = `${(spazioBytes / (1024 * 1024)).toFixed(2)} MB`;
         }
 
-        // Funzioni per la modale
-        window.apriModaleUpload = () => {
-            document.getElementById('modale-upload').classList.add('is-open');
-        };
+        window.apriModaleUpload = () => { document.getElementById('modale-upload').classList.add('is-open'); };
         window.chiudiModaleUpload = () => {
             document.getElementById('modale-upload').classList.remove('is-open');
             document.getElementById('form-upload').reset();
@@ -370,9 +416,9 @@
             }
         };
 
-        // Inizializzazione
         await caricaCategorie();
         await caricaDocumenti();
+        initNotifiche();
     });
   </script>
 

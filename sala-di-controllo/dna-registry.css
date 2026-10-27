@@ -1,0 +1,47 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f172a;
+    color:#ffffff;
+    font-family:Arial,sans-serif;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#94a3b8;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#1e293b;
+}
+
+th{
+    background:#0ea5e9;
+    color:white;
+    padding:12px;
+    text-align:left;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #334155;
+}
+
+tr:hover{
+    background:#334155;
+}
