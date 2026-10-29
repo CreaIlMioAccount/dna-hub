@@ -5,73 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrati - DNA Informatica</title>
   <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico">
-  
   <link rel="stylesheet" href="../css/style.css">
   
   <style>
     body { display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background-color: var(--bg-elev); }
     .auth-container { width: 100%; max-width: 450px; padding: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); position: relative; }
-    
-    .back-link { position: absolute; top: 20px; left: 20px; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; transition: color var(--transition); }
-    .back-link:hover { color: var(--text); }
-    
+    .back-link { position: absolute; top: 20px; left: 20px; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; }
     .auth-header { text-align: center; margin-bottom: 30px; margin-top: 20px; }
-    
-    /* LOGO GRANDE COME NEL LOGIN */
-    .auth-header img { 
-      height: 90px; 
-      margin: 0 auto 20px; 
-      display: none; 
-    }
-    
+    .auth-header img { height: 90px; margin: 0 auto 20px; display: none; }
     .auth-header h1 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
     .auth-header p { font-size: 14px; color: var(--text-muted); }
-    
-    /* Griglia per dividere Nome e Cognome */
-    .form-row {
-      display: flex;
-      gap: 12px;
-    }
-    .form-row .form-group {
-      flex: 1;
-    }
-
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
-    .form-group input { width: 100%; padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; font-family: inherit; transition: border-color var(--transition), box-shadow var(--transition); }
-    .form-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-    
-    /* Checkbox Termini e Condizioni */
-    .form-check {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 24px;
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-    .form-check input {
-      margin-top: 3px;
-      cursor: pointer;
-      accent-color: var(--accent);
-    }
-    .form-check a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .form-check a:hover { text-decoration: underline; }
-
+    .form-group input { width: 100%; padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; }
+    .form-check { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 24px; font-size: 13px; color: var(--text-muted); line-height: 1.4; }
     .btn-submit { width: 100%; padding: 12px; font-size: 15px; }
-    
     .auth-footer { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
     .auth-footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
-    .auth-footer a:hover { text-decoration: underline; }
-    
     .theme-toggle-wrapper { position: absolute; top: 20px; right: 20px; }
-
-    /* Dark mode per i loghi */
     html[data-theme="dark"] .logo-light { display: none !important; }
     html[data-theme="dark"] .logo-dark { display: block !important; }
     html[data-theme="light"] .logo-light { display: block !important; }
@@ -100,9 +53,7 @@
       <p>Inizia la tua prova gratuita di 30 giorni</p>
     </div>
 
-    <!-- Form con ID e action per evitare il 405 -->
     <form id="registerForm" action="javascript:void(0)">
-      
       <div class="form-row">
         <div class="form-group">
           <label for="nome">Nome</label>
@@ -137,8 +88,8 @@
     </div>
   </div>
 
-  <!-- SCRIPT PER IL TEMA (quello che avevi già) -->
   <script src="../js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <script>
     const html = document.documentElement;
@@ -156,21 +107,14 @@
       }
     }
     updateLogos();
+    if(themeToggle) themeToggle.addEventListener('click', () => setTimeout(updateLogos, 10));
 
-    if(themeToggle) {
-      themeToggle.addEventListener('click', () => setTimeout(updateLogos, 10));
-    }
-  </script>
-
-  <!-- SCRIPT PER LA LOGICA DI REGISTRAZIONE CON SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
     const SUPABASE_URL = 'https://wqtywckdavadoqjunkhl.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_iSHItBqOWsFVXduYinpx6Q_JNiNXPE5';
     const supabaseAuth = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
-      e.preventDefault(); // Blocca l'invio tradizionale (evita 405)
+      e.preventDefault();
       const btn = document.getElementById('submitBtn');
       btn.textContent = 'Registrazione in corso...';
       btn.disabled = true;
@@ -180,11 +124,14 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
-      // 1. Creiamo l'utente in Auth
+      // Aggiunto emailRedirectTo con l'URL del login
       const { data: authData, error: authError } = await supabaseAuth.auth.signUp({
         email: email,
         password: password,
-        options: { data: { first_name: nome, last_name: cognome } }
+        options: { 
+          data: { first_name: nome, last_name: cognome },
+          emailRedirectTo: 'https://portale.dnainformatica.com/pages/login.html'
+        }
       });
 
       if (authError) {
@@ -194,17 +141,13 @@
         return;
       }
 
-      // 2. Creiamo il profilo nella tabella 'profiles'
       if (authData.user) {
-        const { error: profileError } = await supabaseAuth.from('profiles').insert([
+        await supabaseAuth.from('profiles').insert([
           { id: authData.user.id, email: email, first_name: nome, last_name: cognome }
         ]);
-        if (profileError) {
-          console.error('Errore creazione profilo:', profileError);
-        }
       }
 
-      alert('Registrazione completata! Ora puoi fare il login.');
+      alert('Registrazione completata! Controlla la tua email per confermare l\'account, poi fai il login.');
       window.location.href = 'login.html';
     });
   </script>
