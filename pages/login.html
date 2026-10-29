@@ -19,8 +19,8 @@
     
     /* LOGO PIÙ GRANDE */
     .auth-header img { 
-      height: 100px; /* Era 60px, ora è 90px */
-      margin: 0 auto 20px; /* Aggiunto più spazio sotto */
+      height: 100px;
+      margin: 0 auto 20px;
       display: none; 
     }
     
@@ -39,6 +39,12 @@
     .auth-footer a:hover { text-decoration: underline; }
     
     .theme-toggle-wrapper { position: absolute; top: 20px; right: 20px; }
+
+    /* Dark mode per i loghi */
+    html[data-theme="dark"] .logo-light { display: none !important; }
+    html[data-theme="dark"] .logo-dark { display: block !important; }
+    html[data-theme="light"] .logo-light { display: block !important; }
+    html[data-theme="light"] .logo-dark { display: none !important; }
   </style>
 </head>
 <body>
@@ -63,7 +69,8 @@
       <p>Accedi al tuo account per continuare</p>
     </div>
 
-    <form action="#" method="POST">
+    <!-- AGGIUNTO action="javascript:void(0)" per evitare l'invio a Nginx -->
+    <form id="loginForm" action="javascript:void(0)">
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" placeholder="nome@azienda.it" required>
@@ -72,14 +79,15 @@
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="••••••••" required>
       </div>
-      <button type="submit" class="btn btn-primary btn-submit">Accedi</button>
+      <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">Accedi</button>
     </form>
 
     <div class="auth-footer">
-      Non hai un account? <a href=/pages/registrati.html>Registrati gratis</a>
+      Non hai un account? <a href="registrati.html">Registrati gratis</a>
     </div>
   </div>
 
+  <!-- SCRIPT PER IL TEMA (quello che avevi già) -->
   <script src="../js/script.js"></script>
   
   <script>
@@ -102,6 +110,38 @@
     if(themeToggle) {
       themeToggle.addEventListener('click', () => setTimeout(updateLogos, 10));
     }
+  </script>
+
+  <!-- SCRIPT PER LA LOGICA DI LOGIN CON SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://wqtywckdavadoqjunkhl.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_iSHItBqOWsFVXduYinpx6Q_JNiNXPE5';
+    const supabaseAuth = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); // Blocca l'invio tradizionale
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Accesso...';
+      btn.disabled = true;
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { data, error } = await supabaseAuth.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        alert('Errore di accesso: ' + error.message);
+        btn.textContent = 'Accedi';
+        btn.disabled = false;
+      } else {
+        // Login riuscito! Vai all'Area Personale
+        window.location.href = 'area-personale.html';
+      }
+    });
   </script>
 </body>
 </html>

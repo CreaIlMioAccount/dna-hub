@@ -70,6 +70,12 @@
     .auth-footer a:hover { text-decoration: underline; }
     
     .theme-toggle-wrapper { position: absolute; top: 20px; right: 20px; }
+
+    /* Dark mode per i loghi */
+    html[data-theme="dark"] .logo-light { display: none !important; }
+    html[data-theme="dark"] .logo-dark { display: block !important; }
+    html[data-theme="light"] .logo-light { display: block !important; }
+    html[data-theme="light"] .logo-dark { display: none !important; }
   </style>
 </head>
 <body>
@@ -94,9 +100,9 @@
       <p>Inizia la tua prova gratuita di 30 giorni</p>
     </div>
 
-    <form action="#" method="POST">
+    <!-- Form con ID e action per evitare il 405 -->
+    <form id="registerForm" action="javascript:void(0)">
       
-      <!-- Nome e Cognome sulla stessa riga -->
       <div class="form-row">
         <div class="form-group">
           <label for="nome">Nome</label>
@@ -118,13 +124,12 @@
         <input type="password" id="password" placeholder="Minimo 8 caratteri" required minlength="8">
       </div>
 
-      <!-- Checkbox per i termini -->
       <label class="form-check">
         <input type="checkbox" required>
         <span>Accetto i <a href="#">Termini di servizio</a> e l'<a href="#">Informativa sulla privacy</a> di DNA Informatica.</span>
       </label>
 
-      <button type="submit" class="btn btn-primary btn-submit">Crea account</button>
+      <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">Crea account</button>
     </form>
 
     <div class="auth-footer">
@@ -132,6 +137,7 @@
     </div>
   </div>
 
+  <!-- SCRIPT PER IL TEMA (quello che avevi già) -->
   <script src="../js/script.js"></script>
   
   <script>
@@ -154,6 +160,53 @@
     if(themeToggle) {
       themeToggle.addEventListener('click', () => setTimeout(updateLogos, 10));
     }
+  </script>
+
+  <!-- SCRIPT PER LA LOGICA DI REGISTRAZIONE CON SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://wqtywckdavadoqjunkhl.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_iSHItBqOWsFVXduYinpx6Q_JNiNXPE5';
+    const supabaseAuth = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); // Blocca l'invio tradizionale (evita 405)
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Registrazione in corso...';
+      btn.disabled = true;
+
+      const nome = document.getElementById('nome').value;
+      const cognome = document.getElementById('cognome').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // 1. Creiamo l'utente in Auth
+      const { data: authData, error: authError } = await supabaseAuth.auth.signUp({
+        email: email,
+        password: password,
+        options: { data: { first_name: nome, last_name: cognome } }
+      });
+
+      if (authError) {
+        alert('Errore durante la registrazione: ' + authError.message);
+        btn.textContent = 'Crea account';
+        btn.disabled = false;
+        return;
+      }
+
+      // 2. Creiamo il profilo nella tabella 'profiles'
+      if (authData.user) {
+        const { error: profileError } = await supabaseAuth.from('profiles').insert([
+          { id: authData.user.id, email: email, first_name: nome, last_name: cognome }
+        ]);
+        if (profileError) {
+          console.error('Errore creazione profilo:', profileError);
+        }
+      }
+
+      alert('Registrazione completata! Ora puoi fare il login.');
+      window.location.href = 'login.html';
+    });
   </script>
 </body>
 </html>
