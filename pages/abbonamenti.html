@@ -85,7 +85,82 @@
     html[data-theme="dark"] .empty-state { background: #222 !important; border-color: #444 !important; }
     html[data-theme="dark"] .empty-state h3 { color: #fff !important; }
     html[data-theme="dark"] .empty-state p { color: #a0a0a0 !important; }
-  </style>
+
+
+
+
+    /* =========================================
+       RESPONSIVE DASHBOARD (aggiunto)
+       ========================================= */
+    @media (max-width: 768px) {
+      /* 1. Layout a colonna */
+      .dashboard-container { 
+        flex-direction: column; 
+        padding: 0 10px; 
+        margin: 20px auto;
+      }
+      
+      /* 2. Sidebar a tutta larghezza */
+      .dashboard-sidebar { 
+        width: 100%; 
+        margin-bottom: 20px;
+      }
+      
+      /* 3. Contenuto a tutta larghezza */
+      .dashboard-content { 
+        padding: 20px; 
+        width: 100%;
+      }
+
+      /* 4. Form in colonna */
+      .form-row { 
+        flex-direction: column; 
+        gap: 10px; 
+      }
+      .form-group { 
+        min-width: 100%; 
+      }
+
+      /* 5. Tabelle scrollabili */
+      .table-responsive { 
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* 6. Titoli più piccoli */
+      .content-header h1 { font-size: 24px; }
+      .dashboard-content h3 { font-size: 18px; }
+
+      /* 7. Pulsanti a destra sotto l'header */
+      .sotto-header-actions { 
+        justify-content: center; 
+        margin-bottom: 10px;
+      }
+    }
+
+     /* FIX: Centra solo l'avatar */
+  .profile-avatar {
+    display: flex;
+    justify-content: center; /* <--- Questo centra l'immagine */
+  }
+
+  .profile-avatar img {
+    margin-bottom: 10px;
+  }
+
+
+    @media (max-width: 480px) {
+      .dashboard-content { padding: 15px; }
+      .content-header h1 { font-size: 20px; }
+      .btn { padding: 8px 12px; font-size: 13px; }
+    }
+
+
+
+
+
+
+</style>
 </head>
 <body>
 
@@ -136,6 +211,29 @@
   </div>
   <div class="mega-menu" id="megaMenu" aria-hidden="true"><div class="mega-inner" id="megaInner"></div></div>
 </header>
+
+<!-- ============ MENU MOBILE (AGGIUNTO) ============ -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-header">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/logo-nero.png" alt="DNA Informatica" class="logo-light">
+      <img src="../assets/images/logo-bianco.png" alt="DNA Informatica" class="logo-dark">
+    </a>
+    <button class="mobile-close" id="mobileClose" type="button" aria-label="Chiudi menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-menu-body" id="mobileBody"><!-- generato via JS --></div>
+
+  <div class="mobile-menu-footer">
+    <a href="login.html" class="btn btn-ghost">Accedi</a>
+    <a href="registrati.html" class="btn btn-primary">Inizia</a>
+  </div>
+</div>
+
+<!-- Overlay (AGGIUNTO) -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
 
 <!-- ============ DASHBOARD ============ -->
 <main>
