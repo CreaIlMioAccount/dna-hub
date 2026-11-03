@@ -186,7 +186,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     
-    // --- 1. FRECCE MENU ---
+    // --- 1. FRECCE MENU E AUTO-SCROLL ---
     const navList = document.querySelector('.nav-list');
     const navArrowPrev = document.getElementById('navArrowPrev');
     const navArrowNext = document.getElementById('navArrowNext');
@@ -213,8 +213,39 @@
           navScrollContainer.classList.remove('show-right-fade');
         }
       };
+      
+      // Auto-scroll al passaggio del mouse
+      let scrollInterval = null;
+      const scrollSpeed = 8;
+      
+      function startAutoScroll(direction) {
+        stopAutoScroll();
+        scrollInterval = setInterval(() => {
+          navList.scrollLeft += (direction === 'next' ? scrollSpeed : -scrollSpeed);
+        }, 16);
+      }
+      
+      function stopAutoScroll() {
+        if (scrollInterval) {
+          clearInterval(scrollInterval);
+          scrollInterval = null;
+        }
+      }
+
       navArrowPrev.addEventListener('click', () => navList.scrollBy({ left: -250, behavior: 'smooth' }));
       navArrowNext.addEventListener('click', () => navList.scrollBy({ left: 250, behavior: 'smooth' }));
+      
+      // Aggiungiamo gli eventi mouseenter e mouseleave per l'auto-scroll
+      navArrowNext.addEventListener('mouseenter', () => startAutoScroll('next'));
+      navArrowNext.addEventListener('mouseleave', stopAutoScroll);
+      navArrowPrev.addEventListener('mouseenter', () => startAutoScroll('prev'));
+      navArrowPrev.addEventListener('mouseleave', stopAutoScroll);
+      
+      navArrowNext.addEventListener('click', stopAutoScroll);
+      navArrowPrev.addEventListener('click', stopAutoScroll);
+      window.addEventListener('blur', stopAutoScroll);
+      document.addEventListener('touchstart', stopAutoScroll);
+
       navList.addEventListener('scroll', updateArrows);
       window.addEventListener('resize', updateArrows);
       setTimeout(updateArrows, 200);
@@ -293,7 +324,12 @@
         '</div></div>'
       ) : '';
 
-      megaInner.innerHTML = '<div class="mega-grid">' + cols + promo + '</div>';
+      megaInner.innerHTML = 
+        '<div class="mega-grid">' + cols + promo + '</div>' +
+        '<div class="mega-footer">' +
+          '<span class="mega-footer-text">Hai bisogno di aiuto per scegliere?</span>' +
+          '<a href="#">Parla con un esperto →</a>' +
+        '</div>';
     }
 
     let closeTimer;
