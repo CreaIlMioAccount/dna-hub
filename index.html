@@ -56,13 +56,17 @@
 </header>
 
 <!-- BANNER PROMO -->
-<div class="promo-banner" style="width: 100%; height: 40px; max-height: 40px; overflow: hidden; background-color: #005a9e; color: #ffffff; display: flex; align-items: center; justify-content: center; z-index: 999; position: relative; font-family: inherit;">
-  <div class="promo-banner-inner" style="max-width: 1440px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 18px; letter-spacing: 0.02em;">
-    <span class="promo-banner-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">🎉 <strong>Coupon Esclusivo</strong>: Usa il codice <code style="background: rgba(255,255,255,0.2); padding: 1px 4px; border-radius: 3px; font-family: monospace; font-weight: 600;">DESIGN2025</code> per il 20% di sconto sul tuo primo progetto!</span>
-    <a href="#" class="promo-banner-link" style="color: #ffffff; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; transition: gap 0.2s ease, color 0.2s ease; border-bottom: 1px solid transparent;">Scopri →</a>
+<!-- BANNER PROMO -->
+<div class="promo-banner">
+  <div class="promo-banner-inner">
+    <span class="promo-banner-text">
+      🎉 <strong>Coupon Esclusivo</strong>: Usa il codice <code>DESIGN2025</code> per il 20% di sconto sul tuo primo progetto!
+    </span>
+    <a href="#" class="promo-banner-link">Scopri →</a>
   </div>
 </div>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <div class="mobile-menu-header">
     <a href="index.html" class="logo"><img src="assets/images/logo-nero.png" alt="DNA Informatica" class="logo-light"><img src="assets/images/logo-bianco.png" alt="DNA Informatica" class="logo-dark"></a>
@@ -74,7 +78,7 @@
 <div class="mobile-overlay" id="mobileOverlay"></div>
 
 <main>
-  <!-- HERO SLIDER CON SINGOLO BADGE DESIGN -->
+  <!-- HERO SLIDER -->
   <section class="hero-enterprise-full" id="heroEnterprise">
     <div class="enterprise-slide active">
       <div class="enterprise-bg" style="background-image: url('https://cdn.pixabay.com/photo/2023/05/15/12/17/technology-7994887_1280.jpg');"></div>
@@ -117,19 +121,32 @@
       <button class="hero-enterprise-dot" data-slide="1" aria-label="Vai alla slide 2"></button>
       <button class="hero-enterprise-dot" data-slide="2" aria-label="Vai alla slide 3"></button>
     </div>
-    <div class="hero-bottom-nav">
+        <div class="hero-bottom-nav">
       <div class="hero-bottom-nav-inner">
-        <button class="hero-tab-btn active" data-target="tab-design">Confronta i tipi di design</button>
-        <button class="hero-tab-btn" data-target="tab-servizi">Servizi enterprise</button>
-        <button class="hero-tab-btn" data-target="tab-risorse">Risorse</button>
-        <button class="hero-tab-btn" data-target="tab-passaggi">Passaggi successivi</button>
-        <button class="hero-tab-btn" data-target="tab-faq">DOMANDE FREQUENTI</button>
-        <button class="hero-tab-btn" data-target="tab-localita">Località</button>
+        <!-- Freccia Sinistra -->
+        <button class="tab-arrow prev" id="tabArrowPrev" aria-label="Scorri a sinistra">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <!-- Contenitore scrollabile -->
+        <div class="tab-scroll-container" id="tabScrollContainer">
+          <button class="hero-tab-btn active" data-target="tab-design">Confronta i tipi di design</button>
+          <button class="hero-tab-btn" data-target="tab-servizi">Servizi enterprise</button>
+          <button class="hero-tab-btn" data-target="tab-risorse">Risorse</button>
+          <button class="hero-tab-btn" data-target="tab-passaggi">Passaggi successivi</button>
+          <button class="hero-tab-btn" data-target="tab-faq">DOMANDE FREQUENTI</button>
+          <button class="hero-tab-btn" data-target="tab-localita">Località</button>
+        </div>
+
+        <!-- Freccia Destra -->
+        <button class="tab-arrow next" id="tabArrowNext" aria-label="Scorri a destra">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- SCHEDE CON SINGOLO BADGE DESIGN -->
+  <!-- SCHEDE -->
   <section class="hero-tabs-content">
     <div class="hero-tabs-container">
       <div class="tab-pane active" id="tab-design">
@@ -184,7 +201,7 @@
           <h3>Domande Frequenti</h3>
           <div class="tab-faq-list">
             <div class="faq-item"><strong>Quanto costa un progetto di Design Enterprise?</strong><p>I costi variano in base alla complessità. Contattaci per un preventivo personalizzato.</p></div>
-            <div class="faq-item"><strong>Lavorate con aziende fuori dall'Italia?</strong><p>Sì, lavoriamo con clienti in tutto il mondo.</p></div>
+            <div class="faq-item"><strong>Lavorate con aziende fuori dall'Italia?</strong><p>Sì, abbiamo sedi a Londra e Dubai e lavoriamo con clienti in tutto il mondo.</p></div>
             <div class="faq-item"><strong>Quanto tempo richiede un Design System?</strong><p>In media dai 3 ai 6 mesi, a seconda della dimensione dell'azienda e del numero di prodotti.</p></div>
           </div>
         </div>
@@ -209,7 +226,7 @@
   </section>
 </main>
 
-<!-- SCRIPT INTEGRATO COMPLETO CON I DATI VERI DEL MENU -->
+<!-- SCRIPT INTEGRATO COMPLETO -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     
@@ -269,11 +286,7 @@
       setTimeout(updateArrows, 200);
     }
 
-    // --- 2. MEGA MENU CON DATI ORIGINALI ---
-    const megaMenu = document.getElementById('megaMenu');
-    const megaInner = document.getElementById('megaInner');
-    const navItems = document.querySelectorAll('.nav-item[data-menu]');
-    
+    // --- 2. DATI MENU ---
     const MENU_DATA = {
       home: { groups: [ { title: 'Percorso', items: [ { icon: 'grid', title: 'Benvenuti', desc: 'Un punto di partenza per orientarti.' }, { icon: 'book', title: 'Introduzione', desc: 'Chi siamo e cosa facciamo.' }, { icon: 'chart', title: 'Studi', desc: 'Ricerche, dati e approfondimenti.' }, { icon: 'layers', title: 'Logo & Brand', desc: 'Identità visiva e linee guida.' } ] }, { title: 'Approfondimenti', items: [ { icon: 'help', title: 'Ricerca', desc: 'Metodo e processo di ricerca.' }, { icon: 'briefcase', title: 'Strategia', desc: 'Obiettivi, roadmap e posizionamento.' }, { icon: 'rocket', title: 'Progetti', desc: 'Casi studio e lavori realizzati.' } ] } ], promo: { icon: 'zap', title: 'Inizia da qui', desc: 'Segui il percorso introduttivo per scoprire DNA Informatica.', link: 'Apri la guida' } },
       prodotti: { groups: [ { title: 'Prodotti DNA', items: [ { icon: 'globe', title: 'DNA Web', desc: 'Siti web, portali e applicazioni web su misura.' }, { icon: 'message', title: 'DNA Comunicazione', desc: 'Strumenti per la comunicazione aziendale.' }, { icon: 'chart', title: 'DNA Marketing', desc: 'Campagne, automazioni e analytics di marketing.' }, { icon: 'briefcase', title: 'DNA Business', desc: 'Gestione e processi per il business.' } ] }, { title: 'Soluzioni tecniche', items: [ { icon: 'code', title: 'DNA Software', desc: 'Software personalizzato e integrazioni.' }, { icon: 'cpu', title: 'DNA Infrastructure', desc: 'Server, networking e infrastruttura IT.' }, { icon: 'layers', title: 'DNA Servizi Gestionali', desc: 'ERP, gestionali e automazione dei processi.' }, { icon: 'cloud', title: 'DNA Cloud', desc: 'Infrastruttura cloud gestita.', badge: 'Top' } ] } ], promo: { icon: 'zap', title: 'Prova gratis 30 giorni', desc: 'Nessuna carta richiesta. Accesso completo a tutte le funzionalità.', link: 'Inizia la prova' } },
@@ -315,6 +328,11 @@
     function svg(path) {
       return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">' + path + '</svg>';
     }
+
+    // --- 3. RENDER MEGA MENU (Desktop) ---
+    const megaMenu = document.getElementById('megaMenu');
+    const megaInner = document.getElementById('megaInner');
+    const navItems = document.querySelectorAll('.nav-item[data-menu]');
 
     function buildMega(key) {
       const data = MENU_DATA[key];
@@ -376,7 +394,77 @@
       });
     }
 
-    // --- 3. TABS ---
+    // --- 4. RENDER MOBILE MENU (Accordion) ---
+    const mobileBody = document.getElementById('mobileBody');
+    
+    function buildMobileMenu() {
+      if (!mobileBody) return;
+      const htmlStr = Object.keys(MENU_DATA).map(function (key) {
+        const data = MENU_DATA[key];
+        const labelMap = { home: 'Home', prodotti: 'Prodotti', tecnologie: 'Tecnologie', soluzioni: 'Soluzioni', servizi: 'Servizi', settori: 'Settori', risorse: 'Risorse', azienda: 'Azienda', supporto: 'Supporto' };
+        const allItems = data.groups.reduce(function (acc, g) { return acc.concat(g.items); }, []);
+        const links = allItems.map(function (item) {
+          return '<a href="#" class="mobile-link">' +
+              '<span class="mobile-link-icon">' + svg(ICONS[item.icon] || ICONS.zap) + '</span>' +
+              '<span>' +
+                '<span class="mobile-link-title">' + item.title + '</span>' +
+                '<span class="mobile-link-desc">' + item.desc + '</span>' +
+              '</span>' +
+            '</a>';
+        }).join('');
+
+        return '<div class="acc" data-key="' + key + '">' +
+            '<button class="acc-trigger" type="button" aria-expanded="false">' +
+              '<span>' + labelMap[key] + '</span>' +
+              '<svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
+            '</button>' +
+            '<div class="acc-content">' +
+              '<div class="acc-inner">' + links + '</div>' +
+            '</div>' +
+          '</div>';
+      }).join('');
+
+      mobileBody.innerHTML = htmlStr;
+
+      // Accordion logic
+      mobileBody.querySelectorAll('.acc-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const acc = btn.parentElement;
+          const content = acc.querySelector('.acc-content');
+          const isOpen = acc.classList.contains('open');
+
+          // Chiudi gli altri accordion aperti
+          mobileBody.querySelectorAll('.acc.open').forEach(function (other) {
+            if (other !== acc) {
+              other.classList.remove('open');
+              const oc = other.querySelector('.acc-content');
+              oc.style.height = oc.scrollHeight + 'px';
+              requestAnimationFrame(function () { oc.style.height = '0px'; });
+              other.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          if (isOpen) {
+            content.style.height = content.scrollHeight + 'px';
+            requestAnimationFrame(function () { content.style.height = '0px'; });
+            acc.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+          } else {
+            acc.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            content.style.height = content.scrollHeight + 'px';
+            content.addEventListener('transitionend', function onEnd() {
+              if (acc.classList.contains('open')) content.style.height = 'auto';
+              content.removeEventListener('transitionend', onEnd);
+            });
+          }
+        });
+      });
+    }
+    
+    buildMobileMenu();
+
+    // --- 5. TABS ---
     const tabButtons = document.querySelectorAll('.hero-tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
     if (tabButtons.length > 0 && tabPanes.length > 0) {
@@ -393,7 +481,7 @@
       });
     }
 
-    // --- 4. DARK MODE ---
+    // --- 6. DARK MODE ---
     const html = document.documentElement;
     const themeToggle = document.getElementById('themeToggle');
     function applyTheme(theme) { html.setAttribute('data-theme', theme); localStorage.setItem('dna-theme', theme); }
@@ -409,7 +497,7 @@
       });
     }
 
-    // --- 5. HERO SLIDER ---
+    // --- 7. HERO SLIDER ---
     const heroEnterprise = document.getElementById('heroEnterprise');
     if (heroEnterprise) {
       const slides = heroEnterprise.querySelectorAll('.enterprise-slide');
@@ -457,7 +545,119 @@
         else startAutoPlay();
       });
     }
+
+    // --- 8. APERTURA/CHIUSURA MOBILE MENU ---
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function openMobile() {
+      if (!mobileMenu || !mobileOverlay || !hamburger) return;
+      mobileMenu.classList.add('open');
+      mobileOverlay.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      hamburger.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobile() {
+      if (!mobileMenu || !mobileOverlay || !hamburger) return;
+      mobileMenu.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener('click', function () {
+        if (mobileMenu.classList.contains('open')) closeMobile();
+        else openMobile();
+      });
+    }
+    if (mobileClose) mobileClose.addEventListener('click', closeMobile);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobile);
+    
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) closeMobile();
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1024 && mobileMenu && mobileMenu.classList.contains('open')) {
+        closeMobile();
+      }
+    });
+
   });
+
+    // --- 9. FRECCE MENU A SCHEDE (Mobile) ---
+    const tabScrollContainer = document.getElementById('tabScrollContainer');
+    const tabArrowPrev = document.getElementById('tabArrowPrev');
+    const tabArrowNext = document.getElementById('tabArrowNext');
+    const heroBottomNavInner = document.querySelector('.hero-bottom-nav-inner');
+
+    if (tabScrollContainer && tabArrowPrev && tabArrowNext && heroBottomNavInner) {
+      
+      const updateTabArrows = () => {
+        // Se non siamo su mobile, nascondi tutto
+        if (window.innerWidth > 1024) {
+          tabArrowPrev.style.display = 'none';
+          tabArrowNext.style.display = 'none';
+          heroBottomNavInner.classList.remove('show-left-fade', 'show-right-fade');
+          return;
+        }
+
+        const scrollLeft = Math.round(tabScrollContainer.scrollLeft);
+        const scrollWidth = Math.round(tabScrollContainer.scrollWidth);
+        const clientWidth = Math.round(tabScrollContainer.clientWidth);
+
+        // Gestione Freccia Sinistra
+        if (scrollLeft > 5) {
+          tabArrowPrev.style.display = 'flex';
+          heroBottomNavInner.classList.add('show-left-fade');
+        } else {
+          tabArrowPrev.style.display = 'none';
+          heroBottomNavInner.classList.remove('show-left-fade');
+        }
+
+        // Gestione Freccia Destra
+        if (scrollLeft + clientWidth < scrollWidth - 5) {
+          tabArrowNext.style.display = 'flex';
+          heroBottomNavInner.classList.add('show-right-fade');
+        } else {
+          tabArrowNext.style.display = 'none';
+          heroBottomNavInner.classList.remove('show-right-fade');
+        }
+      };
+
+      // Scorri a sinistra
+      tabArrowPrev.addEventListener('click', () => {
+        tabScrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
+      });
+
+      // Scorri a destra
+      tabArrowNext.addEventListener('click', () => {
+        tabScrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
+      });
+
+      // Ascolta lo scroll del contenitore
+      tabScrollContainer.addEventListener('scroll', updateTabArrows);
+      
+      // Ascolta il ridimensionamento della finestra
+      window.addEventListener('resize', updateTabArrows);
+
+      // Controllo iniziale
+      setTimeout(updateTabArrows, 100);
+    }
+
+
+
+
+
+
 </script>
 
 </body>

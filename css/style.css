@@ -220,7 +220,7 @@ img { max-width: 100%; display: block; }
 .mobile-menu-footer { padding: 16px 20px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; flex-shrink: 0; }
 .mobile-menu-footer .btn { flex: 1; padding: 13px; font-size: 14px; }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE HEADER ===== */
 @media (max-width: 1024px) {
   .nav-desktop { display: none; }
   .hamburger { display: flex; }
@@ -248,15 +248,149 @@ img { max-width: 100%; display: block; }
 .search-close svg { width: 12px; height: 12px; }
 
 /* =========================================================
-   BANNER PROMO
+   BANNER PROMO (Unico blocco pulito)
    ========================================================= */
-.promo-banner-link:hover { gap: 4px !important; border-bottom-color: #ffffff !important; }
-[data-theme="dark"] .promo-banner { background-color: #1f1f1f !important; color: #e5e5e5 !important; }
-[data-theme="dark"] .promo-banner-link { color: #4dabf7 !important; }
-[data-theme="dark"] .promo-banner-link:hover { border-bottom-color: #4dabf7 !important; }
+
+/* Stile base (Desktop) */
+.promo-banner {
+  width: 100%;
+  height: 40px;
+  background-color: #005a9e;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  position: relative;
+  font-family: inherit;
+}
+
+.promo-banner-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.promo-banner-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.promo-banner-text strong {
+  font-weight: 700;
+}
+
+.promo-banner-text code {
+  background: rgba(255,255,255,0.2);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.promo-banner-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  transition: gap 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.promo-banner-link:hover {
+  gap: 4px;
+  border-bottom-color: #ffffff;
+}
+
+/* Dark Mode */
+[data-theme="dark"] .promo-banner {
+  background-color: #1f1f1f;
+  color: #e5e5e5;
+}
+
+[data-theme="dark"] .promo-banner-link {
+  color: #4dabf7;
+}
+
+[data-theme="dark"] .promo-banner-link:hover {
+  border-bottom-color: #4dabf7;
+}
+
+/* Responsive Banner (Mobile) */
+@media (max-width: 768px) {
+  .promo-banner {
+    height: auto;
+    max-height: none;
+    padding: 12px 0; /* Altezza del banner */
+  }
+  
+  .promo-banner-inner {
+    font-size: 12px;
+    padding: 0 16px;
+    gap: 8px;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.4;
+  }
+
+  .promo-banner-text {
+    white-space: normal; /* Fa andare il testo a capo */
+    display: block; /* Rimuove il line-clamp */
+    text-align: center;
+  }
+  
+  .promo-banner-link {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+/* =========================================================
+   RESPONSIVE BANNER PROMO (Unico blocco)
+   ========================================================= */
+@media (max-width: 768px) {
+  .promo-banner {
+    height: auto; /* Altezza calcolata in base al contenuto */
+    max-height: none;
+    padding: 20px 0; /* <-- REGOLA QUI L'ALTEZZA: aumenta o diminuisci questo valore */
+  }
+  
+  .promo-banner-inner {
+    font-size: 16px;
+    padding: 0 16px;
+    gap: 6px;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.5;
+  }
+
+  .promo-banner-text {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .promo-banner-link {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
 
 /* =========================================================
-   HERO SLIDER — PIÙ ALTA E CON PULSANTI PIÙ IN ALTO
+   HERO SLIDER — VERSIONE RESPONSIVE
    ========================================================= */
 .hero-enterprise-full { position: relative !important; width: 100% !important; height: 700px !important; max-height: 750px !important; overflow: hidden !important; background: #111 !important; display: flex !important; flex-direction: column !important; }
 .enterprise-slide { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; opacity: 0 !important; visibility: hidden !important; transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out !important; z-index: 1 !important; }
@@ -279,13 +413,24 @@ img { max-width: 100%; display: block; }
 .hero-enterprise-dot { width: 14px !important; height: 14px !important; border-radius: 50% !important; background: rgba(255,255,255,0.4) !important; border: 2px solid rgba(255,255,255,0.6) !important; cursor: pointer !important; transition: all 0.3s ease !important; padding: 0 !important; }
 .hero-enterprise-dot.active { background: #ffffff !important; transform: scale(1.2) !important; }
 
-/* Menu Inferiore */
+/* Menu Inferiore (Tabs) */
 .hero-bottom-nav { position: absolute !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background-color: rgba(255,255,255,0.95) !important; backdrop-filter: blur(10px) !important; border-top: 1px solid var(--border) !important; z-index: 10 !important; }
 [data-theme="dark"] .hero-bottom-nav { background-color: rgba(20,20,20,0.95) !important; }
-.hero-bottom-nav-inner { max-width: 1440px !important; margin: 0 auto !important; display: flex !important; justify-content: center !important; gap: 32px !important; padding: 20px 48px !important; overflow-x: auto !important; scrollbar-width: none !important; }
+.hero-bottom-nav-inner {
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 32px !important;
+  padding: 20px 48px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.hero-bottom-nav-inner::-webkit-scrollbar { display: none; }
 
 /* Bottoni Tabs */
-.hero-tab-btn { background: transparent !important; border: none !important; font-size: 14px !important; font-weight: 600 !important; color: var(--text-muted) !important; white-space: nowrap !important; cursor: pointer !important; padding: 8px 16px !important; border-radius: var(--radius-md) !important; transition: all 0.2s ease !important; font-family: inherit !important; }
+.hero-tab-btn { background: transparent !important; border: none !important; font-size: 14px !important; font-weight: 600 !important; color: var(--text-muted) !important; white-space: nowrap !important; cursor: pointer !important; padding: 8px 16px !important; border-radius: var(--radius-md) !important; transition: all 0.2s ease !important; font-family: inherit !important; flex-shrink: 0 !important; }
 .hero-tab-btn:hover { color: var(--text) !important; background: var(--bg-hover) !important; }
 .hero-tab-btn.active { color: var(--accent) !important; background: var(--accent-soft) !important; }
 
@@ -335,8 +480,6 @@ img { max-width: 100%; display: block; }
 /* =========================================================
    ETICHETTE (BADGE) DI DESIGN
    ========================================================= */
-
-/* Badge per le Slide (Hero) */
 .hero-design-badge {
   display: inline-block;
   padding: 4px 12px;
@@ -353,8 +496,6 @@ img { max-width: 100%; display: block; }
   background-color: #D8BC85;
   color: #0d0d0d;
 }
-
-/* Badge per le Card */
 .card-design-badge {
   display: inline-block;
   padding: 2px 10px;
@@ -372,13 +513,157 @@ img { max-width: 100%; display: block; }
   color: #4dabf7;
 }
 
-/* Responsive */
+/* =========================================================
+   RESPONSIVE GLOBALE
+   ========================================================= */
+
+/* Tablet */
 @media (max-width: 1024px) {
+  .hero-enterprise-full { height: 100vh !important; max-height: 100vh !important; }
+  .hero-enterprise-inner { padding: 40px 24px !important; align-items: center !important; text-align: center !important; padding-bottom: 140px !important; }
+  .hero-enterprise-content { text-align: center !important; max-width: 100% !important; }
+  .hero-enterprise-content h1 { font-size: 2.5rem !important; }
+  .hero-enterprise-content p { font-size: 1rem !important; }
+  .enterprise-overlay { background: rgba(10, 10, 10, 0.85) !important; }
+  .hero-enterprise-controls { bottom: 110px !important; }
+  
   .hero-tabs-container { padding: 0 24px !important; }
   .tab-grid-3 { grid-template-columns: 1fr !important; }
   .tab-menu-list { grid-template-columns: 1fr !important; }
-  .hero-enterprise-full { height: 100vh !important; }
-  .hero-enterprise-inner { padding: 40px 24px !important; align-items: center !important; text-align: center !important; padding-bottom: 120px !important; }
-  .hero-enterprise-content { text-align: center !important; }
+  
+  .hero-bottom-nav-inner { justify-content: flex-start !important; padding: 16px 24px !important; gap: 12px !important; }
+  .hero-tab-btn { font-size: 13px !important; padding: 8px 14px !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-enterprise-content h1 { font-size: 2rem !important; }
+  .hero-enterprise-buttons { flex-direction: column !important; width: 100% !important; }
+  .hero-enterprise-buttons .btn { width: 100% !important; }
   .hero-enterprise-controls { bottom: 100px !important; }
+  
+  .hero-tabs-content { padding: 24px 0 !important; }
+  .hero-tabs-container { padding: 0 16px !important; }
+  
+  .hero-bottom-nav-inner { padding: 12px 16px !important; gap: 8px !important; }
+  .hero-tab-btn { font-size: 12px !important; padding: 6px 12px !important; }
+  
+  .hero-design-badge { font-size: 9px !important; padding: 3px 8px !important; }
+  .card-design-badge { font-size: 9px !important; padding: 2px 8px !important; }
+  
+  .tab-card { padding: 16px !important; }
+  .tab-menu-item { padding: 16px !important; }
+  .timeline-step { padding: 16px !important; }
+  .faq-item { padding: 12px !important; }
+}
+
+/* Mobile Piccolo */
+@media (max-width: 480px) {
+  .hero-enterprise-content h1 { font-size: 1.75rem !important; }
+  .hero-enterprise-content p { font-size: 0.9rem !important; }
+  .hero-enterprise-inner { padding-bottom: 120px !important; }
+  
+  .hero-bottom-nav-inner { padding: 10px 12px !important; }
+  .hero-tab-btn { font-size: 11px !important; padding: 6px 10px !important; }
+}
+/* =========================================================
+   MENU A SCHEDE CON FRECCE (Mobile)
+   ========================================================= */
+
+/* Contenitore delle schede con posizione relativa per le frecce */
+.hero-bottom-nav-inner {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important; /* Rimuoviamo il padding per far spazio alle frecce */
+}
+
+/* Il contenitore scrollabile (nasconde la scrollbar) */
+.tab-scroll-container {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 16px 40px !important; /* Spazio per non far finire i bottoni sotto le frecce */
+  overflow-x: auto !important;
+  scroll-behavior: smooth !important;
+  scrollbar-width: none !important; /* Nasconde la scrollbar */
+  -ms-overflow-style: none !important;
+  width: 100% !important;
+  justify-content: flex-start !important;
+}
+
+.tab-scroll-container::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Stile delle frecce (nascoste di default su desktop) */
+.tab-arrow {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  display: none !important; /* Nascoste su desktop */
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: opacity 0.2s ease, background 0.2s ease !important;
+}
+
+.tab-arrow svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.tab-arrow:hover {
+  background: var(--bg-hover) !important;
+}
+
+.tab-arrow.prev { left: 8px !important; }
+.tab-arrow.next { right: 8px !important; }
+
+/* Mostra le frecce solo su mobile e tablet */
+@media (max-width: 1024px) {
+  .tab-arrow {
+    display: flex !important;
+  }
+  
+  /* Su mobile, il contenitore scrollabile parte da sinistra */
+  .hero-bottom-nav-inner {
+    justify-content: flex-start !important;
+  }
+  
+  /* Aggiungiamo delle sfumature laterali per far capire che si può scrollare */
+  .hero-bottom-nav-inner::before,
+  .hero-bottom-nav-inner::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 40px !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+  }
+  
+  .hero-bottom-nav-inner::before {
+    left: 0 !important;
+    background: linear-gradient(to right, var(--bg-card) 10%, transparent) !important;
+    display: none !important; /* Mostrata via JS */
+  }
+  
+  .hero-bottom-nav-inner::after {
+    right: 0 !important;
+    background: linear-gradient(to left, var(--bg-card) 10%, transparent) !important;
+    display: none !important; /* Mostrata via JS */
+  }
+  
+  .hero-bottom-nav-inner.show-left-fade::before { display: block !important; }
+  .hero-bottom-nav-inner.show-right-fade::after { display: block !important; }
 }
