@@ -158,21 +158,6 @@
 </div>
 
 <main>
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
   <!-- Spacer 40px sotto l'header -->
   <div class="dna-hero-spacer" aria-hidden="true"></div>
 
@@ -187,8 +172,7 @@
     <div class="ent-container">
       <div class="ent-content">
 
-
-              <!-- BREADCRUMB -->
+        <!-- BREADCRUMB -->
         <nav class="ent-breadcrumb" aria-label="breadcrumb">
           <a href="#" class="bc-home" aria-label="Home">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -197,17 +181,8 @@
           <a href="#">Soluzioni</a>
           <span class="bc-slash">/</span>
           <span class="current">Architetture di Design</span>
-        </nav></br>
-
-
-
-
-
-
-
-
-
-
+        </nav>
+      </br>
         <div class="ent-badge">
           <span class="ent-badge-dot"></span>
           ARCHITETTURE DI DESIGN
@@ -260,6 +235,9 @@
       </div>
 
       <div class="ent-visual">
+        
+
+             <!-- Livello 3: Pannello Enterprise (Dashboard) -->
         <div class="ent-stats-panel">
           <div class="ent-panel-header">
             <div class="ent-panel-title">
@@ -269,47 +247,91 @@
             <span class="ent-panel-badge">LIVE</span>
           </div>
 
-          <div class="ent-chart-container">
-            <div class="ent-chart-header">
-              <span class="ent-chart-value">+86.4%</span>
-              <span class="ent-chart-label">System Efficiency</span>
-            </div>
-            <svg class="ent-chart-svg" viewBox="0 0 300 80" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="var(--ent-primary)" stop-opacity="0.3"/>
-                  <stop offset="100%" stop-color="var(--ent-primary)" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0,70 C20,65 40,40 60,45 C80,50 100,20 120,25 C140,30 160,10 180,15 C200,20 220,50 240,40 C260,30 280,10 300,5" fill="none" stroke="var(--ent-primary)" stroke-width="3" stroke-linecap="round"/>
-              <path d="M0,70 C20,65 40,40 60,45 C80,50 100,20 120,25 C140,30 160,10 180,15 C200,20 220,50 240,40 C260,30 280,10 300,5 L300,80 L0,80 Z" fill="url(#chartGrad)"/>
-              <circle cx="300" cy="5" r="4" fill="var(--ent-primary)"/>
-            </svg>
-          </div>
+          <!-- Slider delle Statistiche -->
+          <div class="ent-stats-slider">
+            <div class="ent-stats-track">
+              
+              <!-- SLIDE 1: Grafico a Linee (Trend) -->
+              <div class="ent-stats-slide">
+                <div class="ent-slide-inner">
+                  <div class="ent-chart-header">
+                    <span class="ent-chart-value">+86.4%</span>
+                    <span class="ent-chart-label">System Efficiency</span>
+                  </div>
+                  <svg class="ent-chart-svg" viewBox="0 0 300 80" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="chartGrad1" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--ent-primary)" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="var(--ent-primary)" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,70 C20,65 40,40 60,45 C80,50 100,20 120,25 C140,30 160,10 180,15 C200,20 220,50 240,40 C260,30 280,10 300,5" fill="none" stroke="var(--ent-primary)" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M0,70 C20,65 40,40 60,45 C80,50 100,20 120,25 C140,30 160,10 180,15 C200,20 220,50 240,40 C260,30 280,10 300,5 L300,80 L0,80 Z" fill="url(#chartGrad1)"/>
+                    <circle cx="300" cy="5" r="4" fill="var(--ent-primary)"/>
+                  </svg>
+                  <div class="ent-panel-stats">
+                    <div class="ent-p-stat"><span class="ent-p-label">UI Components</span><strong>12.450</strong><span class="ent-p-trend up">+18.3%</span></div>
+                    <div class="ent-p-stat"><span class="ent-p-label">Design Tokens</span><strong>4.8K</strong><span class="ent-p-trend up">+24.1%</span></div>
+                  </div>
+                </div>
+              </div>
 
-          <div class="ent-panel-stats">
-            <div class="ent-p-stat">
-              <span class="ent-p-label">UI Components</span>
-              <strong>12.450</strong>
-              <span class="ent-p-trend up">+18.3%</span>
-            </div>
-            <div class="ent-p-stat">
-              <span class="ent-p-label">Design Tokens</span>
-              <strong>4.8K</strong>
-              <span class="ent-p-trend up">+24.1%</span>
-            </div>
-            <div class="ent-p-stat">
-              <span class="ent-p-label">API Endpoints</span>
-              <strong>850</strong>
-              <span class="ent-p-trend up">+9.4%</span>
-            </div>
-            <div class="ent-p-stat">
-              <span class="ent-p-label">Accessibility</span>
-              <strong>100%</strong>
-              <span class="ent-p-trend up">WCAG AA</span>
+              <!-- SLIDE 2: Barre di Progresso (Progress) -->
+              <div class="ent-stats-slide">
+                <div class="ent-slide-inner">
+                  <div class="ent-chart-header">
+                    <span class="ent-chart-value">98.2%</span>
+                    <span class="ent-chart-label">System Health</span>
+                  </div>
+                  <div class="ent-bars-container">
+                    <div class="ent-progress-row">
+                      <div class="ent-progress-label"><span>Frontend</span><span>95%</span></div>
+                      <div class="ent-progress-bar"><div class="ent-progress-fill" style="width: 95%;"></div></div>
+                    </div>
+                    <div class="ent-progress-row">
+                      <div class="ent-progress-label"><span>Backend API</span><span>88%</span></div>
+                      <div class="ent-progress-bar"><div class="ent-progress-fill" style="width: 88%;"></div></div>
+                    </div>
+                  </div>
+                  <div class="ent-panel-stats">
+                    <div class="ent-p-stat"><span class="ent-p-label">Active Nodes</span><strong>1.250</strong><span class="ent-p-trend up">+14.2%</span></div>
+                    <div class="ent-p-stat"><span class="ent-p-label">Alerts</span><strong>0</strong><span class="ent-p-trend up">Optimal</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 3: Grafico a Barre (Bar Chart) -->
+              <div class="ent-stats-slide">
+                <div class="ent-slide-inner">
+                  <div class="ent-chart-header">
+                    <span class="ent-chart-value">+124.8%</span>
+                    <span class="ent-chart-label">Network Traffic</span>
+                  </div>
+                  <div class="ent-bar-chart">
+                    <div class="ent-bar" style="height: 40%;"></div>
+                    <div class="ent-bar" style="height: 60%;"></div>
+                    <div class="ent-bar" style="height: 45%;"></div>
+                    <div class="ent-bar" style="height: 80%;"></div>
+                    <div class="ent-bar" style="height: 70%;"></div>
+                    <div class="ent-bar" style="height: 95%;"></div>
+                    <div class="ent-bar" style="height: 100%;"></div>
+                  </div>
+                  <div class="ent-panel-stats">
+                    <div class="ent-p-stat"><span class="ent-p-label">Data Processed</span><strong>4.2 PB</strong><span class="ent-p-trend up">+22.1%</span></div>
+                    <div class="ent-p-stat"><span class="ent-p-label">Uptime</span><strong>99.9%</strong><span class="ent-p-trend up">Stable</span></div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
+
+
+
+
+
+
 
         <div class="ent-slider-wrapper">
           <div class="ent-slider-track">
@@ -373,194 +395,336 @@
     </div>
   </section>
 
- <!-- ============ SUB-NAV (Utility Bar SOTTO la Hero) ============ -->
-<div class="ent-subnav" id="entSubnav">
-  <div class="ent-subnav-inner">
-    <a href="#" class="ent-subnav-link" data-target="menu1">Confronta i tipi di account</a>
-    <a href="#" class="ent-subnav-link" data-target="menu2">Servizi gratuiti</a>
-    <a href="#" class="ent-subnav-link" data-target="menu3">Risorse</a>
-    <a href="#" class="ent-subnav-link" data-target="menu4">Passaggi successivi</a>
-    <a href="#" class="ent-subnav-link text-uppercase" data-target="menu5">Domande frequenti</a>
-  
-  </div>
+  <!-- ============ SUB-NAV (Utility Bar SOTTO la Hero) ============ -->
+  <div class="ent-subnav" id="entSubnav">
+    <button class="ent-subnav-arrow prev" id="subnavPrev" aria-label="Scorri a sinistra">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
 
-  <!-- Contenitore Mega Menu -->
-  <div class="ent-mega-dropdown" id="entMegaDropdown">
-    <div class="ent-mega-inner" id="entMegaInner">
-      <!-- Contenuto generato via JS -->
+    <div class="ent-subnav-scroll" id="subnavScroll">
+      <div class="ent-subnav-inner">
+        <a href="#" class="ent-subnav-link" data-target="menu1">Confronta i tipi di account</a>
+        <a href="#" class="ent-subnav-link" data-target="menu2">Servizi di Design-to-Code</a>
+        <a href="#" class="ent-subnav-link" data-target="menu3">Risorse</a>
+        <a href="#" class="ent-subnav-link" data-target="menu4">Passaggi successivi</a>
+        <a href="#" class="ent-subnav-link text-uppercase" data-target="menu5">Domande frequenti</a>
+        <a href="#" class="ent-subnav-link" data-target="menu6">Località</a>
+      </div>
+    </div>
+
+    <button class="ent-subnav-arrow next" id="subnavNext" aria-label="Scorri a destra">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+
+    <div class="ent-mega-dropdown" id="entMegaDropdown">
+      <div class="ent-mega-inner" id="entMegaInner"></div>
     </div>
   </div>
-</div>
 
 </main>
 
 <script src="js/script.js"></script>
 
 <!-- ==========================================================
-     SCRIPT SUB-NAV DEDICATO (Aggiunto per far funzionare i menu)
+     SCRIPT DEDICATO (Sub-nav, Hamburger, ecc.)
      ========================================================== -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  
+  // ==========================================
+  // 1. SUB-NAV & MEGA DROPDOWN
+  // ==========================================
   const subnav = document.getElementById('entSubnav');
   const dropdown = document.getElementById('entMegaDropdown');
   const inner = document.getElementById('entMegaInner');
   const links = document.querySelectorAll('.ent-subnav-link');
 
-  if (!subnav || !dropdown || !inner) return;
-
-  // Contenuti con elenchi perfettamente allineati
-  const menuData = {
-    menu1: `
-      <div class="mega-layout-cards">
-        <div class="mega-card"><h4>Account Personale</h4><p>Perfetto per freelancer. Include l'accesso base a tutti gli strumenti.</p></div>
-        <div class="mega-card"><h4>Account Team</h4><p>Collaborazione in tempo reale, fino a 10 utenti, librerie condivise.</p></div>
-        <div class="mega-card"><h4>Account Enterprise</h4><p>Sicurezza avanzata, SSO, supporto dedicato e infrastruttura scalabile.</p></div>
-      </div>
-    `,
-          menu2: `
+  if (subnav && dropdown && inner) {
+    const menuData = {
+      menu1: `
+        <div class="mega-layout-cards">
+          <div class="mega-card"><h4>Account Personale</h4><p>Perfetto per freelancer. Include l'accesso base a tutti gli strumenti.</p></div>
+          <div class="mega-card"><h4>Account Team</h4><p>Collaborazione in tempo reale, fino a 10 utenti, librerie condivise.</p></div>
+          <div class="mega-card"><h4>Account Enterprise</h4><p>Sicurezza avanzata, SSO, supporto dedicato e infrastruttura scalabile.</p></div>
+        </div>
+      `,
+         menu2: `
       <div class="mega-layout-columns-3">
         <div>
-          <div class="mega-col-header">Strumenti</div>
+          <div class="mega-col-header">Prodotti</div>
           <ul class="mega-list">
-            <li>
-              <a href="#">UI Kit Starter</a>
-              <span>Componenti base per iniziare.</span>
-            </li>
-            <li>
-              <a href="#">Icon Pack</a>
-              <span>Oltre 500 icone SVG.</span>
-            </li>
-            <li>
-              <a href="#">Color Palette</a>
-              <span>Generatore di temi accessibili.</span>
-            </li>
+            <li><a href="#">DNA Web</a><span>Siti web, portali e applicazioni.</span></li>
+            <li><a href="#">DNA Software</a><span>Software personalizzato e integrazioni.</span></li>
+            <li><a href="#">DNA Cloud</a><span>Infrastruttura cloud gestita.</span></li>
           </ul>
         </div>
         <div>
-          <div class="mega-col-header">Community</div>
+          <div class="mega-col-header">Tecnologie</div>
           <ul class="mega-list">
-            <li>
-              <a href="#">Forum Designers</a>
-              <span>Confrontati con altri professionisti.</span>
-            </li>
-            <li>
-              <a href="#">Plugin Open Source</a>
-              <span>Estendi le funzionalità base.</span>
-            </li>
+            <li><a href="#">Intelligenza Artificiale</a><span>Soluzioni AI e automazione.</span></li>
+            <li><a href="#">Big Data</a><span>Analisi dati e business intelligence.</span></li>
+            <li><a href="#">Cybersecurity</a><span>Architetture di sicurezza moderne.</span></li>
           </ul>
         </div>
         <div>
-          <div class="mega-col-header">Risorse Extra</div>
+          <div class="mega-col-header">Soluzioni & Servizi</div>
           <ul class="mega-list">
-            <li>
-              <a href="#">Template Figma</a>
-              <span>Layout pronti all'uso per i tuoi progetti.</span>
-            </li>
-            <li>
-              <a href="#">Font &amp; Typography</a>
-              <span>Guide all'uso dei font enterprise.</span>
-            </li>
-            <li>
-              <a href="#">Accessibility Check</a>
-              <span>Strumenti per testare i contrasti.</span>
-            </li>
+            <li><a href="#">Cloud & Infrastruttura</a><span>Migrazione e scalabilità.</span></li>
+            <li><a href="#">Digital Transformation</a><span>Ripensare i processi aziendali.</span></li>
+            <li><a href="#">Consulenza Strategica</a><span>Roadmap digitale su misura.</span></li>
           </ul>
         </div>
       </div>
-  
     
-    `,
-       menu3: `
+      `,
+         menu3: `
       <div class="mega-layout-grid-icons">
+        
+        <!-- Documentazione -->
         <a href="#" class="mega-list-item">
           <div class="icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </div>
           <div class="mega-item-text">
             <strong>Documentazione</strong>
-            <span>Leggi le guide ufficiali</span>
+            <span>Guide tecniche e best practice</span>
           </div>
         </a>
-        
+
+        <!-- Case Study (Sostituisce il Video Tutorial) -->
         <a href="#" class="mega-list-item">
           <div class="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
           </div>
           <div class="mega-item-text">
-            <strong>Video Tutorial</strong>
-            <span>Guarda i nostri workshop</span>
+            <strong>Case Study</strong>
+            <span>Progetti e architetture realizzate</span>
           </div>
         </a>
-        
+
+        <!-- Changelog -->
         <a href="#" class="mega-list-item">
           <div class="icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <div class="mega-item-text">
             <strong>Changelog</strong>
-            <span>Scopri le ultime novità</span>
+            <span>Ultime release e aggiornamenti</span>
           </div>
         </a>
+
       </div>
     
-    `,
-    menu4: `
-      <div class="mega-layout-split">
-        <div class="mega-split-content"><h3>Pronto a fare il salto di qualità?</h3><p>Parla con un nostro esperto per una consulenza personalizzata.</p></div>
-        <div class="mega-split-action"><a href="#">Prenota una Demo</a></div>
-      </div>
-    `,
-    menu5: `
-      <div class="mega-layout-cards">
-        <div class="mega-card"><h4>Cosa include il piano?</h4><p>Accesso illimitato, aggiornamenti costanti e supporto h24.</p></div>
-        <div class="mega-card"><h4>Posso disdire quando voglio?</h4><p>Sì, tutti i piani Enterprise sono flessibili e senza vincoli.</p></div>
-        <div class="mega-card"><h4>Come funziona la fatturazione?</h4><p>Fatturazione mensile o annuale, con sconti dedicati.</p></div>
+      `,
+      menu4: `
+        <div class="mega-layout-split">
+          <div class="mega-split-content"><h3>Pronto a fare il salto di qualità?</h3><p>Parla con un nostro esperto per una consulenza personalizzata.</p></div>
+          <div class="mega-split-action"><a href="#">Prenota una Demo</a></div>
+        </div>
+      `,
+      menu5: `
+        <div class="mega-layout-cards">
+          <div class="mega-card"><h4>Cosa include il piano?</h4><p>Accesso illimitato, aggiornamenti costanti e supporto h24.</p></div>
+          <div class="mega-card"><h4>Posso disdire quando voglio?</h4><p>Sì, tutti i piani Enterprise sono flessibili e senza vincoli.</p></div>
+          <div class="mega-card"><h4>Come funziona la fatturazione?</h4><p>Fatturazione mensile o annuale, con sconti dedicati.</p></div>
+        </div>
+      `,
+          menu6: `
+      <div class="mega-layout-columns-3">
+        
+        <!-- COLONNA 1: SEDI -->
+        <div>
+          <div class="mega-col-header">Le Nostre Sedi</div>
+          <ul class="mega-list">
+            <li>
+              <a href="#">Pompei (NA)</a>
+              <span>Via Nolana, 537 - 80045</span>
+            </li>
+            <li>
+              <a href="#">Trecase (NA)</a>
+              <span>Via Vesuvio, 184 - 80040</span>
+            </li>
+            <li>
+              <a href="#">Palma Campania (NA)</a>
+              <span>Via Guglielmo Marconi, 38 - 80036</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- COLONNA 2: CONTATTI -->
+        <div>
+          <div class="mega-col-header">Supporto Locale</div>
+          <ul class="mega-list">
+            <li>
+              <a href="mailto:info@dnainformatica.com">Scrivici via Email</a>
+              <span>email@dnainformatica.com</span>
+            </li>
+            <li>
+              <a href="tel:+393914737916">Ufficio Commerciale</a>
+              <span>+39 391 473 7916</span>
+            </li>
+            <li>
+              <a href="#">Apri un Ticket</a>
+              <span>Assistenza tecnica dedicata</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- COLONNA 3: ORARI E AZIONI -->
+        <div>
+          <div class="mega-col-header">Orari di Apertura</div>
+          <ul class="mega-list" style="margin-bottom: 24px;">
+            <li>
+              <span class="mega-time-title">Lunedì - Venerdì</span>
+              <span class="mega-time-value">09:00 — 18:00</span>
+            </li>
+            <li>
+              <span class="mega-time-title">Sabato - Domenica</span>
+              <span class="mega-time-muted">Chiuso</span>
+            </li>
+          </ul>
+          
+          <!-- Pulsante CTA nel menu -->
+          <a href="#" class="mega-btn-action">
+            Prenota una Visita
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
       </div>
   
-    `
-  };
 
-  let activeTarget = null;
-  let closeTimer = null;
+    
+      `
+    };
 
-  function openMenu(target, element) {
-    clearTimeout(closeTimer);
-    if (activeTarget === target) return;
-    links.forEach(l => l.classList.remove('active'));
-    if (element) element.classList.add('active');
-    inner.innerHTML = menuData[target] || '';
-    activeTarget = target;
-    dropdown.classList.add('open');
-  }
+    let activeTarget = null;
+    let closeTimer = null;
 
-  function closeMenu() {
-    dropdown.classList.remove('open');
-    links.forEach(l => l.classList.remove('active'));
-    activeTarget = null;
-  }
+    function openMenu(target, element) {
+      clearTimeout(closeTimer);
+      if (activeTarget === target) return;
+      links.forEach(l => l.classList.remove('active'));
+      if (element) element.classList.add('active');
+      inner.innerHTML = menuData[target] || '';
+      activeTarget = target;
+      dropdown.classList.add('open');
+    }
 
-  // Apri al passaggio del mouse
-  links.forEach(link => {
-    link.addEventListener('mouseenter', function() {
-      openMenu(this.dataset.target, this);
+    function closeMenu() {
+      dropdown.classList.remove('open');
+      links.forEach(l => l.classList.remove('active'));
+      activeTarget = null;
+    }
+
+    links.forEach(link => {
+      link.addEventListener('mouseenter', function() {
+        openMenu(this.dataset.target, this);
+      });
     });
-  });
 
-  // Chiudi con un leggero ritardo per permettere al mouse di raggiungere il dropdown
-  subnav.addEventListener('mouseleave', function() {
-    closeTimer = setTimeout(closeMenu, 200);
-  });
+    subnav.addEventListener('mouseleave', function() {
+      closeTimer = setTimeout(closeMenu, 200);
+    });
+    
+    subnav.addEventListener('mouseenter', function() {
+      clearTimeout(closeTimer);
+    });
+
+    document.addEventListener('click', function(e) {
+      if (subnav && !subnav.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // Frecce Mobile Sub-Nav
+    const subnavScroll = document.getElementById('subnavScroll');
+    const subnavPrev = document.getElementById('subnavPrev');
+    const subnavNext = document.getElementById('subnavNext');
+
+    if (subnavScroll && subnavPrev && subnavNext) {
+      subnavPrev.addEventListener('click', () => subnavScroll.scrollBy({ left: -200, behavior: 'smooth' }));
+      subnavNext.addEventListener('click', () => subnavScroll.scrollBy({ left: 200, behavior: 'smooth' }));
+
+      const updateArrows = () => {
+        if (window.innerWidth <= 1024) {
+          if (subnavScroll.scrollLeft > 5) {
+            subnavPrev.style.opacity = '1';
+            subnavPrev.style.pointerEvents = 'auto';
+          } else {
+            subnavPrev.style.opacity = '0.3';
+            subnavPrev.style.pointerEvents = 'none';
+          }
+          if (subnavScroll.scrollLeft + subnavScroll.clientWidth < subnavScroll.scrollWidth - 5) {
+            subnavNext.style.opacity = '1';
+            subnavNext.style.pointerEvents = 'auto';
+          } else {
+            subnavNext.style.opacity = '0.3';
+            subnavNext.style.pointerEvents = 'none';
+          }
+        }
+      };
+      subnavScroll.addEventListener('scroll', updateArrows);
+      window.addEventListener('resize', updateArrows);
+      setTimeout(updateArrows, 100);
+    }
+  }
+
+  // ==========================================
+  // 2. HAMBURGER MOBILE MENU
+  // ==========================================
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  const mobileBody = document.getElementById('mobileBody');
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !hamburger) return;
+    const isOpen = mobileMenu.classList.contains('open');
+    
+    if (isOpen) {
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    } else {
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      hamburger.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      
+      // Popola il menu se vuoto (fallback per non farlo sembrare rotto)
+      if (mobileBody.innerHTML.trim() === '') {
+        mobileBody.innerHTML = `
+          <div class="acc">
+            <button class="acc-trigger" type="button"><span>Home</span></button>
+          </div>
+          <div class="acc">
+            <button class="acc-trigger" type="button"><span>Prodotti</span></button>
+          </div>
+          <div class="acc">
+            <button class="acc-trigger" type="button"><span>Soluzioni</span></button>
+          </div>
+          <div class="acc">
+            <button class="acc-trigger" type="button"><span>Risorse</span></button>
+          </div>
+        `;
+      }
+    }
+  }
+
+  if (hamburger) hamburger.addEventListener('click', toggleMobileMenu);
+  if (mobileClose) mobileClose.addEventListener('click', toggleMobileMenu);
   
-  subnav.addEventListener('mouseenter', function() {
-    clearTimeout(closeTimer);
-  });
-
-  // Chiudi cliccando fuori o ESC
   document.addEventListener('click', function(e) {
-    if (subnav && !subnav.contains(e.target)) closeMenu();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeMenu();
+    if (mobileMenu && mobileMenu.classList.contains('open')) {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        toggleMobileMenu();
+      }
+    }
   });
 });
 </script>
