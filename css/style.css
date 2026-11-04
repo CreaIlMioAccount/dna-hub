@@ -1356,51 +1356,256 @@ img { max-width: 100%; display: block; }
     padding: 16px;
   }
 }/* =========================================
-   AZIONI BLOG POST (Condividi / Salva)
+   FIX MOBILE PER I TASTI CONDIVIDI/SALVA
    ========================================= */
 
-.blog-post-actions {
-  display: flex;
-  gap: 12px;
-  margin: 32px 0 24px 0; /* Spazio sopra e sotto */
+@media (max-width: 768px) {
+  /* Cerchiamo il contenitore dei tasti (che ha il bordo tratteggiato verde) */
+  div[style*="margin-right: -610px"],
+  div[style*="margin-right: -120px"],
+  div[style*="margin-right: -232px"] {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+    margin-top: 16px !important;
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    padding: 12px !important;
+  }
+  
+  /* Assicuriamoci che i pulsanti non escano */
+  div[style*="margin-right: -610px"] button,
+  div[style*="margin-right: -120px"] button,
+  div[style*="margin-right: -232px"] button {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}/* =========================================
+   NASCONDI I TASTI SU MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+  /* Selettore per il contenitore con il bordo verde tratteggiato */
+  div[style*="border: 1px dashed #0cd137"] {
+    display: none !important;
+  }
+}/* =========================================
+   FIX DEFINITIVO TASTI CONDIVIDI/SALVA
+   ========================================= */
+
+/* 1. SU DESKTOP: Mantieni il posizionamento originale */
+/* Il contenitore ha già i suoi margini negativi in linea, non li tocchiamo */
+
+/* 2. SU MOBILE: Nascondi il contenitore e blocca lo sbordamento */
+@media (max-width: 768px) {
+  
+  /* Nasconde il contenitore con il bordo verde tratteggiato */
+  div[style*="border: 1px dashed #0cd137"] {
+    display: none !important;
+  }
+
+
+}
+/* ===================================================================
+   FIX DEFINITIVO PER MOBILE E TASTI CONDIVIDI/SALVA
+   =================================================================== */
+
+/* 1. Blocca lo scroll orizzontale su tutto il sito (Mobile) */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* 2. Nasconde il contenitore dei tasti su mobile 
+        (Seleziona qualsiasi div che ha il bordo verde tratteggiato) */
+  div[style*="border: 1px dashed #0cd137"],
+  div[style*="border: 1px dashed #0CD137"] {
+    display: none !important;
+  }
 }
 
-.blog-action-btn {
+/* 3. FIX per Desktop (Schermi grandi)
+      Se noti che i tasti sono troppo spostati a sinistra o a destra,
+      questo blocco corregge i margini negativi inseriti in linea. */
+@media (min-width: 769px) {
+  /* Sovrascrive il margin-right negativo e centra il contenitore */
+  div[style*="margin-right: -610px"],
+  div[style*="margin-right: -120px"],
+  div[style*="margin-right: -232px"] {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+    /* Li sposta in basso per non farli sovrapporre al testo */
+    margin-top: 24px !important;
+  }
+}/* ===================================================================
+   STILI PER I TASTI CONDIVIDI E SALVA
+   =================================================================== */
+
+/* Stile del contenitore */
+.ent-share-save-container {
+  display: flex;
+  justify-content: flex-end; /* Allinea i tasti a destra */
+  gap: 12px;
+  margin-top: 24px;
+  width: 100%; /* Occupa la larghezza del contenitore genitore */
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: rgba(11, 5, 88, 0.1);
+  border: 1px dashed #0cd137;
+}
+
+/* Stile base dei tasti */
+.ent-btn-icon {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
-  background: transparent;
+  padding: 8px 16px;
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text-muted);
-  font-family: 'Inter', sans-serif;
+  color: var(--text);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.blog-action-btn svg {
-  width: 18px;
-  height: 18px;
-  transition: color 0.2s;
-}
-
-/* Hover */
-.blog-action-btn:hover {
+.ent-btn-icon:hover {
   background: var(--bg-hover);
-  border-color: var(--border-strong);
-  color: var(--text);
 }
 
-/* Stato salvato (quando clicchi su Salva) */
-.blog-action-btn.saved {
-  background: var(--accent-soft);
-  border-color: var(--accent);
+/* Stile per il tasto "Salvato" */
+.ent-btn-icon.saved {
   color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
-.blog-action-btn.saved svg {
-  fill: var(--accent);
+/* ===================================================================
+   TASTI CONDIVIDI E SALVA (Versione Blindata)
+   =================================================================== */
+
+.ent-share-save-container {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  
+  /* Forza il contenitore a stare dentro i limiti */
+  width: 100% !important; 
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: rgba(11, 5, 88, 0.1);
+  border: 1px dashed #0cd137;
+}
+
+/* Stile dei tasti */
+.ent-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap; /* Impedisce al testo di andare a capo */
+}
+
+.ent-btn-icon:hover {
+  background: var(--bg-hover);
+}
+
+.ent-btn-icon.saved {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ===================================================================
+   FIX PER MOBILE (Nasconde i tasti)
+   =================================================================== */
+@media (max-width: 768px) {
+  .ent-share-save-container {
+    display: none !important;
+  }
+}/* =========================================
+   FIX DEFINITIVO HERO SU MOBILE
+   ========================================= */
+
+@media (max-width: 1024px) {
+  /* 1. Forza la Hero a diventare una colonna singola */
+  .ent-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow: hidden !important; /* Blocca qualsiasi sbordamento */
+    padding: 0 !important;
+  }
+
+  /* 2. Assicura che la colonna di testo non spinga fuori nulla */
+  .ent-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 5vw !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3. Assicura che la colonna visual (dashboard/carosello) non spinga fuori nulla */
+  .ent-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 5vw !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 4. Il pannello statistiche e il carosello non devono superare la larghezza */
+  .ent-stats-panel,
+  .ent-slider-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 5. I titoli della Hero non devono sbordare */
+  .ent-title {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* 6. I bottoni della Hero devono andare a capo se serve */
+  .ent-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  .ent-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* 7. Se i tasti Condividi/Salva sono ancora presenti su mobile, nascondili */
+  .ent-share-save-container,
+  div[style*="border: 1px dashed #0cd137"] {
+    display: none !important;
+  }
+
+  /* 8. Blocca lo scroll orizzontale su tutto il sito */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
 }
