@@ -3274,3 +3274,692 @@ main, section, header, footer, .ent-container, .ent-pricing-container,
     justify-content: center;
   }
 }
+
+
+/* ===================================================================
+   SOTTO-SEZIONE RISORSE (Dentro Chi Siamo)
+   =================================================================== */
+
+.ent-about-subresources {
+  max-width: 1200px;
+  margin: 64px auto 0;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+.ent-subres-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+}
+
+.ent-subres-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ent-subres-list a {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.ent-subres-list a:hover {
+  transform: translateX(4px); /* Effetto spostamento a destra */
+}
+
+.ent-subres-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.ent-subres-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ent-subres-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.ent-subres-text strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.ent-subres-text span {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Card Promo Whitepaper */
+.ent-subres-promo {
+  background: linear-gradient(135deg, var(--bg-elev), var(--bg-hover));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: var(--shadow-sm);
+}
+
+.ent-subres-promo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ent-subres-promo-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ent-subres-promo h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.ent-subres-promo p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.ent-subres-promo a {
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.ent-subres-promo a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive per questa sotto-sezione */
+@media (max-width: 1024px) {
+  .ent-about-subresources {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ===================================================================
+   VOCI AZIENDA (Sotto la Timeline)
+   =================================================================== */
+
+.ent-about-links {
+  max-width: 1000px; /* Un po' più stretto per stare centrato ed elegante */
+  margin: 64px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.ent-about-link-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px;
+  margin: 0 -12px; /* Compensa il padding per allineare i testi */
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.ent-about-link-item:hover {
+  background: var(--bg-elev); /* Sfondo al passaggio del mouse */
+}
+
+[data-theme="dark"] .ent-about-link-item:hover {
+  background: var(--bg-hover);
+}
+
+.ent-link-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--accent-soft);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+.ent-about-link-item:hover .ent-link-icon {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.ent-link-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ent-link-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.ent-link-text strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.ent-link-text span {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ent-about-links {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* ===================================================================
+   SEZIONE SUPPORTO (Layout Asimmetrico)
+   =================================================================== */
+
+.ent-support {
+  padding: 120px 6vw;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  font-family: 'Inter', sans-serif;
+}
+
+.ent-support-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ent-support-header {
+  margin-bottom: 48px;
+}
+
+/* Griglia Asimmetrica (Sinistra più larga) */
+.ent-support-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 32px;
+  align-items: stretch; /* Fa sì che entrambe le colonne siano alte uguali */
+}
+
+/* ================= COLONNA SINISTRA (4 Card) ================= */
+.ent-support-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ent-sup-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.ent-sup-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] .ent-sup-card:hover {
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+.ent-sup-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-soft);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+.ent-sup-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.ent-sup-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.ent-sup-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ================= COLONNA DESTRA (Promo) ================= */
+.ent-support-promo {
+  background: linear-gradient(145deg, #0f172a, #1e293b); /* Sfondo scuro */
+  border-radius: 24px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente il contenuto */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Effetto glow verde/ciano per il supporto premium */
+.ent-support-promo::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(16, 185, 129, 0.2); /* Verde smeraldo */
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.ent-sup-promo-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.ent-sup-promo-icon {
+  width: 56px;
+  height: 56px;
+  background: #10b981; /* Verde per indicare "Live / Premium" */
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+
+.ent-sup-promo-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.ent-sup-promo-content h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.ent-sup-promo-content p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.ent-sup-promo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #10b981;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.ent-sup-promo-btn:hover {
+  transform: translateX(4px);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+  .ent-support-grid {
+    grid-template-columns: 1fr; /* Diventa una colonna su tablet */
+  }
+  .ent-support-promo {
+    padding: 40px;
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ent-support {
+    padding: 80px 5vw;
+  }
+  .ent-support-cards {
+    grid-template-columns: 1fr; /* Una card per riga su mobile */
+  }
+}
+
+
+/* ===================================================================
+   FOOTER ENTERPRISE
+   =================================================================== */
+
+.ent-footer {
+  background-color: #0b1120; /* Sfondo molto scuro (blu notte) */
+  color: #ffffff;
+  padding: 80px 6vw 0;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.ent-footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- TOP: Brand e Newsletter --- */
+.ent-footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.ent-footer-brand p {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  max-width: 450px;
+  margin-top: 24px;
+}
+
+.ent-footer-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #3b82f6;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.ent-footer-newsletter p {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.ent-footer-form {
+  display: flex;
+  gap: 12px;
+}
+
+.ent-footer-form input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 14px 20px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ent-footer-form input:focus {
+  border-color: #3b82f6;
+}
+
+.ent-footer-form input::placeholder {
+  color: #64748b;
+}
+
+.ent-footer-form button {
+  background: #0067b8;
+  color: #ffffff;
+  border: none;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ent-footer-form button:hover {
+  background: #005a9e;
+}
+
+/* --- DIVISORE --- */
+.ent-footer-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.05);
+  margin-bottom: 60px;
+}
+
+/* --- GRIGLIA LINK --- */
+.ent-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+.ent-footer-col h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.ent-footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ent-footer-col ul a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.ent-footer-col ul a:hover {
+  color: #ffffff;
+}
+
+/* --- CONTATTI --- */
+.ent-footer-contact {
+  margin-bottom: 24px;
+}
+
+.ent-footer-contact-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.ent-footer-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.ent-footer-contact-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ent-footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.ent-footer-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+
+.ent-footer-socials a:hover {
+  background: #0067b8;
+  color: #ffffff;
+}
+
+.ent-footer-socials svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- BOTTOM: Copyright e Legale --- */
+.ent-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 32px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.ent-footer-copy {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.ent-footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ent-footer-legal a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.ent-footer-legal a:hover {
+  color: #ffffff;
+}
+
+.ent-footer-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.ent-footer-lang svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .ent-footer-top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .ent-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ent-footer {
+    padding-top: 60px;
+  }
+  .ent-footer-form {
+    flex-direction: column;
+  }
+  .ent-footer-form button {
+    padding: 14px;
+    justify-content: center;
+  }
+  .ent-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .ent-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ent-footer-legal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
