@@ -735,3 +735,28 @@
 
 
 })();
+document.addEventListener('DOMContentLoaded', function() {
+  const filterBtns = document.querySelectorAll('.ent-filter-btn');
+  const cards = document.querySelectorAll('.ent-free-card');
+
+  if (filterBtns.length > 0 && cards.length > 0) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Rimuovi active dai bottoni
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.getAttribute('data-filter');
+
+        // Mostra/Nascondi le card in base alla categoria
+        cards.forEach(card => {
+          if (card.getAttribute('data-category') === filterValue) {
+            card.style.display = 'flex'; // Mostra
+          } else {
+            card.style.display = 'none'; // Nascondi
+          }
+        });
+      });
+    });
+  }
+});
