@@ -2969,3 +2969,308 @@ img { max-width: 100%; display: block; }
   .ent-res-featured { padding: 24px; }
   .ent-res-featured-title { font-size: 1.5rem; }
 }
+/* ===================================================================
+   FIX GLOBALE PER MOBILE (Evita sbordamenti su tutto il sito)
+   =================================================================== */
+
+/* 1. Blocca lo scroll orizzontale indesiderato su tutto il sito */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100%;
+}
+
+/* 2. Assicura che TUTTI i contenitori principali stiano dentro lo schermo */
+main, section, header, footer, .ent-container, .ent-pricing-container, 
+.ent-resources-container, .ent-method-container, .ent-free-container {
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+}
+
+/* ===================================================================
+   ADATTAMENTO SPECIFICO PER SMARTPHONE (Sotto i 768px)
+   =================================================================== */
+@media (max-width: 768px) {
+  
+  /* 3. Riduciamo i padding laterali di TUTTE le sezioni */
+  .ent-hero,
+  .ent-pricing,
+  .ent-resources,
+  .ent-method,
+  .ent-free-services {
+    padding-left: 5vw !important;
+    padding-right: 5vw !important;
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* 4. SISTEMIAMO I TITOLI (Hero, Pacchetti, Metodo, ecc.) */
+  h1, h2, .ent-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem) !important; /* Impedisce che i titoli siano troppo grandi */
+    line-height: 1.2 !important;
+    word-wrap: break-word !important;
+  }
+
+  /* 5. SISTEMIAMO I TESTI LUNGHI */
+  p, .ent-subtitle, .ent-free-desc, .ent-price-head p {
+    font-size: 0.95rem !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+
+  /* 6. HERO: Forza la griglia a colonna singola e centra tutto */
+  .ent-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+  
+  .ent-stats {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* 7. PACCHETTI: Forza le card a stare una sotto l'altra */
+  .ent-pricing-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  
+  .ent-price-card {
+    width: 100% !important;
+    transform: none !important; /* Rimuove lo zoom della card centrale su mobile */
+  }
+
+  /* 8. SERVIZI / COMPETENZE: Griglia a colonna singola */
+  .ent-free-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  /* 9. METODO: Forza la griglia a colonna singola */
+  .ent-method-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  /* 10. RISORSE: Impila la card grande e le piccole */
+  .ent-resources-grid,
+  .ent-res-side-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  /* 11. SUB-NAV: Assicura che le frecce siano visibili */
+  .ent-subnav-arrow {
+    display: flex !important;
+  }
+
+  /* 12. FOOTER E BOTTONI: Assicura che non escano mai */
+  .ent-btn, .ent-btn-card-primary, .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .ent-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+}
+
+
+/* ===================================================================
+   SEZIONE AZIENDA (Chi Siamo - Layout Editoriale)
+   =================================================================== */
+
+.ent-about {
+  padding: 120px 6vw;
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid var(--border);
+}
+
+.ent-about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* --- COLONNA SINISTRA: Visual --- */
+.ent-about-visual {
+  position: relative;
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 48px;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Pattern astratto di sfondo */
+.ent-about-bg-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-size: 30px 30px, 30px 30px, 100% 100%;
+}
+
+.ent-about-visual-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.ent-about-big-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #3b82f6; /* Blu acceso */
+  margin-bottom: 16px;
+  letter-spacing: -0.05em;
+}
+
+.ent-about-visual-content h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.ent-about-visual-content p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+/* --- COLONNA DESTRA: Testo e Timeline --- */
+.ent-about-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Timeline */
+.ent-timeline {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 20px;
+}
+
+/* Linea verticale della timeline */
+.ent-timeline::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.ent-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.ent-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Il pallino sulla linea */
+.ent-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -25px; /* Allineato alla linea */
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  box-sizing: border-box;
+}
+
+.ent-timeline-year {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 60px;
+  padding-top: 4px;
+}
+
+.ent-timeline-text h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.ent-timeline-text p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Azioni */
+.ent-about-actions {
+  display: flex;
+  gap: 16px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .ent-about-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  
+  .ent-about-visual {
+    min-height: 400px;
+    padding: 32px;
+  }
+  
+  .ent-about-big-number {
+    font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .ent-about {
+    padding: 80px 5vw;
+  }
+
+  .ent-timeline-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .ent-timeline-year {
+    padding-top: 0;
+  }
+
+  .ent-about-actions {
+    flex-direction: column;
+  }
+  
+  .ent-about-actions .ent-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
