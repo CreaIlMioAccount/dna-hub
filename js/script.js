@@ -1,10 +1,6 @@
 (function () {
   'use strict';
 
-  /* ===================================================================
-     DATI MENU
-     =================================================================== */
-
   const ICONS = {
     brain: '<path d="M12 4a4 4 0 1 0 0 8 4 4 0 1 0 0-8zM5 8a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM19 8a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM9 16a3 3 0 1 0 0 6 3 3 0 1 0 0-6zM15 16a3 3 0 1 0 0 6 3 3 0 1 0 0-6z"/>',
     network: '<rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/>',
@@ -37,7 +33,7 @@
         {
           title: 'Percorso',
           items: [
-            { icon: 'grid',    title: 'Benvenuti',  desc: 'Un punto di partenza per orientarti.' },
+            { icon: 'grid',    title: 'Benvenuti',  desc: 'Un punto di partenza per orientarti.', href: 'sezioni/benvenuti.html' },
             { icon: 'book',    title: 'Introduzione', desc: 'Chi siamo e cosa facciamo.' },
             { icon: 'chart',   title: 'Studi',      desc: 'Ricerche, dati e approfondimenti.' },
             { icon: 'layers',  title: 'Logo & Brand', desc: 'Identità visiva e linee guida.' }
@@ -282,10 +278,6 @@
     }
   };
 
-  /* ===================================================================
-     THEME
-     =================================================================== */
-
   const html = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
 
@@ -307,33 +299,22 @@
     });
   }
 
-  /* ===================================================================
-     HEADER — ombra allo scroll
-     =================================================================== */
-
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', function () {
     if (header) header.classList.toggle('scrolled', window.scrollY > 8);
   }, { passive: true });
 
-  /* ===================================================================
-     SCROLL ORIZZONTALE MENU + AUTO-SCROLL HOVER
-     =================================================================== */
   const navList = document.querySelector('.nav-list');
   const navArrowPrev = document.getElementById('navArrowPrev');
   const navArrowNext = document.getElementById('navArrowNext');
   const navScrollContainer = document.querySelector('.nav-scroll-container');
 
   if (navList && navArrowPrev && navArrowNext && navScrollContainer) {
-    
-    // Aggiornamento frecce
     const updateArrows = () => {
       if (window.innerWidth <= 1024) return;
-
       const scrollLeft = Math.round(navList.scrollLeft);
       const scrollWidth = Math.round(navList.scrollWidth);
       const clientWidth = Math.round(navList.clientWidth);
-
       if (scrollLeft > 5) {
         navArrowPrev.classList.add('visible');
         navScrollContainer.classList.add('show-left-fade');
@@ -341,7 +322,6 @@
         navArrowPrev.classList.remove('visible');
         navScrollContainer.classList.remove('show-left-fade');
       }
-
       if (scrollLeft + clientWidth < scrollWidth - 5) {
         navArrowNext.classList.add('visible');
         navScrollContainer.classList.add('show-right-fade');
@@ -350,56 +330,40 @@
         navScrollContainer.classList.remove('show-right-fade');
       }
     };
-
-    // Click frecce
     navArrowPrev.addEventListener('click', () => navList.scrollBy({ left: -250, behavior: 'smooth' }));
     navArrowNext.addEventListener('click', () => navList.scrollBy({ left: 250, behavior: 'smooth' }));
-
     navList.addEventListener('scroll', updateArrows);
     window.addEventListener('resize', updateArrows);
-    
-    // Controllo iniziale ritardato
     setTimeout(updateArrows, 200);
 
-    // --- AUTO-SCROLL SU HOVER ---
     let scrollInterval = null;
     const scrollSpeed = 8;
-
     function startAutoScroll(direction) {
       stopAutoScroll();
       scrollInterval = setInterval(() => {
         navList.scrollLeft += (direction === 'next' ? scrollSpeed : -scrollSpeed);
       }, 16);
     }
-
     function stopAutoScroll() {
       if (scrollInterval) {
         clearInterval(scrollInterval);
         scrollInterval = null;
       }
     }
-
     navArrowNext.addEventListener('mouseenter', () => startAutoScroll('next'));
     navArrowNext.addEventListener('mouseleave', stopAutoScroll);
-    
     navArrowPrev.addEventListener('mouseenter', () => startAutoScroll('prev'));
     navArrowPrev.addEventListener('mouseleave', stopAutoScroll);
-
     navArrowNext.addEventListener('click', stopAutoScroll);
     navArrowPrev.addEventListener('click', stopAutoScroll);
     window.addEventListener('blur', stopAutoScroll);
     document.addEventListener('touchstart', stopAutoScroll);
   }
 
-  /* ===================================================================
-     MEGA MENU DESKTOP
-     =================================================================== */
-
   const megaMenu = document.getElementById('megaMenu');
   const megaInner = document.getElementById('megaInner');
   const navItems = document.querySelectorAll('.nav-item[data-menu]');
   const indicator = document.querySelector('.nav-indicator');
-  
   let activeKey = null;
   let closeTimer = null;
 
@@ -410,10 +374,10 @@
   function buildMega(key) {
     const data = MENU_DATA[key];
     if (!data) return;
-
     const cols = data.groups.map(function (group) {
       const links = group.items.map(function (item) {
-        return '<a href="#" class="mega-link">' +
+        const linkHref = item.href ? item.href : '#';
+        return '<a href="' + linkHref + '" class="mega-link">' +
             '<span class="mega-link-icon">' + svg(ICONS[item.icon] || ICONS.zap) + '</span>' +
             '<span class="mega-link-body">' +
               '<span class="mega-link-title">' + item.title +
@@ -423,13 +387,11 @@
             '</span>' +
           '</a>';
       }).join('');
-
       return '<div class="mega-col">' +
           '<div class="mega-col-title">' + group.title + '</div>' +
           '<div class="mega-links">' + links + '</div>' +
         '</div>';
     }).join('');
-
     const promo = data.promo ? (
       '<div class="mega-col">' +
         '<div class="mega-promo">' +
@@ -440,7 +402,6 @@
         '</div>' +
       '</div>'
     ) : '';
-
     megaInner.innerHTML =
       '<div class="mega-grid">' + cols + promo + '</div>' +
       '<div class="mega-footer">' +
@@ -467,17 +428,14 @@
   function openMega(key, itemEl) {
     clearTimeout(closeTimer);
     if (activeKey === key) return;
-
     activeKey = key;
     buildMega(key);
-
     navItems.forEach(function (item) {
       const isActive = item.dataset.menu === key;
       item.classList.toggle('open', isActive);
       const btn = item.querySelector('.nav-link');
       if (btn) btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     });
-
     if (megaMenu) {
       megaMenu.classList.add('open');
       megaMenu.setAttribute('aria-hidden', 'false');
@@ -500,56 +458,66 @@
     hideIndicator();
   }
 
+  let hoverTimeout = null;
+  function cancelClose() {
+    clearTimeout(hoverTimeout);
+    clearTimeout(closeTimer);
+  }
+  function scheduleClose() {
+    cancelClose();
+    hoverTimeout = setTimeout(closeMega, 250);
+  }
+
   navItems.forEach(function (item) {
     const key = item.dataset.menu;
     const btn = item.querySelector('.nav-link');
-
     item.addEventListener('mouseenter', function () {
+      cancelClose();
       if (!MENU_DATA[key]) return;
       openMega(key, item);
     });
-
     item.addEventListener('mouseleave', function () {
-      closeTimer = setTimeout(closeMega, 150);
+      scheduleClose();
     });
-
     if (btn) {
       btn.addEventListener('click', function (e) {
+        if (btn.tagName === 'A' && btn.getAttribute('href') && btn.getAttribute('href') !== '#') return;
         e.preventDefault();
         if (activeKey === key) closeMega();
         else openMega(key, item);
       });
-
       btn.addEventListener('focus', function () {
         if (!MENU_DATA[key]) return;
         positionIndicator(item);
       });
-
       btn.addEventListener('blur', hideIndicator);
     }
   });
 
   if (megaMenu) {
-    megaMenu.addEventListener('mouseenter', function () {
-      clearTimeout(closeTimer);
-    });
+    megaMenu.addEventListener('mouseenter', cancelClose);
+    megaMenu.addEventListener('mouseleave', scheduleClose);
 
-    megaMenu.addEventListener('mouseleave', function () {
-      closeTimer = setTimeout(closeMega, 150);
+    // 🔥 FIX CRITICO: Lasciamo che i link funzionino
+    megaMenu.addEventListener('click', function (e) {
+      const link = e.target.closest('a');
+      if (link) {
+        // Se il link ha un href valido (non '#'), impedisci la chiusura
+        // e lascia che il browser navighi
+        if (link.getAttribute('href') !== '#') {
+          e.stopPropagation();
+          window.location.href = link.getAttribute('href');
+        }
+      }
     });
   }
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeMega();
   });
-
   document.addEventListener('click', function (e) {
     if (header && !header.contains(e.target)) closeMega();
   });
-
-  /* ===================================================================
-     MOBILE MENU
-     =================================================================== */
 
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -559,54 +527,30 @@
 
   function buildMobileMenu() {
     if (!mobileBody) return;
-
     const htmlStr = Object.keys(MENU_DATA).map(function (key) {
       const data = MENU_DATA[key];
-      const labelMap = {
-        home: 'Home', 
-        prodotti: 'Prodotti',
-        tecnologie: 'Tecnologie',
-        soluzioni: 'Soluzioni',
-        servizi: 'Servizi',
-        settori: 'Settori',
-        risorse: 'Risorse',
-        azienda: 'Azienda',
-        supporto: 'Supporto'
-      };
-
-      const allItems = data.groups.reduce(function (acc, g) {
-        return acc.concat(g.items);
-      }, []);
-
+      const labelMap = { home: 'Home', prodotti: 'Prodotti', tecnologie: 'Tecnologie', soluzioni: 'Soluzioni', servizi: 'Servizi', settori: 'Settori', risorse: 'Risorse', azienda: 'Azienda', supporto: 'Supporto' };
+      const allItems = data.groups.reduce(function (acc, g) { return acc.concat(g.items); }, []);
       const links = allItems.map(function (item) {
-        return '<a href="#" class="mobile-link">' +
+        const linkHref = item.href ? item.href : '#';
+        return '<a href="' + linkHref + '" class="mobile-link">' +
             '<span class="mobile-link-icon">' + svg(ICONS[item.icon] || ICONS.zap) + '</span>' +
-            '<span>' +
-              '<span class="mobile-link-title">' + item.title + '</span>' +
-              '<span class="mobile-link-desc">' + item.desc + '</span>' +
-            '</span>' +
+            '<span><span class="mobile-link-title">' + item.title + '</span><span class="mobile-link-desc">' + item.desc + '</span></span>' +
           '</a>';
       }).join('');
-
       return '<div class="acc" data-key="' + key + '">' +
-          '<button class="acc-trigger" type="button" aria-expanded="false">' +
-            '<span>' + labelMap[key] + '</span>' +
+          '<button class="acc-trigger" type="button" aria-expanded="false"><span>' + labelMap[key] + '</span>' +
             '<svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
           '</button>' +
-          '<div class="acc-content">' +
-            '<div class="acc-inner">' + links + '</div>' +
-          '</div>' +
+          '<div class="acc-content"><div class="acc-inner">' + links + '</div></div>' +
         '</div>';
     }).join('');
-
     mobileBody.innerHTML = htmlStr;
-
     mobileBody.querySelectorAll('.acc-trigger').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const acc = btn.parentElement;
         const content = acc.querySelector('.acc-content');
         const isOpen = acc.classList.contains('open');
-
         mobileBody.querySelectorAll('.acc.open').forEach(function (other) {
           if (other !== acc) {
             other.classList.remove('open');
@@ -616,7 +560,6 @@
             other.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
           }
         });
-
         if (isOpen) {
           content.style.height = content.scrollHeight + 'px';
           requestAnimationFrame(function () { content.style.height = '0px'; });
@@ -646,7 +589,6 @@
     hamburger.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
-
   function closeMobile() {
     if (!mobileMenu || !mobileOverlay || !hamburger) return;
     mobileMenu.classList.remove('open');
@@ -656,107 +598,60 @@
     hamburger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
-
   if (hamburger) {
     hamburger.addEventListener('click', function () {
       if (mobileMenu.classList.contains('open')) closeMobile();
       else openMobile();
     });
   }
-
   if (mobileClose) mobileClose.addEventListener('click', closeMobile);
   if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobile);
-
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) closeMobile();
   });
-
   window.addEventListener('resize', function () {
-    if (window.innerWidth > 1024 && mobileMenu && mobileMenu.classList.contains('open')) {
-      closeMobile();
-    }
+    if (window.innerWidth > 1024 && mobileMenu && mobileMenu.classList.contains('open')) closeMobile();
   });
 
-
-  /* ===================================================================
-     LOGICA RICERCA ESPANDIBILE
-     =================================================================== */
   const searchContainer = document.getElementById('searchContainer');
   const searchBtn = document.getElementById('searchBtn');
   const searchClose = document.getElementById('searchClose');
   const searchInput = document.getElementById('searchInput');
-
   if (searchContainer && searchBtn && searchClose && searchInput) {
-    
-    // Apri la ricerca
     searchBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       searchContainer.classList.add('open');
-      // Piccolo ritardo per far finire l'animazione di apertura prima di dare il focus
-      setTimeout(() => searchInput.focus(), 250); 
+      setTimeout(() => searchInput.focus(), 250);
     });
-
-    // Chiudi la ricerca
     function closeSearch() {
       searchContainer.classList.remove('open');
-      searchInput.value = ''; // Opzionale: svuota il campo alla chiusura
+      searchInput.value = '';
     }
-
     searchClose.addEventListener('click', closeSearch);
-
-    // Chiudi se si preme ESC
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && searchContainer.classList.contains('open')) {
-        closeSearch();
-      }
+      if (e.key === 'Escape' && searchContainer.classList.contains('open')) closeSearch();
     });
-
-    // Chiudi se si clicca fuori
     document.addEventListener('click', (e) => {
-      if (!searchContainer.contains(e.target) && searchContainer.classList.contains('open')) {
-        closeSearch();
-      }
+      if (!searchContainer.contains(e.target) && searchContainer.classList.contains('open')) closeSearch();
     });
-
-    // Impedisci la chiusura se si clicca dentro il campo di testo
     searchInput.addEventListener('click', (e) => e.stopPropagation());
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-})();
-document.addEventListener('DOMContentLoaded', function() {
-  const filterBtns = document.querySelectorAll('.ent-filter-btn');
-  const cards = document.querySelectorAll('.ent-free-card');
-
-  if (filterBtns.length > 0 && cards.length > 0) {
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Rimuovi active dai bottoni
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filterValue = btn.getAttribute('data-filter');
-
-        // Mostra/Nascondi le card in base alla categoria
-        cards.forEach(card => {
-          if (card.getAttribute('data-category') === filterValue) {
-            card.style.display = 'flex'; // Mostra
-          } else {
-            card.style.display = 'none'; // Nascondi
-          }
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.ent-filter-btn');
+    const cards = document.querySelectorAll('.ent-free-card');
+    if (filterBtns.length > 0 && cards.length > 0) {
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filterValue = btn.getAttribute('data-filter');
+          cards.forEach(card => {
+            card.style.display = card.getAttribute('data-category') === filterValue ? 'flex' : 'none';
+          });
         });
       });
-    });
-  }
-});
+    }
+  });
+
+})();

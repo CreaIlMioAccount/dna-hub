@@ -1608,4 +1608,109 @@ img { max-width: 100%; display: block; }
     width: 100% !important;
     max-width: 100vw !important;
   }
+}/* FIX MEGA MENU: chiude lo spazio vuoto tra titolo e pannello */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 199000;
+}
+
+.mega-menu {
+  /* Il menu si attacca esattamente sotto l'header, senza spazi */
+  top: 100% !important; 
+  /* Assicura che non ci siano margini che creano "buchi" */
+  margin-top: 0 !important;
+  /* Rende cliccabili i link interni */
+  pointer-events: auto !important;
+}
+
+.mega-link {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}/* =========================================
+   FIX MEGA MENU: Zona ponte invisibile
+   ========================================= */
+
+/* Crea una zona invisibile di 20px tra l'header e il mega menu */
+.mega-menu {
+  top: 100%;
+  /* Sposta leggermente il menu verso l'alto per coprire lo spazio */
+  margin-top: -1px;
+}
+
+/* Aggiunge una zona trasparente SOPRA il mega menu che copre lo spazio vuoto */
+.mega-menu::before {
+  content: "";
+  position: absolute;
+  top: -30px; /* Copre lo spazio vuoto tra header e menu */
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: transparent;
+  z-index: -1;
+  pointer-events: auto; /* Rende la zona cliccabile (per mantenere il menu aperto) */
+}/* =========================================
+   FIX MEGA MENU: Zona ponte + posizione
+   ========================================= */
+
+/* Il mega menu si attacca direttamente sotto l'header (nessuno spazio) */
+.mega-menu {
+  top: var(--header-h) !important;
+  margin-top: 0 !important;
+}
+
+/* Crea una zona invisibile di 20px sopra il mega menu 
+   per "catturare" il mouse mentre passa dal titolo al menu */
+.mega-menu::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  pointer-events: auto;
+  z-index: -1;
+}/* =========================================
+   FIX CLICK SUI LINK DEL MEGA MENU
+   ========================================= */
+
+/* I link devono essere cliccabili */
+.mega-link {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Il mega menu deve stare sopra tutto */
+.mega-menu {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+}/* =========================================
+   FIX COMPLETO: Hover su "Benvenuti" (Icona + Sfondo)
+   ========================================= */
+
+/* Assicuriamoci che il link invisibile abbia il cursore a puntatore */
+.mega-menu > a[href*="benvenuti.html"] {
+  cursor: pointer;
+}
+
+/* 1. Sfondo grigio sul link "Benvenuti" */
+.mega-menu:has(> a[href*="benvenuti.html"]:hover) .mega-col:first-child .mega-links .mega-link:first-child {
+  background: var(--bg-hover);
+}
+
+/* 2. Colore del titolo */
+.mega-menu:has(> a[href*="benvenuti.html"]:hover) .mega-col:first-child .mega-links .mega-link:first-child .mega-link-title {
+  color: var(--accent);
+}
+
+/* 3. Colore della descrizione */
+.mega-menu:has(> a[href*="benvenuti.html"]:hover) .mega-col:first-child .mega-links .mega-link:first-child .mega-link-desc {
+  color: var(--text);
+}
+
+/* 4. ICONA: Sfondo blu e icona bianca (come per gli altri link) */
+.mega-menu:has(> a[href*="benvenuti.html"]:hover) .mega-col:first-child .mega-links .mega-link:first-child .mega-link-icon {
+  background: var(--accent);
+  color: #ffffff;
 }
