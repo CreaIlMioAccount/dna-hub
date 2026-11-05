@@ -1,0 +1,277 @@
+/* ===================================================================
+   BENVENUTI — HERO DEDICATA (Stile Azure - Effetto "Pila")
+   =================================================================== */
+
+/* 1. Sfondo con gradiente (come Azure) */
+.bw-hero {
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-elev) 100%);
+  padding: 80px 6vw 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Griglia tecnica sullo sfondo */
+.bw-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.1;
+  mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 2. Contenitore a due colonne */
+.bw-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- COLONNA SINISTRA (Testo) --- */
+.bw-content {
+  max-width: 600px;
+}
+
+.bw-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.bw-breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bw-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.bw-bc-home {
+  color: var(--accent) !important;
+  display: flex;
+  align-items: center;
+}
+
+.bw-bc-home svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bw-bc-slash {
+  color: var(--text-subtle);
+  opacity: 0.6;
+}
+
+.bw-bc-current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.bw-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0 0 24px;
+}
+
+.bw-grad {
+  background: linear-gradient(135deg, var(--accent) 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bw-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 40px;
+  max-width: 540px;
+}
+
+.bw-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.bw-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+
+.bw-btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 103, 184, 0.3);
+}
+
+.bw-btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 103, 184, 0.4);
+}
+
+.bw-btn-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.bw-btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.bw-btn-ghost:hover {
+  background: var(--bg-hover);
+  border-color: var(--text-muted);
+}
+
+/* --- COLONNA DESTRA (Immagine in prospettiva) --- */
+.bw-visual {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px; /* Crea l'effetto 3D */
+}
+
+.bw-mockup {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 8px;
+  overflow: hidden;
+  /* Effetto "pila" / appoggiato */
+  transform: rotateY(-12deg) rotateX(4deg) scale(1.05);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 
+    -30px 30px 60px rgba(0, 0, 0, 0.15), 
+    0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+/* Al passaggio del mouse, l'immagine si raddrizza */
+.bw-visual:hover .bw-mockup {
+  transform: rotateY(0deg) rotateX(0deg) scale(1);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.bw-mockup img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- STRISCIA DI LINK IN BASSO --- */
+.bw-bottom-links {
+  width: 100%;
+  border-top: 1px solid var(--border);
+  padding: 24px 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: flex-start;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.bw-bottom-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bw-bottom-links a:hover {
+  color: var(--accent);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .bw-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+  
+  .bw-content {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .bw-subtitle {
+    max-width: 100%;
+  }
+  
+  .bw-actions {
+    justify-content: center;
+  }
+  
+  .bw-visual {
+    height: auto;
+    max-height: 400px;
+  }
+  
+  .bw-mockup {
+    transform: rotateY(-5deg) rotateX(2deg) scale(1); /* Meno esagerato su mobile */
+  }
+  
+  .bw-bottom-links {
+    justify-content: center;
+    gap: 16px;
+  }
+}
